@@ -30,36 +30,45 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "easy")
         GameManager.shared.setRoundTime(time: 6)
+        GameManager.shared.setRounds(roundAmount: 10)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
-//        Navigate
+        navigateToGame()
         
     }
     
     @IBAction func mediumDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "medium")
-        GameManager.shared.setRoundTime(time: 6)
-        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+        GameManager.shared.setRoundTime(time: 8)
+        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsMedium())
+        navigateToGame()
     }
     
     
     @IBAction func hardDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "hard")
-        GameManager.shared.setRoundTime(time: 6)
-        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+        GameManager.shared.setRoundTime(time: 8)
+        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsHard())
+        navigateToGame()
     }
     
     
     @IBAction func extremeDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "extreme")
-        GameManager.shared.setRoundTime(time: 6)
-        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+        GameManager.shared.setRoundTime(time: 12)
+        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsExtreme())
+        navigateToGame()
     }
     
     
-    
+    private func navigateToGame() {
+        performSegue(withIdentifier: "navigateToGame", sender: self)
+    }
 }
 
 extension DifficultyViewController {

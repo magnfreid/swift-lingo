@@ -74,44 +74,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="CuP-0u-buC">
-                                <rect key="frame" x="159" y="227.33333333333334" width="75" height="397.66666666666663"/>
+                                <rect key="frame" x="126.33333333333333" y="227.33333333333334" width="140.33333333333337" height="397.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-9D-qfY">
-                                        <rect key="frame" x="17.000000000000004" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
+                                        <rect key="frame" x="49.666666666666671" y="0.0" width="41.333333333333329" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6FK-EM-Ktr">
-                                        <rect key="frame" x="0.0" y="80.333333333333343" width="75" height="34.333333333333343"/>
+                                        <rect key="frame" x="13.333333333333321" y="80.333333333333343" width="113.66666666666669" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="easy button"/>
                                         <connections>
                                             <action selector="easyDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="HX3-nY-BMh"/>
+                                            <segue destination="HQh-aS-fJZ" kind="show" identifier="navigateToGame" id="YWi-0j-WaU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncn-W8-H8B">
-                                        <rect key="frame" x="0.0" y="174.66666666666666" width="75" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.33333333333334281" y="174.66666666666666" width="139.66666666666666" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="medium button"/>
                                         <connections>
                                             <action selector="mediumDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="7sX-pf-8eq"/>
+                                            <segue destination="HQh-aS-fJZ" kind="show" identifier="navigateToGame" id="frt-2q-Re5"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naO-xe-dVo">
-                                        <rect key="frame" x="0.0" y="269" width="75" height="34.333333333333314"/>
+                                        <rect key="frame" x="14.000000000000007" y="269" width="112.66666666666669" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="hard button"/>
                                         <connections>
                                             <action selector="hardDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="kuh-fO-0mX"/>
+                                            <segue destination="HQh-aS-fJZ" kind="show" identifier="navigateToGame" id="IFK-FL-i17"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
-                                        <rect key="frame" x="0.0" y="363.33333333333326" width="75" height="34.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="363.33333333333326" width="140.33333333333331" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="extreme button"/>
                                         <connections>
                                             <action selector="extremeDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="m2r-SS-r0H"/>
+                                            <segue destination="HQh-aS-fJZ" kind="show" identifier="navigateToGame" id="hjL-ma-qKh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -142,11 +146,11 @@
             <objects>
                 <viewController storyboardIdentifier="gameVC" id="HQh-aS-fJZ" customClass="GamePlayViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Bv-Rx-ioo">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="107" translatesAutoresizingMaskIntoConstraints="NO" id="QeG-Bp-mfO">
-                                <rect key="frame" x="132" y="274.66666666666663" width="129" height="302.66666666666663"/>
+                                <rect key="frame" x="132" y="269.66666666666663" width="129" height="302.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="word" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-v9-pv9">
                                         <rect key="frame" x="45.666666666666657" y="0.0" width="38" height="20.333333333333332"/>
@@ -170,7 +174,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGZ-Ix-ick">
-                                <rect key="frame" x="50" y="94" width="293" height="20.333333333333329"/>
+                                <rect key="frame" x="50" y="35" width="293" height="20.333333333333329"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Timer?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyj-OQ-VEV">
                                         <rect key="frame" x="0.0" y="0.0" width="248.66666666666666" height="20.333333333333332"/>
@@ -197,6 +201,7 @@
                             <constraint firstItem="MaC-Zo-PnW" firstAttribute="trailing" secondItem="aGZ-Ix-ick" secondAttribute="trailing" constant="50" id="nCI-oW-WKl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="CVB-Lw-Emt"/>
                     <connections>
                         <outlet property="scoreLabel" destination="sKY-jX-MKV" id="fwk-t1-aPR"/>
                         <outlet property="submitButton" destination="6nC-QV-VCu" id="JCa-5u-i80"/>
@@ -207,9 +212,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1q-on-WQk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1759.5419847328244" y="-35.211267605633807"/>
+            <point key="canvasLocation" x="2193" y="-35"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="YWi-0j-WaU"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
