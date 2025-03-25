@@ -29,6 +29,8 @@ final class StartViewController: UIViewController {
             return
         }
         
+        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        
     }
     
 

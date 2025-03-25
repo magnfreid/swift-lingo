@@ -36,6 +36,7 @@
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MF0-hY-7Vl"/>
+                                            <segue destination="HS0-rL-2Th" kind="presentation" identifier="navigateToGamePlay" modalPresentationStyle="fullScreen" id="9PW-wA-Hgf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udd-fu-87H">
@@ -63,6 +64,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="-34"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="XFp-ed-K2o">
+            <objects>
+                <viewController id="HS0-rL-2Th" customClass="GameViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="745-EB-RYr">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="CuP-0u-buC">
+                                <rect key="frame" x="159" y="297.33333333333326" width="75" height="257.66666666666674"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkR-9D-qfY">
+                                        <rect key="frame" x="17.000000000000004" y="0.0" width="41.333333333333343" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6FK-EM-Ktr">
+                                        <rect key="frame" x="0.0" y="45.333333333333371" width="75" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncn-W8-H8B">
+                                        <rect key="frame" x="0.0" y="104.66666666666669" width="75" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naO-xe-dVo">
+                                        <rect key="frame" x="0.0" y="164" width="75" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
+                                        <rect key="frame" x="0.0" y="223.33333333333331" width="75" height="34.333333333333314"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="US0-ek-06K"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CuP-0u-buC" firstAttribute="centerX" secondItem="745-EB-RYr" secondAttribute="centerX" id="7BW-UY-MdY"/>
+                            <constraint firstItem="CuP-0u-buC" firstAttribute="centerY" secondItem="745-EB-RYr" secondAttribute="centerY" id="diN-oM-zx7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="reZ-JN-SE1"/>
+                    <connections>
+                        <outlet property="easyButton" destination="6FK-EM-Ktr" id="bEV-Z3-aCa"/>
+                        <outlet property="extremeButton" destination="XlW-uJ-CUe" id="tgX-c4-Kzv"/>
+                        <outlet property="hardButton" destination="naO-xe-dVo" id="m7V-5x-DcV"/>
+                        <outlet property="mediumButton" destination="Ncn-W8-H8B" id="QAH-9B-3Kg"/>
+                        <outlet property="titleLabel" destination="mkR-9D-qfY" id="uPv-7R-c9F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="laS-K5-1r7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="967" y="-35"/>
         </scene>
     </scenes>
     <resources>
