@@ -135,6 +135,15 @@ final class GameManager {
         timeLeft = roundTime
     }
     
+    func pauseTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resumeTimer() {
+        startTimer()
+    }
+    
 }
 
 extension GameManager {

@@ -24,20 +24,26 @@ class GamePlayViewController: UIViewController {
     
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         print("Tapped")
-        guard let correctAnswer = textFieldAnswer.text, !correctAnswer.trimmingCharacters(in: .whitespaces).isEmpty else {
+        guard let guessed = textFieldAnswer.text, !guessed.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         
-        let finishedGame = GameManager.shared.answerQuestion(answer: correctAnswer)
-        scoreLabel.text = "Score :\(GameManager.shared.score)"
-        textFieldAnswer.text = ""
+        let result = GameManager.shared.answerQuestion(answer: guessed)
+        GameManager.shared.pauseTimer()
         
-        let alert = UIAlertController(title: finishedGame.correctAnswer ? "Correct" : "Incorrect", message: finishedGame.message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        let alert = UIAlertController(title: result.message, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            GameManager.shared.resumeTimer()
+            self.textFieldAnswer.text = ""
+        }))
         present(alert, animated: true)
     }
     
     private func setupUI() {
+        
+        wordLabel.textAlignment = .center
+        wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        
         textFieldAnswer.delegate = self
         scoreLabel.text = "Score: 0"
         timerLabel.text = "Time: 00:00"
@@ -54,8 +60,7 @@ class GamePlayViewController: UIViewController {
 extension GamePlayViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        submitButtonTapped(UIButton())
-        return true
+        return false
     }
     
     
@@ -63,8 +68,9 @@ extension GamePlayViewController: UITextFieldDelegate {
 
 // MARK: - GameManagerDelegate
 extension GamePlayViewController: GameManagerDelegate {
+    
     func onTimerTick(timeLeft: Int) {
-        timerLabel.text = "\(timeLeft)"
+        timerLabel.text = String(format: "Time left: %02d", timeLeft)
     }
     
     func onNewWordPlayed(question: String) {
@@ -73,21 +79,24 @@ extension GamePlayViewController: GameManagerDelegate {
     
     func onAnsweredTooLate() {
         let alert = UIAlertController(title: "to slow", message: "you didnt make it in time", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            GameManager.shared.resumeTimer()
+        }))
         present(alert, animated: true)
     }
     
     func onGameOver() {
-        let score = GameManager.shared.score
-        HighScoreManager.shared.saveUserHighScore(score: score)
+        GameManager.shared.pauseTimer()
+        let finalScore = GameManager.shared.score
+        HighScoreManager.shared.saveUserHighScore(score: finalScore)
         
         let alert = UIAlertController(
             title: "🎉 Game Over",
-            message: "Du fick \(score) poäng!",
+            message: "You got \(finalScore) points",
             preferredStyle: .alert
         )
         
-        alert.addAction(UIAlertAction(title: "Tillbaka", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Back", style: .default, handler: { _ in
             self.navigationController?.popToRootViewController(animated: true)
         }))
         present(alert, animated: true)
