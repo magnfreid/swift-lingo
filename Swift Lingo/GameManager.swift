@@ -20,6 +20,7 @@ protocol GameManagerDelegate: AnyObject {
 
 final class GameManager {
 
+    static let shared = GameManager()
     private var roundsLeft: Int
     private var timer: Timer?
     private(set) var roundTime = 10
@@ -54,6 +55,7 @@ final class GameManager {
         gameWords.remove(at: randomIndex)
         delegate?.onNewWordPlayed(question: currentWord.question)
         startTimer()
+        delegate?.onTimerTick(timeLeft: timeLeft)
     }
 
     private func startTimer() {
@@ -71,8 +73,7 @@ final class GameManager {
                         delegate?.onGameOver()
                         resetGame()
                     }
-                    stopTimer()
-                    resetTimer()
+                    stopAndResetTimer()
                 }
             })
     }
@@ -84,7 +85,7 @@ final class GameManager {
     func answerQuestion(answer: String) -> (
         message: String, correctAnswer: Bool
     ) {
-        stopTimer()
+        stopAndResetTimer()
         roundsLeft -= 1
         if roundsLeft <= 0 {
             delegate?.onGameOver()
@@ -107,19 +108,18 @@ final class GameManager {
         resetGame()
     }
 
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
+   
 
     private func resetGame() {
-        stopTimer()
+        stopAndResetTimer()
         timeLeft = roundTime
         roundsLeft = rounds
         gameWords = allWords
     }
 
-    private func resetTimer() {
+    private func stopAndResetTimer() {
+        timer?.invalidate()
+        timer = nil
         timeLeft = roundTime
     }
 
