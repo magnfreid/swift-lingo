@@ -19,35 +19,37 @@ protocol GameManagerDelegate: AnyObject {
 }
 
 final class GameManager {
-
+    
     static let shared = GameManager()
-    private var roundsLeft: Int
-    private var timer: Timer?
     private(set) var roundTime = 10
     private(set) var rounds = 10
+    private(set) var score = 0
+    
+    private var roundsLeft: Int
+    private var timer: Timer?
     private var timeLeft: Int
     private var allWords = [(question: String, control: String)]()
     private var gameWords = [(question: String, control: String)]()
     private var currentWord: (question: String, control: String) = ("", "")
-
+    
     weak var delegate: GameManagerDelegate?
-
+    
     private init() {
         timeLeft = roundTime
         roundsLeft = rounds
-        allWords = fetchWordsData()
+        allWords = fetchWordsEasy().map {(question: $0.swedish, control: $0.english)}
         gameWords = allWords
     }
-
+    
     /*
      *** Possible outcomes ***
-
+     
      Time runs out: onAnsweredTooLate() triggers, timer stops and round time resets. Checks if it was last round and trigger game over if is.
-
+     
      Player answers question: Stop timer and check correct answer. Checks if it was last round and trigger game over if is.
-
+     
      */
-
+    
     func startTurn() {
         guard !gameWords.isEmpty else { return }
         let randomIndex = Int.random(in: 0..<gameWords.count)
@@ -57,7 +59,7 @@ final class GameManager {
         startTimer()
         delegate?.onTimerTick(timeLeft: timeLeft)
     }
-
+    
     private func startTimer() {
         timer = Timer.scheduledTimer(
             withTimeInterval: 1.0, repeats: true,
@@ -68,16 +70,15 @@ final class GameManager {
                     delegate?.onTimerTick(timeLeft: timeLeft)
                 } else {
                     delegate?.onAnsweredTooLate()
-                    roundsLeft -= 1
-                    if roundsLeft <= 0 {
-                        delegate?.onGameOver()
-                        resetGame()
-                    }
-                    stopAndResetTimer()
+                    endRound()
                 }
-            })
-    }
-
+                
+            }
+        )}
+    
+    
+  
+    
     /**
      Used when the player answers a question.
      - Returns: A tuple with a descriptive message and a win or lose boolean.
@@ -86,43 +87,54 @@ final class GameManager {
         message: String, correctAnswer: Bool
     ) {
         stopAndResetTimer()
-        roundsLeft -= 1
-        if roundsLeft <= 0 {
-            delegate?.onGameOver()
-            resetGame()
-        }
-        if answer.lowercased() == currentWord.control.lowercased() {
-            return ("Correct answer!", true)
+        let isCorrect = answer.lowercased() == currentWord.control.lowercased()
+        if isCorrect {
+            score += 1
+            print("Guessed Right")
         } else {
-            return ("Wrong answer!", false)
+            score = max(score - 1, 0)
+            print("Guessed Wrong")
         }
+        endRound()
+        return (isCorrect ? "Correct" : "Incorrect", isCorrect)
     }
-
+    
     func setRoundTime(time: Int) {
         roundTime = time
         resetGame()
     }
-
+    
     func setRounds(roundAmount: Int) {
         rounds = roundAmount
         resetGame()
     }
-
-   
-
+    
+    private func endRound() {
+        roundsLeft -= 1
+        if roundsLeft <= 0 {
+            delegate?.onGameOver()
+            resetGame()
+        } else {
+            timeLeft = roundTime
+            startTurn()
+        }
+        
+    }
+    
     private func resetGame() {
         stopAndResetTimer()
         timeLeft = roundTime
         roundsLeft = rounds
+        score = 0
         gameWords = allWords
     }
-
+    
     private func stopAndResetTimer() {
         timer?.invalidate()
         timer = nil
         timeLeft = roundTime
     }
-
+    
 }
 
 extension GameManager {
@@ -141,5 +153,21 @@ extension GameManager {
             (question: "Friend", control: "Vän")
         ]
     }
-
+    
+    // MARK - EASY MODE (?)
+    func fetchWordsEasy() -> [(swedish: String, english: String)] {
+        return [
+            (swedish: "Apple", english: "Äpple"),
+            (swedish: "House", english: "Hus"),
+            (swedish: "Dog", english: "Hund"),
+            (swedish: "Cat", english: "Katt"),
+            (swedish: "Book", english: "Bok"),
+            (swedish: "Tree", english: "Träd"),
+            (swedish: "Water", english: "Vatten"),
+            (swedish: "Sun", english: "Sol"),
+            (swedish: "Car", english: "Bil"),
+            (swedish: "Friend", english: "Vän")
+        ]
+    }
+    
 }
