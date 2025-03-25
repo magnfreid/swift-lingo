@@ -65,10 +65,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="-34"/>
         </scene>
-        <!--Game View Controller-->
+        <!--Difficulty View Controller-->
         <scene sceneID="XFp-ed-K2o">
             <objects>
-                <viewController id="HS0-rL-2Th" customClass="GameViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HS0-rL-2Th" customClass="DifficultyViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="745-EB-RYr">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
