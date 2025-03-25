@@ -125,6 +125,63 @@
             </objects>
             <point key="canvasLocation" x="967" y="-35"/>
         </scene>
+        <!--Game Play View Controller-->
+        <scene sceneID="CD3-2t-8s0">
+            <objects>
+                <viewController id="HQh-aS-fJZ" customClass="GamePlayViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Bv-Rx-ioo">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="107" translatesAutoresizingMaskIntoConstraints="NO" id="QeG-Bp-mfO">
+                                <rect key="frame" x="132" y="345.33333333333331" width="129" height="161.33333333333331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="word" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-v9-pv9">
+                                        <rect key="frame" x="45.666666666666657" y="0.0" width="38" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guess the word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bne-dD-Uab">
+                                        <rect key="frame" x="0.0" y="127.33333333333337" width="129" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGZ-Ix-ick">
+                                <rect key="frame" x="50" y="94" width="293" height="20.333333333333329"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Timer?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyj-OQ-VEV">
+                                        <rect key="frame" x="0.0" y="0.0" width="248.66666666666666" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKY-jX-MKV">
+                                        <rect key="frame" x="248.66666666666671" y="0.0" width="44.333333333333343" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MaC-Zo-PnW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QeG-Bp-mfO" firstAttribute="centerX" secondItem="7Bv-Rx-ioo" secondAttribute="centerX" id="FKG-xM-PBx"/>
+                            <constraint firstItem="QeG-Bp-mfO" firstAttribute="centerY" secondItem="7Bv-Rx-ioo" secondAttribute="centerY" id="G4E-zY-eoe"/>
+                            <constraint firstItem="aGZ-Ix-ick" firstAttribute="leading" secondItem="MaC-Zo-PnW" secondAttribute="leading" constant="50" id="Niy-n5-BjM"/>
+                            <constraint firstItem="aGZ-Ix-ick" firstAttribute="top" secondItem="MaC-Zo-PnW" secondAttribute="top" constant="35" id="edG-Y6-GDB"/>
+                            <constraint firstItem="MaC-Zo-PnW" firstAttribute="trailing" secondItem="aGZ-Ix-ick" secondAttribute="trailing" constant="50" id="nCI-oW-WKl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e1q-on-WQk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1759.5419847328244" y="-35.211267605633807"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
