@@ -86,21 +86,33 @@
                                         <rect key="frame" x="0.0" y="80.333333333333343" width="75" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="easyDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="HX3-nY-BMh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncn-W8-H8B">
                                         <rect key="frame" x="0.0" y="174.66666666666666" width="75" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="mediumDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="7sX-pf-8eq"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naO-xe-dVo">
                                         <rect key="frame" x="0.0" y="269" width="75" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="hardDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="kuh-fO-0mX"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
                                         <rect key="frame" x="0.0" y="363.33333333333326" width="75" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="extremeDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="m2r-SS-r0H"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

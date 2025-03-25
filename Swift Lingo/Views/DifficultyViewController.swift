@@ -24,13 +24,47 @@ class DifficultyViewController: UIViewController {
     }
 
     
+    
+    
+    @IBAction func easyDifficultyButton(_ sender: UIButton) {
+        
+        UserDefaultsManager.shared.saveDifficulty(choosen: "easy")
+        GameManager.shared.setRoundTime(time: 6)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+//        Navigate
+        
+    }
+    
+    @IBAction func mediumDifficultyButton(_ sender: UIButton) {
+        
+        UserDefaultsManager.shared.saveDifficulty(choosen: "medium")
+        GameManager.shared.setRoundTime(time: 6)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+    }
+    
+    
+    @IBAction func hardDifficultyButton(_ sender: UIButton) {
+        
+        UserDefaultsManager.shared.saveDifficulty(choosen: "hard")
+        GameManager.shared.setRoundTime(time: 6)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+    }
+    
+    
+    @IBAction func extremeDifficultyButton(_ sender: UIButton) {
+        
+        UserDefaultsManager.shared.saveDifficulty(choosen: "extreme")
+        GameManager.shared.setRoundTime(time: 6)
+        GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
+    }
+    
+    
+    
 }
 
 extension DifficultyViewController {
     
     private func setupUI() {
-        
-        
         
         titleLabel.font = UIFont.systemFont(ofSize: 36, weight: .bold)
         titleLabel.textColor = .label

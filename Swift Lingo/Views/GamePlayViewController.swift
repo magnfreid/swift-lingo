@@ -45,8 +45,8 @@ class GamePlayViewController: UIViewController {
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         
         textFieldAnswer.delegate = self
-        scoreLabel.text = "Score: 0"
-        timerLabel.text = "Time: 00:00"
+        scoreLabel.text = "Score:"
+        timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
     }
     
@@ -78,10 +78,12 @@ extension GamePlayViewController: GameManagerDelegate {
     }
     
     func onAnsweredTooLate() {
-        let alert = UIAlertController(title: "to slow", message: "you didnt make it in time", preferredStyle: .alert)
+        
+        let alert = UIAlertController(title: "To slow", message: "ah you didnt make it...", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             GameManager.shared.resumeTimer()
         }))
+
         present(alert, animated: true)
     }
     

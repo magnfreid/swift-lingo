@@ -50,6 +50,11 @@ final class GameManager {
      
      */
     
+    func loadWords(words: [(swedish: String, english: String)]) {
+        allWords = words.map {(question: $0.swedish, control: $0.english)}
+        gameWords = allWords
+    }
+    
     func startTurn() {
         guard !gameWords.isEmpty else { return }
         let randomIndex = Int.random(in: 0..<gameWords.count)
