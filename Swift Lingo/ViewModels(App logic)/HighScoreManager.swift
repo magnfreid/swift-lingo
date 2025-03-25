@@ -30,7 +30,13 @@ final class HighScoreManager {
             "date": formattedDate()
         ]
         currentScores.append(newEntry)
+        currentScores.sort { ($0["score"] as? Int ?? 0) > ($1["score"] as? Int ?? 0) }
         UserDefaults.standard.set(currentScores, forKey: key)
+    }
+    
+    func saveUserHighScore(score: Int) {
+        let name = UserDefaultsManager.shared.getPlayerName()
+        saveUserData(score: score, playerName: name)
     }
     
     private func formattedDate() -> String {
@@ -41,3 +47,5 @@ final class HighScoreManager {
         
     }
 }
+
+
