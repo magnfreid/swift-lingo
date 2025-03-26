@@ -14,7 +14,8 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var textFieldAnswer: UITextField!
     @IBOutlet weak var submitButton: UIButton!
-
+    @IBOutlet weak var wrongLabel: UILabel!
+    
     let gameManager = GameManager.shared
 
     var score = 0
@@ -95,7 +96,7 @@ extension GamePlayViewController: GameManagerDelegate {
         }
         
         if result == .wrong {
-            //TODO: Show animated label here
+            animateWrongLabelShake()
             textFieldAnswer.text = ""
             return
         }
@@ -161,6 +162,19 @@ extension GamePlayViewController {
             self.wordLabel.transform = .identity
         }
 
+    }
+    
+    private func animateWrongLabelShake() {
+        wrongLabel.isHidden = false
+        let shake = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        shake.values = [-10, 10, -10, 10, -5, 5, -5, 5, 0]
+        shake.keyTimes = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 1]
+        shake.duration = 0.5
+        shake.repeatCount = 2
+        wrongLabel.layer.add(shake, forKey: "shake")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.wrongLabel.isHidden = true
+        }
     }
 
     private func showAlert(
