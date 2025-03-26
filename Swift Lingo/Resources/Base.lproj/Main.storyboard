@@ -89,6 +89,7 @@
                         <outlet property="highscoreButton" destination="udd-fu-87H" id="w5c-Ph-9B4"/>
                         <outlet property="nameTextField" destination="0PB-C6-LiX" id="XAL-i8-OJL"/>
                         <outlet property="playButton" destination="qD5-MA-QDr" id="rsN-Sn-WGC"/>
+                        <outlet property="settingsButton" destination="a0C-c2-s3c" id="nW3-gQ-OfE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

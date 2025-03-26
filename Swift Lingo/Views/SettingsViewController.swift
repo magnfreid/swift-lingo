@@ -12,13 +12,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var darkModeLabel: UILabel!
     @IBOutlet weak var darkModeSwitch: UISwitch!
     
-    
-    
-    
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setDarkMode()
@@ -34,10 +28,12 @@ class SettingsViewController: UIViewController {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {
             window.overrideUserInterfaceStyle = selectedDark ? .dark : .light
-            
-            window.rootViewController?.view.setNeedsLayout()
-            window.rootViewController?.view.setNeedsDisplay()
+    
         }
+        
+        self.overrideUserInterfaceStyle = selectedDark ? .dark : .light
+        self.view.backgroundColor = .systemBackground
+        self.darkModeLabel.textColor = .label
         
     }
     
@@ -58,9 +54,7 @@ extension SettingsViewController {
         
         darkModeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         darkModeLabel.textColor = .label
-        
         darkModeSwitch.onTintColor = .systemBlue
-        
         
     }
     

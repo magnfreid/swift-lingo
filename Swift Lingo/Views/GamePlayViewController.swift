@@ -24,7 +24,11 @@ class GamePlayViewController: UIViewController {
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textFieldAnswer.becomeFirstResponder()
     }
 
     @IBAction func submitButtonTapped(_ sender: UIButton) {
@@ -48,6 +52,7 @@ class GamePlayViewController: UIViewController {
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
+
     }
 
 }
@@ -56,10 +61,9 @@ class GamePlayViewController: UIViewController {
 extension GamePlayViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        submitButtonTapped(submitButton)
         return false
     }
-
-    //TODO: Tving fram tangentbordet vid denna VC, vad ska vi göra? trycka på knappen? retur på tangentbordet?, vi tar fram tangentbordet.
 
     //TODO: klicka på retur för att mata in ordet, inte ta ned tangentbordet.
 

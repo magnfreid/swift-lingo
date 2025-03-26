@@ -14,6 +14,7 @@ final class StartViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var highscoreButton: UIButton!
     
+    @IBOutlet weak var settingsButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,12 +100,15 @@ extension StartViewController {
     
     private func setupUI() {
         
+        view.backgroundColor = UIColor.systemGroupedBackground
+        
         nameTextField.delegate = self
         
         gameTitle.font = UIFont.systemFont(ofSize: 36, weight: .bold)
         gameTitle.textColor = .label
         gameTitle.textAlignment = .center
         gameTitle.numberOfLines = 0
+       
         
         nameTextField.borderStyle = .roundedRect
         nameTextField.backgroundColor = .white
@@ -125,7 +129,7 @@ extension StartViewController {
         ])
         
         
-        let buttons = [playButton, highscoreButton]
+        let buttons = [playButton, highscoreButton, settingsButton]
         
         for button in buttons {
             
@@ -151,6 +155,7 @@ extension StartViewController {
         nameTextField.placeholder = "Enter your name"
         playButton.setTitle("Play", for: .normal)
         highscoreButton.setTitle("HighScore", for: .normal)
+        settingsButton.setTitle("Settings ⚙️", for: .normal)
         
     }
     private func showAlert(title: String, message: String) {
@@ -188,3 +193,7 @@ extension StartViewController: UITextFieldDelegate {
     }
     
 }
+
+
+
+//TODO: idéer och förbättringar
