@@ -25,7 +25,11 @@ class GamePlayViewController: UIViewController {
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textFieldAnswer.becomeFirstResponder()
     }
 
     @IBAction func submitButtonTapped(_ sender: UIButton) {
@@ -40,15 +44,24 @@ class GamePlayViewController: UIViewController {
 
     private func setupUI() {
 
-        //TODO: finslipa på designen.
+        //TODO: finslipa på designen. 2.0
 
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
 
         textFieldAnswer.delegate = self
+        textFieldAnswer.placeholder = "Guess the word"
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
+        
+        textFieldAnswer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textFieldAnswer.widthAnchor.constraint(equalToConstant: 300),
+            textFieldAnswer.heightAnchor.constraint(equalToConstant: 50),
+            
+            ])
+
     }
 
 }
@@ -57,13 +70,9 @@ class GamePlayViewController: UIViewController {
 extension GamePlayViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        submitButtonTapped(submitButton)
         return false
     }
-
-    //TODO: Tving fram tangentbordet vid denna VC, vad ska vi göra? trycka på knappen? retur på tangentbordet?, vi tar fram tangentbordet.
-
-    //TODO: klicka på retur för att mata in ordet, inte ta ned tangentbordet.
-
 }
 
 // MARK: - GameManagerDelegate
