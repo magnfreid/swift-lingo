@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct GameWords {
+struct GameWord {
     
     //    var user: String
     
