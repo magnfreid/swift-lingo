@@ -41,6 +41,8 @@ class GamePlayViewController: UIViewController {
     
     private func setupUI() {
         
+        //TODO: finslipa på designen.
+        
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         
@@ -54,8 +56,6 @@ class GamePlayViewController: UIViewController {
 }
 
 
-
-
 // MARK: - UITextFieldDelegate
 extension GamePlayViewController: UITextFieldDelegate {
     
@@ -63,6 +63,9 @@ extension GamePlayViewController: UITextFieldDelegate {
         return false
     }
     
+    //TODO: Tving fram tangentbordet vid denna VC, vad ska vi göra? trycka på knappen? retur på tangentbordet?, vi tar fram tangentbordet.
+    
+    //TODO: klicka på retur för att mata in ordet, inte ta ned tangentbordet.
     
 }
 
@@ -78,7 +81,7 @@ extension GamePlayViewController: GameManagerDelegate {
     }
     
     func onAnsweredTooLate() {
-        
+        //TODO: bugg -> ingen paus om man skrivit fel eller om tiden rinner ut. infinite loop
         let alert = UIAlertController(title: "To slow", message: "ah you didnt make it...", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             GameManager.shared.resumeTimer()
@@ -125,3 +128,7 @@ extension GamePlayViewController {
     }
     
 }
+
+//TODO: poängen uppdateras inte när man gissar rätt
+
+

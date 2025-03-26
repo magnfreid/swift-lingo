@@ -29,7 +29,7 @@ final class StartViewController: UIViewController {
             return
         }
     
-        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        performSegue(withIdentifier: "navigateToGamePlay", sender: self) //Flytta för att du kan fortfarande navigera dig vidare trots alerten
         
     }
     
