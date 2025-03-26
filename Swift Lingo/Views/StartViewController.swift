@@ -33,6 +33,61 @@ final class StartViewController: UIViewController {
         
     }
     
+    
+    @IBAction func showUserDefaults(_ sender: UIButton) {
+        
+        let name = UserDefaultsManager.shared.getPlayerName()
+        let difficulty = UserDefaultsManager.shared.getDifficulty()
+        let highScores = HighScoreManager.shared.getHighScores()
+        
+        let formatedToText = highScores.map {"\($0["name"] ?? ""): \($0["score"] ?? "")"}.joined(separator: "\n")
+        
+        let messageToShow = """
+        👴🏻 Name: \(name)
+        🎮 Diffuculty: \(difficulty)
+        🏆 Highscore: \(highScores.isEmpty ? "No scores saved" : formatedToText)
+        """
+        
+        let alert = UIAlertController(title: "Saved data", message: messageToShow, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+        
+    }
+    
+    
+    
+    @IBAction func deleteUserDefaults(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "Are you sure?", message: "Delete all UserDefaults", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            
+            let allDefaults = UserDefaults.standard
+            allDefaults.removeObject(forKey: "playerName")
+            allDefaults.removeObject(forKey: "difficulty")
+            allDefaults.removeObject(forKey: "highscores")
+            
+            let confirmDeletion = UIAlertController(title: "Deleted", message: "All data deleted", preferredStyle: .alert)
+            confirmDeletion.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(confirmDeletion, animated: true)
+        }))
+        
+        present(alert, animated: true)
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
 }
