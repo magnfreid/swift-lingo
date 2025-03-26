@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="120" translatesAutoresizingMaskIntoConstraints="NO" id="lCF-B1-gAF">
-                                <rect key="frame" x="64.333333333333343" y="162" width="264.33333333333326" height="528"/>
+                                <rect key="frame" x="64.333333333333343" y="81" width="264.33333333333326" height="690"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swift Lingo 🇸🇪🏴󠁧󠁢󠁥󠁮󠁧󠁿" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZN-CK-GVe">
                                         <rect key="frame" x="0.0" y="0.0" width="264.33333333333331" height="42"/>
@@ -44,6 +44,27 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                     </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Mlf-Ib-kKP">
+                                        <rect key="frame" x="11.666666666666671" y="648" width="241.33333333333331" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3J-Aq-fxu">
+                                                <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="42"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="showUD"/>
+                                                <connections>
+                                                    <action selector="showUserDefaults:" destination="BYZ-38-t0r" eventType="touchUpInside" id="18O-mX-MzT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vy3-wf-zc6">
+                                                <rect key="frame" x="145.66666666666666" y="0.0" width="95.666666666666657" height="42"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="deleteUD"/>
+                                                <connections>
+                                                    <action selector="deleteUserDefaults:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ylA-8u-GKn"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -110,7 +131,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
-                                        <rect key="frame" x="0.0" y="363.33333333333326" width="140.33333333333331" height="34.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="363.33333333333326" width="140.33333333333334" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="extreme button"/>
                                         <connections>
