@@ -107,8 +107,9 @@ final class GameManager {
         if result != .wrong {
             stopAndResetTimer()
             isRunning = false
+            turnsRemaining = max(0, turnsRemaining - 1)
         }
-        turnsRemaining = max(0, turnsRemaining - 1)
+        
         delegate?.onTurnResolved(
             result: result,
             turnsRemaining: turnsRemaining)

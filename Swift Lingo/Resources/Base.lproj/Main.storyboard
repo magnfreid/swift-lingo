@@ -110,7 +110,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
-                                        <rect key="frame" x="0.0" y="363.33333333333326" width="140.33333333333331" height="34.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="363.33333333333326" width="140.33333333333334" height="34.333333333333314"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="extreme button"/>
                                         <connections>
@@ -190,6 +190,12 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong answer!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-aF-EWq">
+                                <rect key="frame" x="71.666666666666671" y="155.33333333333334" width="249.66666666666663" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="34"/>
+                                <color key="textColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MaC-Zo-PnW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -197,6 +203,8 @@
                             <constraint firstItem="QeG-Bp-mfO" firstAttribute="centerX" secondItem="7Bv-Rx-ioo" secondAttribute="centerX" id="FKG-xM-PBx"/>
                             <constraint firstItem="QeG-Bp-mfO" firstAttribute="centerY" secondItem="7Bv-Rx-ioo" secondAttribute="centerY" id="G4E-zY-eoe"/>
                             <constraint firstItem="aGZ-Ix-ick" firstAttribute="leading" secondItem="MaC-Zo-PnW" secondAttribute="leading" constant="50" id="Niy-n5-BjM"/>
+                            <constraint firstItem="Vjp-aF-EWq" firstAttribute="centerX" secondItem="7Bv-Rx-ioo" secondAttribute="centerX" id="TQX-VQ-e16"/>
+                            <constraint firstItem="Vjp-aF-EWq" firstAttribute="top" secondItem="aGZ-Ix-ick" secondAttribute="bottom" constant="100" id="a48-22-h1O"/>
                             <constraint firstItem="aGZ-Ix-ick" firstAttribute="top" secondItem="MaC-Zo-PnW" secondAttribute="top" constant="35" id="edG-Y6-GDB"/>
                             <constraint firstItem="MaC-Zo-PnW" firstAttribute="trailing" secondItem="aGZ-Ix-ick" secondAttribute="trailing" constant="50" id="nCI-oW-WKl"/>
                         </constraints>
@@ -208,6 +216,7 @@
                         <outlet property="textFieldAnswer" destination="bne-dD-Uab" id="DOL-zI-3xg"/>
                         <outlet property="timerLabel" destination="zyj-OQ-VEV" id="9SQ-t8-pFj"/>
                         <outlet property="wordLabel" destination="5cF-v9-pv9" id="F2a-5b-TKW"/>
+                        <outlet property="wrongLabel" destination="Vjp-aF-EWq" id="Icc-9X-O9x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1q-on-WQk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
