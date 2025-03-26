@@ -45,7 +45,7 @@ class GamePlayViewController: UIViewController {
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
 
         textFieldAnswer.delegate = self
-        scoreLabel.text = "Score:"
+        scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
     }
@@ -72,52 +72,36 @@ extension GamePlayViewController: GameManagerDelegate {
     }
 
     func onTurnResolved(
-        result: ResultStatus, turnsRemaining: Int
+        result: ResultStatus,
+        turnsRemaining: Int
     ) {
+        let gameOver = turnsRemaining <= 0
+        
         if result == .correct {
             score += 1
             scoreLabel.text = "Score: \(score)"
         }
-
-        let gameOver = turnsRemaining <= 0
-
-        let title = switch result {
-        case .correct:
-            "Correct!"
-        case .wrong:
-            "Wrong answer..."
-        case .tooSlow:
-            "Too late!"
+        
+        if gameOver {
+            let message = (result == .correct) ? "Your guess was right! Game is over..." : "Wrong answer! Game is over..."
+            showAlert(title: "Game over!", message: message , buttonText: "End", action: {
+                //Show end screen here
+            })
+            return
         }
         
-        let message = switch result {
-        case .correct:
-            "Well done!"
-        case .wrong:
-            "That is not how to spell it..."
-        case .tooSlow:
-            "Ah, you were too slow!"
+        if result == .wrong {
+            //Show animated label
+            textFieldAnswer.text = ""
+            return
         }
-       
-
-            
-
-        let alert = UIAlertController(
-            title: gameOver ? "Game over!" : title, message: message,
-            preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(
-                title: gameOver ? "End" : "Next", style: .default,
-                handler: { _ in
-                    if gameOver {
-                        self.gameManager.resetGame()
-                        //Show end screen here
-                    } else {
-                        self.gameManager.startTurn()
-                        self.textFieldAnswer.text = ""
-                    }
-                }))
-        present(alert, animated: true)
+        else {
+            let message = (result == .correct) ? "Your guess was right and you earned a point!": "Too slow!"
+            showAlert(title: "Turn complete", message: message, buttonText: "Next", action: {
+                self.textFieldAnswer.text = ""
+                self.gameManager.startTurn()
+            })
+        }
     }
 
     func onTimerTick(timeLeft: Int) {
@@ -173,6 +157,25 @@ extension GamePlayViewController {
             self.wordLabel.transform = .identity
         }
 
+    }
+
+    private func showAlert(
+        title: String,
+        message: String,
+        buttonText: String,
+        action: (() -> Void)? = nil
+    ) {
+        let alert = UIAlertController(
+            title: title, message: message,
+            preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(
+                title: buttonText,
+                style: .default,
+                handler: { _ in
+                    action?()
+                }))
+        present(alert, animated: true)
     }
 
 }
