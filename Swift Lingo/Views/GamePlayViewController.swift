@@ -85,13 +85,13 @@ extension GamePlayViewController: GameManagerDelegate {
         if gameOver {
             let message = (result == .correct) ? "Your guess was right! Game is over..." : "Wrong answer! Game is over..."
             showAlert(title: "Game over!", message: message , buttonText: "End", action: {
-                //Show end screen here
+                //TODO: Show end screen here
             })
             return
         }
         
         if result == .wrong {
-            //Show animated label
+            //TODO: Show animated label here
             textFieldAnswer.text = ""
             return
         }

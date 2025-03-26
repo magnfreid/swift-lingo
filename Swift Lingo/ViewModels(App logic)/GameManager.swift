@@ -105,8 +105,9 @@ final class GameManager {
 
     private func resolveTurn(result: ResultStatus) {
         if result != .wrong {
-            stopAndResetTimer()}
-        isRunning = false
+            stopAndResetTimer()
+            isRunning = false
+        }
         turnsRemaining = max(0, turnsRemaining - 1)
         delegate?.onTurnResolved(
             result: result,
