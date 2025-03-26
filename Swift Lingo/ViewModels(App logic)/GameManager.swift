@@ -7,152 +7,136 @@
 
 import UIKit
 
+enum ResultStatus {
+    case correct, wrong, tooSlow
+}
+
 protocol GameManagerDelegate: AnyObject {
-    ///Provides the time left after each tick.
+    /** Reports the remaining time after each timer tick.
+     - Parameter timeLeft: The number of seconds left in the current turn. */
     func onTimerTick(timeLeft: Int)
-    ///Provides a new word for the game.
-    func onNewWordPlayed(question: String)
-    ///Triggers when the player did not answer in time.
-    func onAnsweredTooLate()
-    ///Triggers when the all rounds have been played and the game is over.
-    func onGameOver()
+
+    /** Signals the start of a new turn with a fresh word pair.
+    - Parameter newWord: A tuple with the English question and Swedish control word. */
+    func onNewTurnStarted(newWord: (question: String, control: String))
+
+    /** Notifies when a turn ends, providing the result and remaining turn count.
+    - Parameter result: The outcome of the turn (correct, wrong, or too slow).
+    - Parameter turnsRemaining: The number of turns left in the game. */
+    func onTurnResolved(result: ResultStatus, turnsRemaining: Int)
 }
 
 final class GameManager {
-    
+
     static let shared = GameManager()
-    private(set) var roundTime = 10
-    private(set) var rounds = 10
-    private(set) var score = 0
-    
-    private var roundsLeft: Int
+
+    weak var delegate: GameManagerDelegate?
+
     private var timer: Timer?
-    private var timeLeft: Int
+
+    ///Setting for how many seconds each turn lasts.
+    private(set) var turnTimerSetting = 10
+    ///Setting for how many rounds a game setting has.
+    private(set) var turnAmountSetting = 10
+
+    private var turnsRemaining: Int
+    private var timeRemaining: Int
+    private var isRunning = false
+
     private var allWords = [(question: String, control: String)]()
     private var gameWords = [(question: String, control: String)]()
     private var currentWord: (question: String, control: String) = ("", "")
-    
-    weak var delegate: GameManagerDelegate?
-    
+
     private init() {
-        timeLeft = roundTime
-        roundsLeft = rounds
-        allWords = fetchWordsEasy().map {(question: $0.swedish, control: $0.english)}
+        timeRemaining = turnTimerSetting
+        turnsRemaining = turnAmountSetting
+        allWords = fetchWordsEasy().map {
+            (question: $0.swedish, control: $0.english)
+        }
         gameWords = allWords
     }
-    
-    /*
-     *** Possible outcomes ***
-     
-     Time runs out: onAnsweredTooLate() triggers, timer stops and round time resets. Checks if it was last round and trigger game over if is.
-     
-     Player answers question: Stop timer and check correct answer. Checks if it was last round and trigger game over if is.
-     
-     */
-    
-    func loadWords(words: [(swedish: String, english: String)]) {
-        allWords = words.map {(question: $0.swedish, control: $0.english)}
-        gameWords = allWords
-    }
-    
+
     func startTurn() {
         guard !gameWords.isEmpty else { return }
         let randomIndex = Int.random(in: 0..<gameWords.count)
         currentWord = gameWords[randomIndex]
         gameWords.remove(at: randomIndex)
-        delegate?.onNewWordPlayed(question: currentWord.question)
+        delegate?.onNewTurnStarted(newWord: currentWord)
         startTimer()
-        delegate?.onTimerTick(timeLeft: timeLeft)
+        delegate?.onTimerTick(timeLeft: timeRemaining)
     }
-    
+
     private func startTimer() {
-        timer = Timer.scheduledTimer(
-            withTimeInterval: 1.0, repeats: true,
-            block: { [weak self] timer in
-                guard let self = self else { return }
-                if timeLeft > 0 {
-                    timeLeft -= 1
-                    delegate?.onTimerTick(timeLeft: timeLeft)
-                } else {
-                    delegate?.onAnsweredTooLate()
-                    endRound()
+        if turnsRemaining > 0 && !isRunning {
+            isRunning = true
+            timer = Timer.scheduledTimer(
+                withTimeInterval: 1.0, repeats: true,
+                block: { [weak self] timer in
+                    guard let self = self else { return }
+                    if timeRemaining > 0 {
+                        timeRemaining -= 1
+                        delegate?.onTimerTick(timeLeft: timeRemaining)
+                    } else {
+                        resolveTurn(result: .tooSlow)
+                    }
                 }
-                
-            }
-        )}
-    
-    
-  
-    
-    /**
-     Used when the player answers a question.
-     - Returns: A tuple with a descriptive message and a win or lose boolean.
-     */
-    func answerQuestion(answer: String) -> (
-        message: String, correctAnswer: Bool
-    ) {
-        stopAndResetTimer()
-        let isCorrect = answer.lowercased() == currentWord.control.lowercased()
-        if isCorrect {
-            score += 1
-            print("Guessed Right")
-        } else {
-            score = max(score - 1, 0)
-            print("Guessed Wrong")
+            )
         }
-        endRound()
-        return (isCorrect ? "Correct" : "Incorrect", isCorrect)
     }
-    
+
+    func answerQuestion(answer: String) {
+        if isRunning {
+            let isCorrect =
+                answer.lowercased() == currentWord.control.lowercased()
+            resolveTurn(
+                result: isCorrect ? .correct : .wrong)
+        }
+    }
+
     func setRoundTime(time: Int) {
-        roundTime = time
+        turnTimerSetting = time
         resetGame()
     }
-    
+
     func setRounds(roundAmount: Int) {
-        rounds = roundAmount
+        turnAmountSetting = roundAmount
         resetGame()
     }
-    
-    private func endRound() {
-        roundsLeft -= 1
-        if roundsLeft <= 0 {
-            delegate?.onGameOver()
-            resetGame()
-        } else {
-            timeLeft = roundTime
-            startTurn()
+
+    private func resolveTurn(result: ResultStatus) {
+        if result != .wrong {
+            stopAndResetTimer()
+            isRunning = false
+            turnsRemaining = max(0, turnsRemaining - 1)
         }
         
+        delegate?.onTurnResolved(
+            result: result,
+            turnsRemaining: turnsRemaining)
     }
-    
-    private func resetGame() {
-        stopAndResetTimer()
-        timeLeft = roundTime
-        roundsLeft = rounds
-        score = 0
+
+    func loadWords(words: [(swedish: String, english: String)]) {
+        allWords = words.map { (question: $0.swedish, control: $0.english) }
         gameWords = allWords
     }
-    
+
+    func resetGame() {
+        stopAndResetTimer()
+        timeRemaining = turnTimerSetting
+        turnsRemaining = turnAmountSetting
+        gameWords = allWords
+    }
+
     private func stopAndResetTimer() {
         timer?.invalidate()
         timer = nil
-        timeLeft = roundTime
+        timeRemaining = turnTimerSetting
     }
-    
-    func pauseTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    func resumeTimer() {
-        startTimer()
-    }
-    
+
 }
 
 extension GameManager {
-    
+
     func fetchWordsData() -> [(question: String, control: String)] {
         return [
             (question: "Apple", control: "Äpple"),
@@ -164,10 +148,10 @@ extension GameManager {
             (question: "Water", control: "Vatten"),
             (question: "Sun", control: "Sol"),
             (question: "Car", control: "Bil"),
-            (question: "Friend", control: "Vän")
+            (question: "Friend", control: "Vän"),
         ]
     }
-    
+
     // MARK - EASY MODE
     func fetchWordsEasy() -> [(swedish: String, english: String)] {
         return [
@@ -180,14 +164,14 @@ extension GameManager {
             (swedish: "Water", english: "Vatten"),
             (swedish: "Sun", english: "Sol"),
             (swedish: "Car", english: "Bil"),
-            (swedish: "Friend", english: "Vän")
+            (swedish: "Friend", english: "Vän"),
         ]
     }
-    
+
     // 7 sekunder
     func fetchWordsMedium() -> [(swedish: String, english: String)] {
         let mediumWords: [(swedish: String, english: String)] = [
-            
+
             ("fågelskrämma", "scarecrow"),
             ("räknesnurra", "calculator"),
             ("jordgubbe", "strawberry"),
@@ -207,15 +191,15 @@ extension GameManager {
             ("fågelfjäder", "bird feather"),
             ("ryggsäck", "backpack"),
             ("telefonnummer", "phone number"),
-            ("bänkpress", "bench press")
+            ("bänkpress", "bench press"),
         ]
-        
+
         return mediumWords
     }
-    
+
     // 10 sekunder
     func fetchWordsHard() -> [(swedish: String, english: String)] {
-        
+
         let hardWords: [(swedish: String, english: String)] = [
             ("samhällsbyggnad", "urban planning"),
             ("världsarv", "world heritage"),
@@ -236,16 +220,16 @@ extension GameManager {
             ("samarbetsorganisation", "cooperation organization"),
             ("internationella relationer", "international relations"),
             ("högskolebehörighet", "university eligibility"),
-            ("organisationspsykologi", "organizational psychology")
+            ("organisationspsykologi", "organizational psychology"),
         ]
-        
+
         return hardWords
     }
-    
+
     //16 sekunder ⚠️
     func fetchWordsExtreme() -> [(swedish: String, english: String)] {
         let extremeWords = [
-            
+
             ("verksamhetsutveckling", "business development"),
             ("självständighetsförklaring", "declaration of independence"),
             ("industrirobotautomation", "industrial robot automation"),
@@ -265,11 +249,11 @@ extension GameManager {
             ("folkhälsomyndigheten", "public health agency"),
             ("obligatorisk vaccinationsplan", "mandatory vaccination plan"),
             ("avfallshanteringsstrategi", "waste management strategy"),
-            ("integritetslagstiftning", "data protection legislation")
-            
+            ("integritetslagstiftning", "data protection legislation"),
+
         ]
-        
+
         return extremeWords
     }
-    
+
 }
