@@ -80,15 +80,14 @@ extension DifficultyViewController {
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
-        
         let buttons = [easyButton, mediumButton, hardButton, extremeButton]
         
         for button in buttons {
             button?.setTitleColor(.white, for: .normal)
             button?.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
             button?.layer.cornerRadius = 10
-            button?.layer.shadowColor = UIColor.black.cgColor
-            button?.layer.shadowOpacity = 0.2
+            button?.layer.shadowColor = UIColor.label.cgColor
+            button?.layer.shadowOpacity = 0.15
             button?.layer.shadowOffset = CGSize(width: 0, height: 4)
             button?.layer.shadowRadius = 5
             button?.translatesAutoresizingMaskIntoConstraints = false
@@ -101,8 +100,8 @@ extension DifficultyViewController {
         
         easyButton.backgroundColor = .systemGreen
         mediumButton.backgroundColor = .orange
-        hardButton.backgroundColor = .systemRed
-        extremeButton.backgroundColor = .black
+        hardButton.backgroundColor = .systemPink
+        extremeButton.backgroundColor = .systemRed
         
         titleLabel.text = "Select difficulty"
         easyButton.setTitle("Easy", for: .normal)

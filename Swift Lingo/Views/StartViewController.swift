@@ -100,7 +100,7 @@ extension StartViewController {
     
     private func setupUI() {
         
-        view.backgroundColor = UIColor.systemGroupedBackground
+        view.backgroundColor = .systemBackground
         
         nameTextField.delegate = self
         
@@ -108,10 +108,10 @@ extension StartViewController {
         gameTitle.textColor = .label
         gameTitle.textAlignment = .center
         gameTitle.numberOfLines = 0
-       
+      
         
         nameTextField.borderStyle = .roundedRect
-        nameTextField.backgroundColor = .white
+        nameTextField.backgroundColor = .secondarySystemBackground
         nameTextField.textColor = .label
         nameTextField.autocorrectionType = .no
         nameTextField.autocapitalizationType = .words
@@ -120,7 +120,7 @@ extension StartViewController {
         nameTextField.font = UIFont.preferredFont(forTextStyle: .body)
         nameTextField.layer.cornerRadius = 6
         nameTextField.layer.borderWidth = 0.5
-        nameTextField.layer.borderColor = UIColor.systemGray.cgColor
+        nameTextField.layer.borderColor = UIColor.separator.cgColor
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -137,10 +137,10 @@ extension StartViewController {
             button?.setTitleColor(.white, for: .normal)
             button?.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
             button?.layer.cornerRadius = 10
-            button?.layer.shadowColor = UIColor.black.cgColor
-            button?.layer.shadowOpacity = 0.2
-            button?.layer.shadowOffset = CGSize(width: 0, height: 4)
-            button?.layer.shadowRadius = 5
+            button?.layer.shadowColor = UIColor.label.cgColor
+            button?.layer.shadowOpacity = 0.15
+            button?.layer.shadowOffset = CGSize(width: 0, height: 3)
+            button?.layer.shadowRadius = 4
             button?.translatesAutoresizingMaskIntoConstraints = false
        
             NSLayoutConstraint.activate([

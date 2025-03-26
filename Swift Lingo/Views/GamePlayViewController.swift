@@ -44,15 +44,23 @@ class GamePlayViewController: UIViewController {
 
     private func setupUI() {
 
-        //TODO: finslipa på designen.
+        //TODO: finslipa på designen. 2.0
 
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
 
         textFieldAnswer.delegate = self
+        textFieldAnswer.placeholder = "Guess the word"
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
+        
+        textFieldAnswer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textFieldAnswer.widthAnchor.constraint(equalToConstant: 300),
+            textFieldAnswer.heightAnchor.constraint(equalToConstant: 50),
+            
+            ])
 
     }
 
@@ -65,9 +73,6 @@ extension GamePlayViewController: UITextFieldDelegate {
         submitButtonTapped(submitButton)
         return false
     }
-
-    //TODO: klicka på retur för att mata in ordet, inte ta ned tangentbordet.
-
 }
 
 // MARK: - GameManagerDelegate
