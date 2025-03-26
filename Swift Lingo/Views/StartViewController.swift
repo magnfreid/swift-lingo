@@ -20,6 +20,7 @@ final class StartViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         addTapGestureToDismissKeyboard()
+        
     }
 
     @IBAction func playButtonTapped(_ sender: UIButton) {
@@ -35,6 +36,8 @@ final class StartViewController: UIViewController {
         performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         
     }
+    
+
     
     
     @IBAction func showUserDefaults(_ sender: UIButton) {
@@ -158,6 +161,7 @@ extension StartViewController {
         settingsButton.setTitle("Settings ⚙️", for: .normal)
         
     }
+    
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
