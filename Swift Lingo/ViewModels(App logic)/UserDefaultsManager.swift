@@ -13,6 +13,7 @@ final class UserDefaultsManager {
     
     private let nameKey = "playerName"
     private let difficultyKey = "difficulty"
+    private let darkModeKey = "isDarkModeOn"
     
     private init() {}
     
@@ -30,6 +31,16 @@ final class UserDefaultsManager {
     
     func getDifficulty() -> String {
         return UserDefaults.standard.string(forKey: difficultyKey) ?? ""
+    }
+    
+    //MARK: DARK MODE
+    
+    func saveDarkMode(isOn: Bool) {
+        UserDefaults.standard.set(isOn, forKey: darkModeKey)
+    }
+    
+    func loadDarkMode() -> Bool {
+        return UserDefaults.standard.bool(forKey: darkModeKey)
     }
     
 

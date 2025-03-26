@@ -109,7 +109,7 @@ extension DifficultyViewController {
         mediumButton.setTitle("Medium", for: .normal)
         hardButton.setTitle("Hard", for: .normal)
         extremeButton.setTitle("Time to meet your maker 💀⚠️", for: .normal)
-        
+        //eller regrets have no mercy 💀⚠️
     }
     
     
