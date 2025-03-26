@@ -28,8 +28,10 @@ final class StartViewController: UIViewController {
             showAlert(title: "You're to fast!", message: "You need to enter a name to play")
             return
         }
+        
+        //TODO: Flytta för att du kan fortfarande navigera dig vidare trots alerten
     
-        performSegue(withIdentifier: "navigateToGamePlay", sender: self) //TODO: Flytta för att du kan fortfarande navigera dig vidare trots alerten
+        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         
     }
     
