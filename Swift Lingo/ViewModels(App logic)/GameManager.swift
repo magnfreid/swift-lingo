@@ -42,12 +42,21 @@ final class GameManager {
     }
     
     /*
-     *** Possible outcomes ***
+  1. Spelaren startar en ny runda via input.
+     - startTurn körs
+     - ett nytt ord slumpas fram och newWordPlayed() triggas
+     - timern startas, tiden streamas via onTimerPick()
      
-     Time runs out: onAnsweredTooLate() triggers, timer stops and round time resets. Checks if it was last round and trigger game over if is.
+  2a Tiden rinner ut utan att spelaren svarat.
+     - onAnsweredTooLate() triggas
+     - timer stoppas och timertiden resettas
+     - en runda dras av
+     - om rundorna är noll triggas gameOver()
      
-     Player answers question: Stop timer and check correct answer. Checks if it was last round and trigger game over if is.
-     
+  2b Spelaren lämnar in ett svar via answerQuestion():
+     - timern stoppas och resettar
+     - answerQuestion() returnera en bool (win/lose) och ett meddelande
+     - en runda dras av + game over check
      */
     
     func loadWords(words: [(swedish: String, english: String)]) {
@@ -94,12 +103,14 @@ final class GameManager {
         stopAndResetTimer()
         let isCorrect = answer.lowercased() == currentWord.control.lowercased()
         if isCorrect {
+            //Ta bort score härifrån
             score += 1
             print("Guessed Right")
         } else {
             score = max(score - 1, 0)
             print("Guessed Wrong")
         }
+        //Ta bort denna?
         endRound()
         return (isCorrect ? "Correct" : "Incorrect", isCorrect)
     }
@@ -120,6 +131,7 @@ final class GameManager {
             delegate?.onGameOver()
             resetGame()
         } else {
+            //Detta borde inte hända förens spelaren trycker på "nästa ord/ok"
             timeLeft = roundTime
             startTurn()
         }

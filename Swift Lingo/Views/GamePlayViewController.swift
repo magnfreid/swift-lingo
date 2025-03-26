@@ -29,10 +29,12 @@ class GamePlayViewController: UIViewController {
         }
         
         let result = GameManager.shared.answerQuestion(answer: guessed)
+        //Ta bort detta, game manager ska sköta detta själv
         GameManager.shared.pauseTimer()
         
         let alert = UIAlertController(title: result.message, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            //Ta bort detta, ska hanteras av game manager
             GameManager.shared.resumeTimer()
             self.textFieldAnswer.text = ""
         }))
