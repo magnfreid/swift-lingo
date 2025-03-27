@@ -117,8 +117,8 @@ extension StartViewController {
         //        gameTitle.numberOfLines = 0
 
         nameTextField.borderStyle = .roundedRect
-        nameTextField.backgroundColor = .secondarySystemBackground
-        nameTextField.textColor = .label
+        //    nameTextField.backgroundColor = .secondarySystemBackground
+        // nameTextField.textColor = .label
         nameTextField.autocorrectionType = .no
         nameTextField.autocapitalizationType = .words
         nameTextField.clearButtonMode = .whileEditing

@@ -9,7 +9,8 @@ import UIKit
 
 struct Theme {
     let viewBackgroundColor: UIColor
-    let labelTextColor: UIColor
+    let textColor: UIColor
     let buttonTextColor: UIColor
     let buttonTintColor: UIColor
+    let textFieldBackgroundColor: UIColor
 }

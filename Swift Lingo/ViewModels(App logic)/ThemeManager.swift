@@ -17,10 +17,12 @@ final class ThemeManager {
 
     func setTheme(themeColor: ThemeColors? = nil, view: UIView? = nil) {
         if let themeColor = themeColor { currentTheme = themeColor.theme }
-        UILabel.appearance().textColor = currentTheme?.labelTextColor
+        UILabel.appearance().textColor = currentTheme?.textColor
         UIButton.appearance().setTitleColor(
             currentTheme?.buttonTextColor, for: .normal)
         UIButton.appearance().tintColor = currentTheme?.buttonTintColor
+        UITextField.appearance().backgroundColor = currentTheme?.textFieldBackgroundColor
+        UITextField.appearance().textColor = currentTheme?.textColor
         view?.backgroundColor = currentTheme?.viewBackgroundColor
     }
 }
@@ -36,37 +38,43 @@ extension ThemeManager {
             case .light:
                 return Theme(
                     viewBackgroundColor: .white,
-                    labelTextColor: .black,
+                    textColor: .black,
                     buttonTextColor: .white,
-                    buttonTintColor: .systemBlue
+                    buttonTintColor: .systemBlue,
+                    textFieldBackgroundColor: .white
                 )
             case .dark:
                 return Theme(
                     viewBackgroundColor: .black,
-                    labelTextColor: .white,
+                    textColor: .white,
                     buttonTextColor: .white,
-                    buttonTintColor: .systemPurple
+                    buttonTintColor: .systemPurple,
+                    textFieldBackgroundColor: .black
+
                 )
             case .orange:
                 return Theme(
                     viewBackgroundColor: .systemOrange,
-                    labelTextColor: .white,
+                    textColor: .white,
                     buttonTextColor: .white,
-                    buttonTintColor: .systemPink
+                    buttonTintColor: .systemPink,
+                    textFieldBackgroundColor: .white
                 )
             case .green:
                 return Theme(
                     viewBackgroundColor: .systemGreen,
-                    labelTextColor: .white,
+                    textColor: .white,
                     buttonTextColor: .white,
-                    buttonTintColor: .systemMint
+                    buttonTintColor: .systemMint,
+                    textFieldBackgroundColor: .black
                 )
             case .red:
                 return Theme(
                     viewBackgroundColor: .systemRed,
-                    labelTextColor: .white,
+                    textColor: .white,
                     buttonTextColor: .white,
-                    buttonTintColor: .systemOrange
+                    buttonTintColor: .systemOrange,
+                    textFieldBackgroundColor: .black
                 )
             }
         }
