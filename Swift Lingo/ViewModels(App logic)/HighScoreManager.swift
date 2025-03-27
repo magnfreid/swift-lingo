@@ -58,3 +58,13 @@ final class HighScoreManager {
 }
 
 
+//MARK: - BADGE LOGIC
+extension HighScoreManager {
+    
+    func getGamesPlayed(for player: String) -> Int {
+        return getHighScores().filter { $0["name"] as? String == player }.count
+        
+    }
+    
+    
+}

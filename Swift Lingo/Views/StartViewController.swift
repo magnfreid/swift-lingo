@@ -27,6 +27,7 @@ final class StartViewController: UIViewController {
         
         if let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty {
             UserDefaultsManager.shared.savePlayerName(is: name)
+            nameTextField.text = ""
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         } else {
             shake(nameTextField)

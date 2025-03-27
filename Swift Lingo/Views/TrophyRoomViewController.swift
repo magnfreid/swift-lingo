@@ -19,10 +19,20 @@ final class TrophyRoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        title = "🎖️ Trophy Room"
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
     }
+    
+    
+    
+    @IBAction func backButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
     
 }
 

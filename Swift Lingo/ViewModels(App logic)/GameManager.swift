@@ -305,10 +305,18 @@ extension GameManager {
             break
             
         }
-
+        
+    }
+//    "🍼 Aww your first time"
+    func checkFirstTimeBadge(totalGamesPlayed : Int) -> Bool {
+        
+        if totalGamesPlayed == 1 {
+            BadgeManager.shared.addBadge(badge: .firstTime, for: currentPlayer)
+            return true
+        }
+        return false
     }
     
-    
-    
-    
+//    "🤷‍♂️ Did you even try?"
+//    func
 }

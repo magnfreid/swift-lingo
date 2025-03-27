@@ -8,69 +8,69 @@
 import UIKit
 
 class GamePlayViewController: UIViewController {
-
+    
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var wordLabel: UILabel!
     @IBOutlet weak var textFieldAnswer: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var wrongLabel: UILabel!
-
+    
     let gameManager = GameManager.shared
-
+    
     let endScreenSegueId = "toEndScreenSegue"
-
+    
     var score = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textFieldAnswer.becomeFirstResponder()
     }
-
+    
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         print("Tapped")
         guard let guessed = textFieldAnswer.text,
-            !guessed.trimmingCharacters(in: .whitespaces).isEmpty
+              !guessed.trimmingCharacters(in: .whitespaces).isEmpty
         else {
             return
         }
         gameManager.answerQuestion(answer: guessed)
     }
-
+    
     private func setupUI() {
-
+        
         //TODO: finslipa på designen. 2.0
-
+        
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-
+        
         textFieldAnswer.delegate = self
         textFieldAnswer.placeholder = "Guess the word"
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
-
+        
         textFieldAnswer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textFieldAnswer.widthAnchor.constraint(equalToConstant: 300),
             textFieldAnswer.heightAnchor.constraint(equalToConstant: 50),
-
+            
         ])
-
+        
     }
-
+    
 }
 
 // MARK: - UITextFieldDelegate
 extension GamePlayViewController: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         submitButtonTapped(submitButton)
         return false
@@ -82,41 +82,56 @@ extension GamePlayViewController: GameManagerDelegate {
     func onNewTurnStarted(newWord: (question: String, control: String)) {
         animateNewWords(word: newWord.question)
     }
-
+    
     func onTurnResolved(
         result: ResultStatus,
         turnsRemaining: Int
     ) {
         let gameOver = turnsRemaining <= 0
-
+        
         if result == .correct {
             score += 1
             scoreLabel.text = "Score: \(score)"
         }
-
+        
         if gameOver {
             let message =
-                (result == .correct)
-                ? "Your guess was right! Game is over..."
-                : "Wrong answer! Game is over..."
+            (result == .correct)
+            ? "Your guess was right! Game is over..."
+            : "Wrong answer! Game is over..."
             showAlert(
                 title: "Game over!", message: message, buttonText: "End",
                 action: {
-                    //TODO: Lägg till att vi sparar name och highscore
+                    let player = UserDefaultsManager.shared.getPlayerName()
                     HighScoreManager.shared.saveUserHighScore(score: self.score)
-                    self.navigateToEndScreen()
+                    
+                    
+                    let totalGamesPlayed = HighScoreManager.shared.getGamesPlayed(for: player)
+                    let unlockedFirstTime = GameManager.shared.checkFirstTimeBadge(totalGamesPlayed: totalGamesPlayed)
+                    
+                    if unlockedFirstTime {
+                        self.showUnlockedBadgeAlert(badge: .firstTime) {
+                            self.navigateToEndScreen()
+                        }
+                       
+                    } else {
+                        
+                        self.navigateToEndScreen()
+                    }
+                    
+                    
                 })
             return
         }
-
+        
         if result == .wrong {
             animateWrongLabelShake()
             textFieldAnswer.text = ""
             return
         } else {
             let message =
-                (result == .correct)
-                ? "Your guess was right and you earned a point!" : "Too slow!"
+            (result == .correct)
+            ? "Your guess was right and you earned a point!" : "Too slow!"
             showAlert(
                 title: "Turn complete", message: message, buttonText: "Next",
                 action: {
@@ -125,7 +140,7 @@ extension GamePlayViewController: GameManagerDelegate {
                 })
         }
     }
-
+    
     func onTimerTick(timeLeft: Int) {
         timerLabel.text = String(format: "Time left: %02d", timeLeft)
     }
@@ -133,19 +148,19 @@ extension GamePlayViewController: GameManagerDelegate {
 
 //MARK: Animations & Alerts
 extension GamePlayViewController {
-
+    
     private func animateNewWords(word: String) {
         wordLabel.alpha = 0
         wordLabel.transform = CGAffineTransform(translationX: 0.8, y: 0.8)
         wordLabel.text = word
-
+        
         UIView.animate(withDuration: 0.3) {
             self.wordLabel.alpha = 1
             self.wordLabel.transform = .identity
         }
-
+        
     }
-
+    
     private func animateWrongLabelShake() {
         wrongLabel.isHidden = false
         let shake = CAKeyframeAnimation(keyPath: "transform.translation.x")
@@ -158,7 +173,7 @@ extension GamePlayViewController {
             self.wrongLabel.isHidden = true
         }
     }
-
+    
     private func showAlert(
         title: String,
         message: String,
@@ -177,12 +192,22 @@ extension GamePlayViewController {
                 }))
         present(alert, animated: true)
     }
-
+    //MARK: - Alert for unlocked badge
+    private func showUnlockedBadgeAlert(badge: Badges, completion: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: " 🎖️ Badge Unlocked", message: badge.rawValue, preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Sweet!", style: .default, handler: { _ in
+            completion()
+        }))
+        present(alert, animated: true)
+    }
+    
 }
 
 //MARK: Segue control
 extension GamePlayViewController {
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == endScreenSegueId {
             if let endVC = segue.destination as? EndViewController {
@@ -190,7 +215,7 @@ extension GamePlayViewController {
             }
         }
     }
-
+    
     private func navigateToEndScreen() {
         self.performSegue(withIdentifier: endScreenSegueId, sender: nil)
     }
