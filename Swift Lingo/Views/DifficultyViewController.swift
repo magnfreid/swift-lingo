@@ -29,8 +29,8 @@ class DifficultyViewController: UIViewController {
     @IBAction func easyDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "easy")
-        GameManager.shared.setRoundTime(time: 6)
-        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.setTurnTime(seconds: 6)
+        GameManager.shared.setTurnAmount(turns: 10)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
         navigateToGame()
         
@@ -39,8 +39,8 @@ class DifficultyViewController: UIViewController {
     @IBAction func mediumDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "medium")
-        GameManager.shared.setRoundTime(time: 8)
-        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.setTurnTime(seconds: 8)
+        GameManager.shared.setTurnAmount(turns: 10)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsMedium())
         navigateToGame()
     }
@@ -49,8 +49,8 @@ class DifficultyViewController: UIViewController {
     @IBAction func hardDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "hard")
-        GameManager.shared.setRoundTime(time: 8)
-        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.setTurnTime(seconds: 8)
+        GameManager.shared.setTurnAmount(turns: 10)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsHard())
         navigateToGame()
     }
@@ -59,8 +59,8 @@ class DifficultyViewController: UIViewController {
     @IBAction func extremeDifficultyButton(_ sender: UIButton) {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "extreme")
-        GameManager.shared.setRoundTime(time: 12)
-        GameManager.shared.setRounds(roundAmount: 10)
+        GameManager.shared.setTurnTime(seconds: 12)
+        GameManager.shared.setTurnAmount(turns: 10)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsExtreme())
         navigateToGame()
     }
