@@ -27,6 +27,8 @@ class GamePlayViewController: UIViewController {
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
+        ThemeManager.shared.setTheme(view: self.view)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {

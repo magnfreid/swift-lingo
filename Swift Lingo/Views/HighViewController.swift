@@ -14,6 +14,8 @@ class HighViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ThemeManager.shared.setTheme(view: self.view)
+
         
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         print("current player: \(currentPlayer)") // Debug

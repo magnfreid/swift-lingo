@@ -21,6 +21,7 @@ class DifficultyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        ThemeManager.shared.setTheme(view: self.view)
     }
 
     
@@ -76,7 +77,7 @@ extension DifficultyViewController {
     private func setupUI() {
         
         titleLabel.font = UIFont.systemFont(ofSize: 36, weight: .bold)
-        titleLabel.textColor = .label
+       // titleLabel.textColor = .label
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         

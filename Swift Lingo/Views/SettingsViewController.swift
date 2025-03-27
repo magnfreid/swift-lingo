@@ -15,9 +15,10 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDarkMode()
-        setupUI()
-        customButtonSetup()
+//        setDarkMode()
+//        setupUI()
+       customButtonSetup()
+        ThemeManager.shared.setTheme(view: self.view)
     }
     
     private func customButtonSetup() {
@@ -42,19 +43,19 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func darkModeSwitched(_ sender: UISwitch) {
-        let selectedDark = sender.isOn
-        UserDefaultsManager.shared.saveDarkMode(isOn: selectedDark)
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.overrideUserInterfaceStyle = selectedDark ? .dark : .light
-            
-        }
-        
-        self.overrideUserInterfaceStyle = selectedDark ? .dark : .light
-        self.view.backgroundColor = .systemBackground
-        self.darkModeLabel.textColor = .label
-        
+//        let selectedDark = sender.isOn
+//        UserDefaultsManager.shared.saveDarkMode(isOn: selectedDark)
+//        
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let window = windowScene.windows.first {
+//            window.overrideUserInterfaceStyle = selectedDark ? .dark : .light
+//            
+//        }
+//        
+//        self.overrideUserInterfaceStyle = selectedDark ? .dark : .light
+//        self.view.backgroundColor = .systemBackground
+//        self.darkModeLabel.textColor = .label
+//        
     }
     
     private func setDarkMode() {

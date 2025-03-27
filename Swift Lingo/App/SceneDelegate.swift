@@ -13,19 +13,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     //MARK: INIT SCENE
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateInitialViewController()
-        
-        let window = UIWindow(windowScene: windowScene)
-        
-        let isDark = UserDefaultsManager.shared.loadDarkMode()
-        window.overrideUserInterfaceStyle = isDark ? .dark : .light
-        
-        window.rootViewController = vc
-        self.window = window
-        window.makeKeyAndVisible()
+//        guard let windowScene = (scene as? UIWindowScene) else { return }
+//        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateInitialViewController()
+//        
+//        let window = UIWindow(windowScene: windowScene)
+//        
+//        let isDark = UserDefaultsManager.shared.loadDarkMode()
+//        window.overrideUserInterfaceStyle = isDark ? .dark : .light
+//        
+//        window.rootViewController = vc
+//        self.window = window
+//        window.makeKeyAndVisible()
         
     }
     //MARK: DEV OPTION -> SHOW VC THAT YOU WORK ON
