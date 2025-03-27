@@ -34,10 +34,10 @@ final class HighScoreManager {
         UserDefaults.standard.set(currentScores, forKey: key)
     }
     
-    func saveUserHighScore(score: Int) {
-        let name = UserDefaultsManager.shared.getPlayerName()
-        saveUserData(score: score, playerName: name)
-    }
+    func saveUserHighScore(playername: String = UserDefaultsManager.shared.getPlayerName(), score: Int) -> (name: String, score: Int) {
+            saveUserData(score: score, playerName: playername)
+            return (name: playername, score: score)
+        }
     
     private func formattedDate() -> String {
         
