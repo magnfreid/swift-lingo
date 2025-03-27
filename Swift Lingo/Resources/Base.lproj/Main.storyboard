@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="StartViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="90" translatesAutoresizingMaskIntoConstraints="NO" id="lCF-B1-gAF">
-                                <rect key="frame" x="64.333333333333343" y="75" width="264.33333333333326" height="702"/>
+                                <rect key="frame" x="64.333333333333343" y="70" width="264.33333333333326" height="702"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swift Lingo 🇸🇪🏴󠁧󠁢󠁥󠁮󠁧󠁿" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZN-CK-GVe">
                                         <rect key="frame" x="0.0" y="0.0" width="264.33333333333331" height="42"/>
@@ -43,6 +43,9 @@
                                         <rect key="frame" x="90" y="396" width="84.666666666666686" height="42"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button2"/>
+                                        <connections>
+                                            <segue destination="BPp-HV-ixv" kind="show" id="m99-UP-aiK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-c2-s3c" userLabel="Settings">
                                         <rect key="frame" x="75.000000000000028" y="528" width="114.33333333333334" height="42"/>
@@ -158,6 +161,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ANR-Ye-8CL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2143" y="759"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cKc-52-Use">
+            <objects>
+                <viewController id="BPp-HV-ixv" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9PH-RM-gR5">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fVs-PS-7su">
+                                <rect key="frame" x="76" y="230" width="240" height="470"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1te-QD-Nep">
+                                        <rect key="frame" x="0.0" y="50" width="240" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1te-QD-Nep" id="S7M-Ez-GK1">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="756-wj-7MD">
+                                <rect key="frame" x="143" y="748" width="108" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Startskärm"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="ZbY-4S-62P"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Highscore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R5Q-Dt-L8I">
+                                <rect key="frame" x="143" y="125" width="106" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kDY-RO-Asd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nFE-Ie-hdR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xBw-oT-Bir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="774.64788732394368"/>
         </scene>
         <!--Difficulty View Controller-->
         <scene sceneID="XFp-ed-K2o">
@@ -386,7 +438,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="WSb-Go-UwL"/>
         <segue reference="hjL-ma-qKh"/>
-        <segue reference="oG2-Yv-XQ1"/>
+        <segue reference="Wpc-BW-JnI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
