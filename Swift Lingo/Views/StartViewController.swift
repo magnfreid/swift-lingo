@@ -39,6 +39,15 @@ final class StartViewController: UIViewController {
             if let endVC = segue.source as? EndViewController {
             }
         }
+    
+    
+    
+    @IBAction func trophyRoomTapped(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "room", sender: self)
+    }
+    
+    
 
     
     

@@ -22,10 +22,12 @@ enum Badges: String, Codable, CaseIterable {
     // fler svårighetsnivår? extreme ==
     case perfectTime = "⏱️ Always answered under 4s"
     
-    case firstTime = "🍼 Ah your first time"
+    case firstTime = "🍼 Aww your first time"
     case nightMode = "🦇 Ahh you think darkness is your ally? (game in darkmode)"
     
-    case fullStreak = "🏆 100% correct answers in one game"
+    case fullStreak = "🏆 100% correct answers in extreme mode in one game"
+    
+//    Lägg till hemliga
     
 }
 
@@ -74,7 +76,6 @@ final class BadgeManager {
         let key = "badges_\(player)"
         UserDefaults.standard.removeObject(forKey: key)
     }
-    
     
     
 }

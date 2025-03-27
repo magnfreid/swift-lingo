@@ -30,11 +30,13 @@ final class HighScoreManager {
             return
         }
         
+        let difficulty = UserDefaultsManager.shared.getDifficulty()
         
         let newEntry: [String: Any] = [
             "score": score,
             "name": playerName,
-            "date": formattedDate()
+            "date": formattedDate(),
+            "difficulty": difficulty
         ]
         currentScores.append(newEntry)
         currentScores.sort { ($0["score"] as? Int ?? 0) > ($1["score"] as? Int ?? 0) }
