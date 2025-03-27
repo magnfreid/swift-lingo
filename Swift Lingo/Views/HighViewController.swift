@@ -7,11 +7,30 @@
 
 import UIKit
 
-class HighViewController: UIViewController {
+class HighViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var highscoreTableView: UITableView!
+    var highScores: [[String: Any]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let shared = HighScoreManager.shared.saveUserHighScore(score: 100)
-        print("Spelare \(shared.name) fick \(shared.score)")
+        
+        highScores = HighScoreManager.shared.getHighScores()
+        highscoreTableView.delegate = self
+        highscoreTableView.dataSource = self
+        highscoreTableView.reloadData()
+        }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return highScores.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = highscoreTableView.dequeueReusableCell(withIdentifier: "namePoints", for: indexPath)
+        let entry = highScores[indexPath.row]
+        let playerName = entry["name"] as? String ?? "Jane Doe"
+        let score = entry["score"] as? Int ?? 0
+        cell.textLabel?.text = "\(playerName): \(score)"
+        return cell
     }
 }
