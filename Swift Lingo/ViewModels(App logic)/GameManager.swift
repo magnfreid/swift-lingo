@@ -12,31 +12,41 @@ enum ResultStatus {
 }
 
 protocol GameManagerDelegate: AnyObject {
-    /** Reports the remaining time after each timer tick.
-     - Parameter timeLeft: The number of seconds left in the current turn. */
+
+    ///Triggers every second while the game timer is running.
+    ///- Parameter timeLeft: The number of seconds left in the current turn. */
     func onTimerTick(timeLeft: Int)
 
-    /** Signals the start of a new turn with a fresh word pair.
-    - Parameter newWord: A tuple with the English question and Swedish control word. */
+    ///Triggers whenever a new turn starts and provides a new randomized game word.
+    ///- `question`: The word the player should translate.
+    ///- `control: The correct translation of the word.
     func onNewTurnStarted(newWord: (question: String, control: String))
 
-    /** Notifies when a turn ends, providing the result and remaining turn count.
-    - Parameter result: The outcome of the turn (correct, wrong, or too slow).
-    - Parameter turnsRemaining: The number of turns left in the game. */
+    ///Triggers when a round is resolved, providing the result and remaining turn count.
+    ///- Parameter result: The outcome of the turn (correct, wrong, or too slow).
+    ///- Parameter turnsRemaining: The number of turns left in game session.
     func onTurnResolved(result: ResultStatus, turnsRemaining: Int)
 }
 
+/// Singleton for managing the game session, including turns and timers.
+///
+/// ## How to Use
+/// - Access via `GameManager.shared`.
+/// - **startTurn()**: Starts a new turn, initiating the timer and generating a new word via the delegate.
+/// - **answerQuestion(answer: String)**: Submits an answer during an active turn. The result is calculated and provided through the delegate.
+/// - **resetGame()**: Resets the game session to its initial state.
+/// - **setTurnTimer(seconds: Int)**: Sets the turn duration in seconds. Resets the game when called.
+/// - **setTurnAmount(turns: Int)**: Sets the total number of turns for the session. Resets the game when called.
 final class GameManager {
 
     static let shared = GameManager()
+    
 
     weak var delegate: GameManagerDelegate?
 
     private var timer: Timer?
 
-    ///Setting for how many seconds each turn lasts.
     private(set) var turnTimerSetting = 10
-    ///Setting for how many rounds a game setting has.
     private(set) var turnAmountSetting = 10
 
     private var turnsRemaining: Int
@@ -93,13 +103,13 @@ final class GameManager {
         }
     }
 
-    func setRoundTime(time: Int) {
-        turnTimerSetting = time
+    func setTurnTime(seconds: Int) {
+        turnTimerSetting = seconds
         resetGame()
     }
 
-    func setRounds(roundAmount: Int) {
-        turnAmountSetting = roundAmount
+    func setTurnAmount(turns: Int) {
+        turnAmountSetting = turns
         resetGame()
     }
 
@@ -109,12 +119,13 @@ final class GameManager {
             isRunning = false
             turnsRemaining = max(0, turnsRemaining - 1)
         }
-        
+
         delegate?.onTurnResolved(
             result: result,
             turnsRemaining: turnsRemaining)
     }
 
+    //TODO: Add this to documentation.
     func loadWords(words: [(swedish: String, english: String)]) {
         allWords = words.map { (question: $0.swedish, control: $0.english) }
         gameWords = allWords

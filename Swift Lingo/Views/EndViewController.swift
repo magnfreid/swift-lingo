@@ -8,22 +8,23 @@
 import UIKit
 
 class EndViewController: UIViewController {
-
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    var score = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        scoreLabel.text = String(score)
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func playAgainButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "endToSettingsSegue", sender: nil)
     }
-    */
+    
+    @IBAction func toStartButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "unwindToStartScreen", sender: nil)
+    }
 
 }

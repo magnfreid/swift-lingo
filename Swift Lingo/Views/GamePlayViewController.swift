@@ -15,8 +15,10 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var textFieldAnswer: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var wrongLabel: UILabel!
-    
+
     let gameManager = GameManager.shared
+
+    let endScreenSegueId = "toEndScreenSegue"
 
     var score = 0
 
@@ -25,7 +27,11 @@ class GamePlayViewController: UIViewController {
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textFieldAnswer.becomeFirstResponder()
     }
 
     @IBAction func submitButtonTapped(_ sender: UIButton) {
@@ -40,15 +46,24 @@ class GamePlayViewController: UIViewController {
 
     private func setupUI() {
 
-        //TODO: finslipa på designen.
+        //TODO: finslipa på designen. 2.0
 
         wordLabel.textAlignment = .center
         wordLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
 
         textFieldAnswer.delegate = self
+        textFieldAnswer.placeholder = "Guess the word"
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."
+
+        textFieldAnswer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textFieldAnswer.widthAnchor.constraint(equalToConstant: 300),
+            textFieldAnswer.heightAnchor.constraint(equalToConstant: 50),
+
+        ])
+
     }
 
 }
@@ -57,13 +72,9 @@ class GamePlayViewController: UIViewController {
 extension GamePlayViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        submitButtonTapped(submitButton)
         return false
     }
-
-    //TODO: Tving fram tangentbordet vid denna VC, vad ska vi göra? trycka på knappen? retur på tangentbordet?, vi tar fram tangentbordet.
-
-    //TODO: klicka på retur för att mata in ordet, inte ta ned tangentbordet.
-
 }
 
 // MARK: - GameManagerDelegate
@@ -77,75 +88,50 @@ extension GamePlayViewController: GameManagerDelegate {
         turnsRemaining: Int
     ) {
         let gameOver = turnsRemaining <= 0
-        
+
         if result == .correct {
             score += 1
             scoreLabel.text = "Score: \(score)"
         }
-        
+
         if gameOver {
-            let message = (result == .correct) ? "Your guess was right! Game is over..." : "Wrong answer! Game is over..."
-            showAlert(title: "Game over!", message: message , buttonText: "End", action: {
-                //TODO: Show end screen here
-            })
+            let message =
+                (result == .correct)
+                ? "Your guess was right! Game is over..."
+                : "Wrong answer! Game is over..."
+            showAlert(
+                title: "Game over!", message: message, buttonText: "End",
+                action: {
+                    //TODO: Lägg till att vi sparar name och highscore
+                    HighScoreManager.shared.saveUserHighScore(score: self.score)
+                    self.navigateToEndScreen()
+                })
             return
         }
-        
+
         if result == .wrong {
             animateWrongLabelShake()
             textFieldAnswer.text = ""
             return
-        }
-        else {
-            let message = (result == .correct) ? "Your guess was right and you earned a point!": "Too slow!"
-            showAlert(title: "Turn complete", message: message, buttonText: "Next", action: {
-                self.textFieldAnswer.text = ""
-                self.gameManager.startTurn()
-            })
+        } else {
+            let message =
+                (result == .correct)
+                ? "Your guess was right and you earned a point!" : "Too slow!"
+            showAlert(
+                title: "Turn complete", message: message, buttonText: "Next",
+                action: {
+                    self.textFieldAnswer.text = ""
+                    self.gameManager.startTurn()
+                })
         }
     }
 
     func onTimerTick(timeLeft: Int) {
         timerLabel.text = String(format: "Time left: %02d", timeLeft)
     }
-
-    //    func onAnsweredTooLate() {
-    //        //TODO: bugg -> ingen paus om man skrivit fel eller om tiden rinner ut. infinite loop
-    //        let alert = UIAlertController(
-    //            title: "Too slow", message: "Ah you didnt make it...",
-    //            preferredStyle: .alert)
-    //        alert.addAction(
-    //            UIAlertAction(
-    //                title: "Next", style: .default,
-    //                handler: { _ in
-    //                    self.gameManager.startTurn()
-    //                }))
-    //
-    //        present(alert, animated: true)
-    //    }
-    //
-    //    func onGameOver() {
-    //        HighScoreManager.shared.saveUserHighScore(score: score)
-    //
-    //        let alert = UIAlertController(
-    //            title: "🎉 Game Over",
-    //            message: "You got \(score) points",
-    //            preferredStyle: .alert
-    //        )
-    //
-    //        alert.addAction(
-    //            UIAlertAction(
-    //                title: "Back", style: .default,
-    //                handler: { _ in
-    //                    self.navigationController?.popToRootViewController(
-    //                        animated: true)
-    //                }))
-    //        present(alert, animated: true)
-    //
-    //    }
-
 }
 
+//MARK: Animations & Alerts
 extension GamePlayViewController {
 
     private func animateNewWords(word: String) {
@@ -159,7 +145,7 @@ extension GamePlayViewController {
         }
 
     }
-    
+
     private func animateWrongLabelShake() {
         wrongLabel.isHidden = false
         let shake = CAKeyframeAnimation(keyPath: "transform.translation.x")
@@ -194,4 +180,18 @@ extension GamePlayViewController {
 
 }
 
-//TODO: poängen uppdateras inte när man gissar rätt
+//MARK: Segue control
+extension GamePlayViewController {
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == endScreenSegueId {
+            if let endVC = segue.destination as? EndViewController {
+                endVC.score = score
+            }
+        }
+    }
+
+    private func navigateToEndScreen() {
+        self.performSegue(withIdentifier: endScreenSegueId, sender: nil)
+    }
+}
