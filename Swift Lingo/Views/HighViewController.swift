@@ -15,3 +15,14 @@ class HighViewController: UIViewController {
         print("Spelare \(shared.name) fick \(shared.score)")
     }
 }
+
+
+
+
+
+
+//TODO: Gör om som i settings, inbädda denna i en nav controller, custom knapp etc etc, ändra namn på klassen, gör den till final
+
+
+
+//📱 2. Visa badges med TableView

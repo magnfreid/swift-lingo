@@ -56,6 +56,11 @@ final class GameManager {
     private var allWords = [(question: String, control: String)]()
     private var gameWords = [(question: String, control: String)]()
     private var currentWord: (question: String, control: String) = ("", "")
+    
+    //MARK: - Variables for badges
+    private var correctInARow = 0
+    private var currentDifficulty: String { UserDefaultsManager.shared.getDifficulty()}
+    private var currentPlayer: String { UserDefaultsManager.shared.getPlayerName()}
 
     private init() {
         timeRemaining = turnTimerSetting
@@ -267,4 +272,18 @@ extension GameManager {
         return extremeWords
     }
 
+}
+
+//MARK: - Badges logic
+
+extension GameManager {
+    
+    func check() {
+        
+        
+    }
+    
+    
+    
+    
 }

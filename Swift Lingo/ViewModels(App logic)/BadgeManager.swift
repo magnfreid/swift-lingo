@@ -23,7 +23,7 @@ enum Badges: String, Codable, CaseIterable {
     case perfectTime = "⏱️ Always answered under 4s"
     
     case firstTime = "🍼 Ah your first time"
-    case nightMode = "🌝 Ahh you think darkness is your ally? (game in darkmode)"
+    case nightMode = "🦇 Ahh you think darkness is your ally? (game in darkmode)"
     
     case fullStreak = "🏆 100% correct answers in one game"
     
