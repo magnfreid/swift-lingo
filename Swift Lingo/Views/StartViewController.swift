@@ -31,9 +31,14 @@ final class StartViewController: UIViewController {
             return
         }
         
+        UserDefaultsManager.shared.savePlayerName(is: name)
+        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         //TODO: Flytta för att du kan fortfarande navigera dig vidare trots alerten
     
-        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        //TODO: if sats istället?
+        
+        
+        
         
     }
     
@@ -41,7 +46,6 @@ final class StartViewController: UIViewController {
             if let endVC = segue.source as? EndViewController {
             }
         }
-    
 
     
     
@@ -153,7 +157,7 @@ extension StartViewController {
        
             NSLayoutConstraint.activate([
                 button!.widthAnchor.constraint(equalToConstant: 200),
-                button!.heightAnchor.constraint(equalToConstant: 50)
+                button!.heightAnchor.constraint(equalToConstant: 40)
             ])
             
             
