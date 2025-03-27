@@ -25,21 +25,14 @@ final class StartViewController: UIViewController {
 
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
-        guard let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+        if let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty {
+            UserDefaultsManager.shared.savePlayerName(is: name)
+            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        } else {
             shake(nameTextField)
             showAlert(title: "You're to fast!", message: "You need to enter a name to play")
-            return
         }
-        
-        UserDefaultsManager.shared.savePlayerName(is: name)
-        performSegue(withIdentifier: "navigateToGamePlay", sender: self)
-        //TODO: Flytta för att du kan fortfarande navigera dig vidare trots alerten
-    
-        //TODO: if sats istället?
-        
-        
-        
-        
+
     }
     
     @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {
