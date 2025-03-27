@@ -24,6 +24,13 @@ final class HighScoreManager {
     func saveUserData(score: Int, playerName: String) {
         
         var currentScores = getHighScores()
+        
+        if currentScores.contains(where: {($0["name"] as? String) == playerName && ($0["score"] as? Int) == score }) {
+            print("A duplicate exists")
+            return
+        }
+        
+        
         let newEntry: [String: Any] = [
             "score": score,
             "name": playerName,
