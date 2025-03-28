@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="78" translatesAutoresizingMaskIntoConstraints="NO" id="lCF-B1-gAF">
-                                <rect key="frame" x="76.000000000000014" y="286.33333333333326" width="241.33333333333337" height="485.66666666666674"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="lCF-B1-gAF">
+                                <rect key="frame" x="76.000000000000014" y="314" width="241.33333333333337" height="458"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0PB-C6-LiX">
                                         <rect key="frame" x="70" y="0.0" width="101.33333333333331" height="34"/>
@@ -25,7 +25,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qD5-MA-QDr">
-                                        <rect key="frame" x="60.666666666666657" y="112" width="120" height="34"/>
+                                        <rect key="frame" x="60.666666666666657" y="84" width="120" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="jbL-Ft-dC3"/>
                                         </constraints>
@@ -37,11 +37,10 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MF0-hY-7Vl"/>
-                                            <segue destination="HS0-rL-2Th" kind="show" identifier="navigateToGamePlay" id="Wpc-BW-JnI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udd-fu-87H">
-                                        <rect key="frame" x="60.666666666666657" y="224" width="120" height="35.666666666666686"/>
+                                        <rect key="frame" x="60.666666666666657" y="168" width="120" height="35.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="oC0-Mz-F4x"/>
                                         </constraints>
@@ -55,8 +54,17 @@
                                             <segue destination="BPp-HV-ixv" kind="show" id="m99-UP-aiK"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDK-00-xpb">
+                                        <rect key="frame" x="44.333333333333329" y="253.66666666666666" width="152.33333333333337" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="🏆 Trophy Room"/>
+                                        <connections>
+                                            <action selector="navigateToTrophies:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bxd-OG-ioh"/>
+                                            <segue destination="6Ad-cY-3mN" kind="show" identifier="room" id="fWp-zZ-cqY"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-c2-s3c" userLabel="Settings">
-                                        <rect key="frame" x="60.666666666666657" y="337.66666666666669" width="120" height="35.666666666666686"/>
+                                        <rect key="frame" x="60.666666666666657" y="338" width="120" height="35.666666666666686"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="Iaa-8S-JoN"/>
                                         </constraints>
@@ -71,7 +79,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Mlf-Ib-kKP">
-                                        <rect key="frame" x="0.0" y="451.33333333333331" width="241.33333333333334" height="34.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="423.66666666666663" width="241.33333333333334" height="34.333333333333314"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3J-Aq-fxu">
                                                 <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="34.333333333333336"/>
@@ -94,7 +102,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="5SV-Ka-Nec">
-                                <rect key="frame" x="50" y="50.000000000000014" width="293" height="206.33333333333337"/>
+                                <rect key="frame" x="50" y="50" width="293" height="234"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -113,11 +121,12 @@
                         <outlet property="nameTextField" destination="0PB-C6-LiX" id="XAL-i8-OJL"/>
                         <outlet property="playButton" destination="qD5-MA-QDr" id="rsN-Sn-WGC"/>
                         <outlet property="settingsButton" destination="a0C-c2-s3c" id="nW3-gQ-OfE"/>
+                        <segue destination="HS0-rL-2Th" kind="show" identifier="navigateToGamePlay" id="eEm-Xd-fjH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="449.61832061068702" y="-35.211267605633807"/>
+            <point key="canvasLocation" x="563" y="-46"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cgo-pA-vRf">
@@ -238,6 +247,66 @@
             </objects>
             <point key="canvasLocation" x="130.53435114503816" y="774.64788732394368"/>
         </scene>
+        <!--Trophy Room View Controller-->
+        <scene sceneID="iUl-n8-zpw">
+            <objects>
+                <viewController id="6Ad-cY-3mN" customClass="TrophyRoomViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rId-Ey-ter">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1DA-A2-YXS">
+                                <rect key="frame" x="0.0" y="50" width="398" height="710"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="trophyCell" id="cdE-Ju-AtU">
+                                        <rect key="frame" x="0.0" y="50" width="398" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cdE-Ju-AtU" id="ZRo-JM-zB4">
+                                            <rect key="frame" x="0.0" y="0.0" width="398" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lol-nR-NN6">
+                                <rect key="frame" x="159" y="776" width="75" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <action selector="backButton:" destination="6Ad-cY-3mN" eventType="touchUpInside" id="AkV-zm-257"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 Trophys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL7-ka-dss">
+                                <rect key="frame" x="176" y="11.999999999999998" width="41" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0sy-JG-EAv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Lol-nR-NN6" firstAttribute="top" secondItem="1DA-A2-YXS" secondAttribute="bottom" constant="16" id="62P-9b-gwd"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="Lol-nR-NN6" secondAttribute="centerX" id="JMn-R8-YZL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1DA-A2-YXS" secondAttribute="trailing" constant="-21" id="Ooh-Wp-310"/>
+                            <constraint firstItem="0sy-JG-EAv" firstAttribute="bottom" secondItem="Lol-nR-NN6" secondAttribute="bottom" constant="31.666666666666629" id="WN5-0d-w7T"/>
+                            <constraint firstItem="1DA-A2-YXS" firstAttribute="leading" secondItem="0sy-JG-EAv" secondAttribute="leading" id="Xp1-YL-Fbq"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="rId-Ey-ter" secondAttribute="centerX" id="ZAe-Gw-sHV"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="leading" secondItem="0sy-JG-EAv" secondAttribute="leading" constant="176" id="ate-iB-0PY"/>
+                            <constraint firstItem="1DA-A2-YXS" firstAttribute="top" secondItem="zL7-ka-dss" secondAttribute="bottom" constant="17.666666666666671" id="dnk-WP-rY2"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="top" secondItem="0sy-JG-EAv" secondAttribute="top" constant="12" id="yBJ-nS-rLp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="zd1-kD-fLG"/>
+                    <connections>
+                        <outlet property="tableView" destination="1DA-A2-YXS" id="lq6-In-T6Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AAy-I3-m4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1271" y="-728"/>
+        </scene>
         <!--Difficulty View Controller-->
         <scene sceneID="XFp-ed-K2o">
             <objects>
@@ -311,7 +380,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laS-K5-1r7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1892.3664122137404" y="-35.211267605633807"/>
+            <point key="canvasLocation" x="2031" y="-35"/>
         </scene>
         <!--Game Play View Controller-->
         <scene sceneID="CD3-2t-8s0">
@@ -447,12 +516,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPG-xx-YHD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="gc7-qb-yxa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4282" y="-35"/>
+            <point key="canvasLocation" x="3917" y="-787"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="YWi-0j-WaU"/>
-        <segue reference="Wpc-BW-JnI"/>
+        <segue reference="eEm-Xd-fjH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="logo.png" width="434" height="136"/>
