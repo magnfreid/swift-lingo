@@ -27,23 +27,17 @@ class GamePlayViewController: UIViewController {
         setupUI()
         gameManager.delegate = self
         gameManager.startTurn()
+        ThemeManager.shared.setTheme(view: self.view)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textFieldAnswer.becomeFirstResponder()
     }
-    
-    @IBAction func submitButtonTapped(_ sender: UIButton) {
-        print("Tapped")
-        guard let guessed = textFieldAnswer.text,
-              !guessed.trimmingCharacters(in: .whitespaces).isEmpty
-        else {
-            return
-        }
-        gameManager.answerQuestion(answer: guessed)
-    }
-    
+
+
+
     private func setupUI() {
         
         //TODO: finslipa på designen. 2.0
@@ -72,7 +66,13 @@ class GamePlayViewController: UIViewController {
 extension GamePlayViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        submitButtonTapped(submitButton)
+        print("Tapped")
+        guard let guessed = textFieldAnswer.text,
+            !guessed.trimmingCharacters(in: .whitespaces).isEmpty
+        else {
+            return false
+        }
+        gameManager.answerQuestion(answer: guessed)
         return false
     }
 }

@@ -8,22 +8,26 @@
 import UIKit
 
 final class StartViewController: UIViewController {
-    
-    @IBOutlet weak var gameTitle: UILabel!
+
+    // @IBOutlet weak var gameTitle: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var highscoreButton: UIButton!
-    
+
     @IBOutlet weak var settingsButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         addTapGestureToDismissKeyboard()
+        ThemeManager.shared.setTheme(view: self.view)
+
         nameTextField.text = UserDefaultsManager.shared.getPlayerName()
         
     }
-    
+    }
+        ThemeManager.shared.setTheme(view: self.view)
+     override func viewDidAppear(_ animated: Bool) {
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
         guard let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
@@ -35,30 +39,24 @@ final class StartViewController: UIViewController {
         let savedName = UserDefaultsManager.shared.getPlayerName()
         let hasBadgesData = BadgeManager.shared.hasBadgeData(for: name)
         
+            return
         if name == savedName && hasBadgesData {
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
-            return
+    }
         }
-            UserDefaultsManager.shared.savePlayerName(is: name)
-        
-        if hasBadgesData {
-            showAlert(title: "Welcome Back!", message: "nice to see you")
+            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         } else {
             nameTextField.text = ""
-            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+            showAlert(title: "Welcome Back!", message: "nice to see you")
+        if hasBadgesData {
+            UserDefaultsManager.shared.savePlayerName(is: name)
         }
+        
     }
-    
-
-    
-    
-
-    
-    
+        }
     @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {
         if let endVC = segue.source as? EndViewController {
-        }
-    }
+    
     
     
     
@@ -72,20 +70,22 @@ final class StartViewController: UIViewController {
     
     
     @IBAction func showUserDefaults(_ sender: UIButton) {
-        
+
         let name = UserDefaultsManager.shared.getPlayerName()
         let difficulty = UserDefaultsManager.shared.getDifficulty()
         let highScores = HighScoreManager.shared.getHighScores()
-        
-        let formatedToText = highScores.map {"\($0["name"] ?? ""): \($0["score"] ?? "")"}.joined(separator: "\n")
-        
+            "\($0["name"] ?? ""): \($0["score"] ?? "")"
+        }.joined(separator: "\n")
+
+
         let messageToShow = """
-        👴🏻 Name: \(name)
-        🎮 Diffuculty: \(difficulty)
-        🏆 Highscore: \(highScores.isEmpty ? "No scores saved" : formatedToText)
-        """
-        
-        let alert = UIAlertController(title: "Saved data", message: messageToShow, preferredStyle: .alert)
+            👴🏻 Name: \(name)
+            🎮 Diffuculty: \(difficulty)
+            🏆 Highscore: \(highScores.isEmpty ? "No scores saved" : formatedToText)
+            """
+
+        let alert = UIAlertController(
+            title: "Saved data", message: messageToShow, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
         
@@ -116,22 +116,21 @@ final class StartViewController: UIViewController {
 
 // MARK: - UI Setup
 extension StartViewController {
-    
+
     private func setupUI() {
-        
-        view.backgroundColor = .systemBackground
-        
+
+        //      view.backgroundColor = .systemBackground
+
         nameTextField.delegate = self
-        
-        gameTitle.font = UIFont.systemFont(ofSize: 36, weight: .bold)
-        gameTitle.textColor = .label
-        gameTitle.textAlignment = .center
-        gameTitle.numberOfLines = 0
-        
-        
+
+        //        gameTitle.font = UIFont.systemFont(ofSize: 36, weight: .bold)
+        //        gameTitle.textColor = .label
+        //        gameTitle.textAlignment = .center
+        //        gameTitle.numberOfLines = 0
+
         nameTextField.borderStyle = .roundedRect
-        nameTextField.backgroundColor = .secondarySystemBackground
-        nameTextField.textColor = .label
+        //    nameTextField.backgroundColor = .secondarySystemBackground
+        // nameTextField.textColor = .label
         nameTextField.autocorrectionType = .no
         nameTextField.autocapitalizationType = .words
         nameTextField.clearButtonMode = .whileEditing
@@ -141,41 +140,40 @@ extension StartViewController {
         nameTextField.layer.borderWidth = 0.5
         nameTextField.layer.borderColor = UIColor.separator.cgColor
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             nameTextField.widthAnchor.constraint(equalToConstant: 300),
-            nameTextField.heightAnchor.constraint(equalToConstant: 35)
+            nameTextField.heightAnchor.constraint(equalToConstant: 35),
         ])
-        
-        
-        let buttons = [playButton, highscoreButton, settingsButton]
-        
-        for button in buttons {
-            
-            button?.backgroundColor = .systemBlue
-            button?.setTitleColor(.white, for: .normal)
-            button?.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-            button?.layer.cornerRadius = 10
-            button?.layer.shadowColor = UIColor.label.cgColor
-            button?.layer.shadowOpacity = 0.15
-            button?.layer.shadowOffset = CGSize(width: 0, height: 3)
-            button?.layer.shadowRadius = 4
-            button?.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                button!.widthAnchor.constraint(equalToConstant: 200),
-                button!.heightAnchor.constraint(equalToConstant: 40)
-            ])
-            
-            
-        }
-        
-        gameTitle.text = "Swift Lingo 🌏"
+
+        //        let buttons = [playButton, highscoreButton, settingsButton]
+        //
+        //        for button in buttons {
+        //
+        //            button?.backgroundColor = .systemBlue
+        //            button?.setTitleColor(.white, for: .normal)
+        //            button?.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        //            button?.layer.cornerRadius = 10
+        //            button?.layer.shadowColor = UIColor.label.cgColor
+        //            button?.layer.shadowOpacity = 0.15
+        //            button?.layer.shadowOffset = CGSize(width: 0, height: 3)
+        //            button?.layer.shadowRadius = 4
+        //            button?.translatesAutoresizingMaskIntoConstraints = false
+        //
+        //            NSLayoutConstraint.activate([
+        //                button!.widthAnchor.constraint(equalToConstant: 200),
+        //                button!.heightAnchor.constraint(equalToConstant: 40)
+        //            ])
+        //
+        //
+        //        }
+
+        // gameTitle.text = "Swift Lingo 🌏"
         nameTextField.placeholder = "Enter your name"
-        playButton.setTitle("Play", for: .normal)
-        highscoreButton.setTitle("HighScore", for: .normal)
-        settingsButton.setTitle("Settings ⚙️", for: .normal)
-        
+        //        playButton.setTitle("Play", for: .normal)
+        //        highscoreButton.setTitle("HighScore", for: .normal)
+        //        settingsButton.setTitle("Settings ⚙️", for: .normal)
+
     }
     
     private func showAlert(title: String, message: String, actionTitle: String = "OK", action: (() -> Void)? = nil) {
@@ -184,7 +182,7 @@ extension StartViewController {
             action?()
         }))
         present(alert, animated: true)
-        
+
     }
     private func shake(_ view: UIView) {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
@@ -199,20 +197,21 @@ extension StartViewController {
 
 // MARK: - UITextFieldDelegate
 extension StartViewController: UITextFieldDelegate {
-    
+
     private func addTapGestureToDismissKeyboard() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        let tapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+
 }
 
