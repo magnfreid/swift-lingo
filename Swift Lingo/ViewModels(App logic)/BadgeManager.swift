@@ -23,7 +23,7 @@ enum Badges: String, Codable, CaseIterable {
     case perfectTime = "⏱️ Always answered under 4s"
     
     case firstTime = "🍼 Aww your first time"
-    case nightMode = "🦇 Ahh you think darkness is your ally? (game in darkmode)"
+    case nightMode = "🦇 You merely adopted the dark"
     
     case fullStreak = "🏆 100% correct answers in extreme mode in one game"
     
@@ -35,7 +35,9 @@ enum Badges: String, Codable, CaseIterable {
     case hulkSmash = "🎮 You pressed something... to many times"
     case fastAndFurious = "🏎️ F1 wants to meet you" // 10 Correct answers under 2s each
     
-//    Lägg till hemliga
+    case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
+    
+//    Lägg till påskägg
     
 }
 
@@ -87,3 +89,6 @@ final class BadgeManager {
     
     
 }
+
+
+//skrivit in ett namn == en användare, skriva in ett annat namn == en annan, som olika användare:

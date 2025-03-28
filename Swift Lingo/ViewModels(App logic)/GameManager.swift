@@ -105,7 +105,7 @@ final class GameManager {
             
             if isCorrect {
                 correctInARow += 1
-                checkForStreak()
+//                checkForStreak()
             } else {
                 correctInARow = 0
             }
@@ -174,7 +174,7 @@ extension GameManager {
         ]
     }
 
-    // MARK - EASY MODE
+    //MARK: - EASY MODE
     func fetchWordsEasy() -> [(swedish: String, english: String)] {
         return [
             (swedish: "Apple", english: "Äpple"),
@@ -190,7 +190,7 @@ extension GameManager {
         ]
     }
 
-    // 7 sekunder
+    //MARK: - MEDIUM MODE
     func fetchWordsMedium() -> [(swedish: String, english: String)] {
         let mediumWords: [(swedish: String, english: String)] = [
 
@@ -219,7 +219,7 @@ extension GameManager {
         return mediumWords
     }
 
-    // 10 sekunder
+    //MARK: - HARD MODE
     func fetchWordsHard() -> [(swedish: String, english: String)] {
 
         let hardWords: [(swedish: String, english: String)] = [
@@ -248,7 +248,7 @@ extension GameManager {
         return hardWords
     }
 
-    //16 sekunder ⚠️
+    //MARK: - EXTREME MODE⚠️
     func fetchWordsExtreme() -> [(swedish: String, english: String)] {
         let extremeWords = [
 
@@ -280,43 +280,63 @@ extension GameManager {
 
 }
 
-//MARK: - Badges logic
+//MARK: - CENTRALIZED BADGE LOGIC
 
 extension GameManager {
     
-    func checkForStreak() {
-        guard correctInARow == 20 else { return }
-        
-        switch currentDifficulty.lowercased() {
-            
-        case "easy":
-            BadgeManager.shared.addBadge(badge: .easyStreak, for: currentPlayer)
-            
-        case "medium":
-            BadgeManager.shared.addBadge(badge: .mediumStreak, for: currentPlayer)
-            
-        case "hard":
-            BadgeManager.shared.addBadge(badge: .hardStreak, for: currentPlayer)
-            
-        case "extreme":
-            BadgeManager.shared.addBadge(badge: .extremeStreak, for: currentPlayer)
-            
-        default:
-            break
-            
-        }
-        
-    }
-//    "🍼 Aww your first time"
-    func checkFirstTimeBadge(totalGamesPlayed : Int) -> Bool {
-        
-        if totalGamesPlayed == 1 {
-            BadgeManager.shared.addBadge(badge: .firstTime, for: currentPlayer)
-            return true
-        }
-        return false
-    }
     
-//    "🤷‍♂️ Did you even try?"
-//    func
+//centralisering för spel logic
+    func checkForBadgesAfterGame(score: Int, totalTurns: Int) -> [Badges] {
+        
+        let player = currentPlayer
+        let totalGames = HighScoreManager.shared.getGamesPlayed(for: player)
+        var unlockedBadges: [Badges] = []
+        let hasDarkMode = UserDefaultsManager.shared.loadDarkMode()
+        
+        //"🍼 First time playing (Aww your first time")
+        if totalGames == 1 && !BadgeManager.shared.hasBadge(badges: .firstTime, for: player) {
+            BadgeManager.shared.addBadge(badge: .firstTime, for: player)
+            unlockedBadges.append(.firstTime)
+        }
+        
+        //"🔑 Scores"
+        if score >= 30 && !BadgeManager.shared.hasBadge(badges: .score30, for: player) {
+            BadgeManager.shared.addBadge(badge: .score30, for: player)
+            unlockedBadges.append(.score30)
+        }
+        if score >= 50 && !BadgeManager.shared.hasBadge(badges: .score50, for: player) {
+            BadgeManager.shared.addBadge(badge: .score50, for: player)
+            unlockedBadges.append(.score50)
+        }
+        if score >= 75 && !BadgeManager.shared.hasBadge(badges: .score75, for: player) {
+            BadgeManager.shared.addBadge(badge: .score75, for: player)
+            unlockedBadges.append(.score75)
+        }
+        if score >= 100 && !BadgeManager.shared.hasBadge(badges: .score100, for: player) {
+            BadgeManager.shared.addBadge(badge: .score100, for: player)
+            unlockedBadges.append(.score100)
+        }
+        
+        //"🤷‍♂️ Get 0 points ("Did you even try?")
+        if score == 0 && !BadgeManager.shared.hasBadge(badges: .typoNoob, for: player) {
+            BadgeManager.shared.addBadge(badge: .typoNoob, for: player)
+            unlockedBadges.append(.typoNoob)
+        }
+        
+        //🥲 Get one wrong question in what mode? (ONE wrong, Just one)
+        if score == totalTurns - 1 && !BadgeManager.shared.hasBadge(badges: .almostThere, for: player) {
+            BadgeManager.shared.addBadge(badge: .almostThere, for: player)
+            unlockedBadges.append(.almostThere)
+        }
+        
+        //🦇 Play in dark mode ("You merely adopted the dark")
+        if hasDarkMode && !BadgeManager.shared.hasBadge(badges: .nightMode, for: player) {
+            BadgeManager.shared.addBadge(badge: .nightMode, for: player)
+            unlockedBadges.append(.nightMode)
+        }
+        
+        return unlockedBadges
+        
+    }
 }
+
