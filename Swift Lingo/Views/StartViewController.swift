@@ -33,15 +33,15 @@ final class StartViewController: UIViewController {
         }
         
         let savedName = UserDefaultsManager.shared.getPlayerName()
-        let badgesData = UserDefaults.standard.data(forKey: "badges_\(name)")
+        let hasBadgesData = BadgeManager.shared.hasBadgeData(for: name)
         
-        if name == savedName && badgesData != nil {
+        if name == savedName && hasBadgesData {
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
             return
         }
             UserDefaultsManager.shared.savePlayerName(is: name)
         
-        if badgesData != nil {
+        if hasBadgesData {
             showAlert(title: "Welcome Back!", message: "nice to see you")
         } else {
             nameTextField.text = ""
@@ -100,10 +100,7 @@ final class StartViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             
-            if let allData = Bundle.main.bundleIdentifier {
-                UserDefaults.standard.removePersistentDomain(forName: allData)
-                UserDefaults.standard.synchronize()
-            }
+            UserDefaultsManager.shared.deleteAllData()
             
             let confirmDeletion = UIAlertController(title: "Deleted", message: "All data deleted", preferredStyle: .alert)
             confirmDeletion.addAction(UIAlertAction(title: "OK", style: .default))

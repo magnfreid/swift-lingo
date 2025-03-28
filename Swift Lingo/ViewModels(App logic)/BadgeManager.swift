@@ -77,6 +77,11 @@ final class BadgeManager {
         return decoded ?? []
     }
     
+    func hasBadgeData(for player: String) -> Bool {
+        let key = "badges_\(player)"
+        return UserDefaults.standard.data(forKey: key) != nil
+    }
+    
     func hasBadge(badges: Badges, for player: String) -> Bool {
         return getBadges(for: player).contains(badges)
     }
@@ -87,8 +92,9 @@ final class BadgeManager {
         UserDefaults.standard.removeObject(forKey: key)
     }
     
+    func badgeKey(for player: String) -> String {
+        return "badges"
+    }
     
 }
 
-
-//skrivit in ett namn == en användare, skriva in ett annat namn == en annan, som olika användare:

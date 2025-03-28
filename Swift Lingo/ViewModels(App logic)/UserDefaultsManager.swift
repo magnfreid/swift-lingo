@@ -43,5 +43,12 @@ final class UserDefaultsManager {
         return UserDefaults.standard.bool(forKey: darkModeKey)
     }
     
+    func deleteAllData() {
+        
+        guard let allData = Bundle.main.bundleIdentifier else { return }
+            UserDefaults.standard.removePersistentDomain(forName: allData)
+            UserDefaults.standard.synchronize()
+    }
+    
 
 }
