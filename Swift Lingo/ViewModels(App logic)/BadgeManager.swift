@@ -23,7 +23,7 @@ enum Badges: String, Codable, CaseIterable {
     case perfectTime = "⏱️ Always answered under 4s"
     
     case firstTime = "🍼 Aww your first time"
-    case nightMode = "🦇 Ahh you think darkness is your ally? (game in darkmode)"
+    case nightMode = "🦇 You merely adopted the dark"
     
     case fullStreak = "🏆 100% correct answers in extreme mode in one game"
     
@@ -35,7 +35,9 @@ enum Badges: String, Codable, CaseIterable {
     case hulkSmash = "🎮 You pressed something... to many times"
     case fastAndFurious = "🏎️ F1 wants to meet you" // 10 Correct answers under 2s each
     
-//    Lägg till hemliga
+    case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
+    
+//    Lägg till påskägg
     
 }
 
@@ -75,6 +77,11 @@ final class BadgeManager {
         return decoded ?? []
     }
     
+    func hasBadgeData(for player: String) -> Bool {
+        let key = "badges_\(player)"
+        return UserDefaults.standard.data(forKey: key) != nil
+    }
+    
     func hasBadge(badges: Badges, for player: String) -> Bool {
         return getBadges(for: player).contains(badges)
     }
@@ -85,5 +92,9 @@ final class BadgeManager {
         UserDefaults.standard.removeObject(forKey: key)
     }
     
+    func badgeKey(for player: String) -> String {
+        return "badges"
+    }
     
 }
+
