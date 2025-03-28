@@ -101,8 +101,14 @@ final class GameManager {
 
     func answerQuestion(answer: String) {
         if isRunning {
-            let isCorrect =
-                answer.lowercased() == currentWord.control.lowercased()
+            let isCorrect = answer.lowercased() == currentWord.control.lowercased()
+            
+            if isCorrect {
+                correctInARow += 1
+                checkForStreak()
+            } else {
+                correctInARow = 0
+            }
             resolveTurn(
                 result: isCorrect ? .correct : .wrong)
         }
@@ -278,12 +284,39 @@ extension GameManager {
 
 extension GameManager {
     
-    func check() {
+    func checkForStreak() {
+        guard correctInARow == 20 else { return }
         
+        switch currentDifficulty.lowercased() {
+            
+        case "easy":
+            BadgeManager.shared.addBadge(badge: .easyStreak, for: currentPlayer)
+            
+        case "medium":
+            BadgeManager.shared.addBadge(badge: .mediumStreak, for: currentPlayer)
+            
+        case "hard":
+            BadgeManager.shared.addBadge(badge: .hardStreak, for: currentPlayer)
+            
+        case "extreme":
+            BadgeManager.shared.addBadge(badge: .extremeStreak, for: currentPlayer)
+            
+        default:
+            break
+            
+        }
         
     }
+//    "🍼 Aww your first time"
+    func checkFirstTimeBadge(totalGamesPlayed : Int) -> Bool {
+        
+        if totalGamesPlayed == 1 {
+            BadgeManager.shared.addBadge(badge: .firstTime, for: currentPlayer)
+            return true
+        }
+        return false
+    }
     
-    
-    
-    
+//    "🤷‍♂️ Did you even try?"
+//    func
 }

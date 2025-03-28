@@ -30,15 +30,14 @@ final class StartViewController: UIViewController {
     }
 
     @IBAction func playButtonTapped(_ sender: UIButton) {
-
-        guard let name = nameTextField.text,
-            !name.trimmingCharacters(in: .whitespaces).isEmpty
-        else {
+        
+        if let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty {
+            UserDefaultsManager.shared.savePlayerName(is: name)
+            nameTextField.text = ""
+            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        } else {
             shake(nameTextField)
-            showAlert(
-                title: "You're to fast!",
-                message: "You need to enter a name to play")
-            return
+            showAlert(title: "You're to fast!", message: "You need to enter a name to play")
         }
 
         UserDefaultsManager.shared.savePlayerName(is: name)
@@ -49,10 +48,19 @@ final class StartViewController: UIViewController {
 
     }
 
-    @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {
-
+    @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {}
+    
+    
+    
+    @IBAction func trophyRoomTapped(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "room", sender: self)
     }
+    
+    
 
+    
+    
     @IBAction func showUserDefaults(_ sender: UIButton) {
 
         let name = UserDefaultsManager.shared.getPlayerName()
