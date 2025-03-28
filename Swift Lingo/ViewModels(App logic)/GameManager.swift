@@ -12,16 +12,16 @@ enum ResultStatus {
 }
 
 protocol GameManagerDelegate: AnyObject {
-
+    
     ///Triggers every second while the game timer is running.
     ///- Parameter timeLeft: The number of seconds left in the current turn. */
     func onTimerTick(timeLeft: Int)
-
+    
     ///Triggers whenever a new turn starts and provides a new randomized game word.
     ///- `question`: The word the player should translate.
     ///- `control: The correct translation of the word.
     func onNewTurnStarted(newWord: (question: String, control: String))
-
+    
     ///Triggers when a round is resolved, providing the result and remaining turn count.
     ///- Parameter result: The outcome of the turn (correct, wrong, or too slow).
     ///- Parameter turnsRemaining: The number of turns left in game session.
@@ -38,21 +38,21 @@ protocol GameManagerDelegate: AnyObject {
 /// - **setTurnTimer(seconds: Int)**: Sets the turn duration in seconds. Resets the game when called.
 /// - **setTurnAmount(turns: Int)**: Sets the total number of turns for the session. Resets the game when called.
 final class GameManager {
-
+    
     static let shared = GameManager()
     
-
+    
     weak var delegate: GameManagerDelegate?
-
+    
     private var timer: Timer?
-
+    
     private(set) var turnTimerSetting = 10
     private(set) var turnAmountSetting = 10
-
+    
     private var turnsRemaining: Int
     private var timeRemaining: Int
     private var isRunning = false
-
+    
     private var allWords = [(question: String, control: String)]()
     private var gameWords = [(question: String, control: String)]()
     private var currentWord: (question: String, control: String) = ("", "")
@@ -61,7 +61,7 @@ final class GameManager {
     private var correctInARow = 0
     private var currentDifficulty: String { UserDefaultsManager.shared.getDifficulty()}
     private var currentPlayer: String { UserDefaultsManager.shared.getPlayerName()}
-
+    
     private init() {
         timeRemaining = turnTimerSetting
         turnsRemaining = turnAmountSetting
@@ -70,7 +70,7 @@ final class GameManager {
         }
         gameWords = allWords
     }
-
+    
     func startTurn() {
         guard !gameWords.isEmpty else { return }
         let randomIndex = Int.random(in: 0..<gameWords.count)
@@ -80,7 +80,7 @@ final class GameManager {
         startTimer()
         delegate?.onTimerTick(timeLeft: timeRemaining)
     }
-
+    
     private func startTimer() {
         if turnsRemaining > 0 && !isRunning {
             isRunning = true
@@ -98,14 +98,13 @@ final class GameManager {
             )
         }
     }
-
+    
     func answerQuestion(answer: String) {
         if isRunning {
             let isCorrect = answer.lowercased() == currentWord.control.lowercased()
             
             if isCorrect {
                 correctInARow += 1
-//                checkForStreak()
             } else {
                 correctInARow = 0
             }
@@ -113,52 +112,52 @@ final class GameManager {
                 result: isCorrect ? .correct : .wrong)
         }
     }
-
+    
     func setTurnTime(seconds: Int) {
         turnTimerSetting = seconds
         resetGame()
     }
-
+    
     func setTurnAmount(turns: Int) {
         turnAmountSetting = turns
         resetGame()
     }
-
+    
     private func resolveTurn(result: ResultStatus) {
         if result != .wrong {
             stopAndResetTimer()
             isRunning = false
             turnsRemaining = max(0, turnsRemaining - 1)
         }
-
+        
         delegate?.onTurnResolved(
             result: result,
             turnsRemaining: turnsRemaining)
     }
-
+    
     //TODO: Add this to documentation.
     func loadWords(words: [(swedish: String, english: String)]) {
         allWords = words.map { (question: $0.swedish, control: $0.english) }
         gameWords = allWords
     }
-
+    
     func resetGame() {
         stopAndResetTimer()
         timeRemaining = turnTimerSetting
         turnsRemaining = turnAmountSetting
         gameWords = allWords
     }
-
+    
     private func stopAndResetTimer() {
         timer?.invalidate()
         timer = nil
         timeRemaining = turnTimerSetting
     }
-
+    
 }
 
 extension GameManager {
-
+    
     func fetchWordsData() -> [(question: String, control: String)] {
         return [
             (question: "Apple", control: "Äpple"),
@@ -173,7 +172,7 @@ extension GameManager {
             (question: "Friend", control: "Vän"),
         ]
     }
-
+    
     //MARK: - EASY MODE
     func fetchWordsEasy() -> [(swedish: String, english: String)] {
         return [
@@ -189,11 +188,11 @@ extension GameManager {
             (swedish: "Friend", english: "Vän"),
         ]
     }
-
+    
     //MARK: - MEDIUM MODE
     func fetchWordsMedium() -> [(swedish: String, english: String)] {
         let mediumWords: [(swedish: String, english: String)] = [
-
+            
             ("fågelskrämma", "scarecrow"),
             ("räknesnurra", "calculator"),
             ("jordgubbe", "strawberry"),
@@ -215,13 +214,13 @@ extension GameManager {
             ("telefonnummer", "phone number"),
             ("bänkpress", "bench press"),
         ]
-
+        
         return mediumWords
     }
-
+    
     //MARK: - HARD MODE
     func fetchWordsHard() -> [(swedish: String, english: String)] {
-
+        
         let hardWords: [(swedish: String, english: String)] = [
             ("samhällsbyggnad", "urban planning"),
             ("världsarv", "world heritage"),
@@ -244,14 +243,14 @@ extension GameManager {
             ("högskolebehörighet", "university eligibility"),
             ("organisationspsykologi", "organizational psychology"),
         ]
-
+        
         return hardWords
     }
-
+    
     //MARK: - EXTREME MODE⚠️
     func fetchWordsExtreme() -> [(swedish: String, english: String)] {
         let extremeWords = [
-
+            
             ("verksamhetsutveckling", "business development"),
             ("självständighetsförklaring", "declaration of independence"),
             ("industrirobotautomation", "industrial robot automation"),
@@ -272,12 +271,12 @@ extension GameManager {
             ("obligatorisk vaccinationsplan", "mandatory vaccination plan"),
             ("avfallshanteringsstrategi", "waste management strategy"),
             ("integritetslagstiftning", "data protection legislation"),
-
+            
         ]
-
+        
         return extremeWords
     }
-
+    
 }
 
 //MARK: - CENTRALIZED BADGE LOGIC
@@ -285,16 +284,16 @@ extension GameManager {
 extension GameManager {
     
     
-//centralisering för spel logic
+    //centralisering för spel logic
     func checkForBadgesAfterGame(score: Int, totalTurns: Int) -> [Badges] {
         
         let player = currentPlayer
-        let totalGames = HighScoreManager.shared.getGamesPlayed(for: player)
         var unlockedBadges: [Badges] = []
         let hasDarkMode = UserDefaultsManager.shared.loadDarkMode()
         
         //"🍼 First time playing (Aww your first time")
-        if totalGames == 1 && !BadgeManager.shared.hasBadge(badges: .firstTime, for: player) {
+        print("Player badges before firstTime check: \(BadgeManager.shared.getBadges(for: player))")
+        if !BadgeManager.shared.hasBadge(badges: .firstTime, for: player) {
             BadgeManager.shared.addBadge(badge: .firstTime, for: player)
             unlockedBadges.append(.firstTime)
         }

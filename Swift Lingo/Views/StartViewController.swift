@@ -20,26 +20,45 @@ final class StartViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         addTapGestureToDismissKeyboard()
+        nameTextField.text = UserDefaultsManager.shared.getPlayerName()
         
-    }
-
-    @IBAction func playButtonTapped(_ sender: UIButton) {
-        
-        if let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty {
-            UserDefaultsManager.shared.savePlayerName(is: name)
-            nameTextField.text = ""
-            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
-        } else {
-            shake(nameTextField)
-            showAlert(title: "You're to fast!", message: "You need to enter a name to play")
-        }
-
     }
     
-    @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {
-            if let endVC = segue.source as? EndViewController {
-            }
+    @IBAction func playButtonTapped(_ sender: UIButton) {
+        
+        guard let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+            shake(nameTextField)
+            showAlert(title: "You're to fast!", message: "You need to enter a name to play")
+            return
         }
+        
+        let savedName = UserDefaultsManager.shared.getPlayerName()
+        let badgesData = UserDefaults.standard.data(forKey: "badges_\(name)")
+        
+        if name == savedName && badgesData != nil {
+            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+            return
+        }
+            UserDefaultsManager.shared.savePlayerName(is: name)
+        
+        if badgesData != nil {
+            showAlert(title: "Welcome Back!", message: "nice to see you")
+        } else {
+            nameTextField.text = ""
+            performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+        }
+    }
+    
+
+    
+    
+
+    
+    
+    @IBAction func unwindToStartScreen(_ segue: UIStoryboardSegue) {
+        if let endVC = segue.source as? EndViewController {
+        }
+    }
     
     
     
@@ -49,7 +68,7 @@ final class StartViewController: UIViewController {
     }
     
     
-
+    
     
     
     @IBAction func showUserDefaults(_ sender: UIButton) {
@@ -81,10 +100,10 @@ final class StartViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             
-            let allDefaults = UserDefaults.standard
-            allDefaults.removeObject(forKey: "playerName")
-            allDefaults.removeObject(forKey: "difficulty")
-            allDefaults.removeObject(forKey: "highscores")
+            if let allData = Bundle.main.bundleIdentifier {
+                UserDefaults.standard.removePersistentDomain(forName: allData)
+                UserDefaults.standard.synchronize()
+            }
             
             let confirmDeletion = UIAlertController(title: "Deleted", message: "All data deleted", preferredStyle: .alert)
             confirmDeletion.addAction(UIAlertAction(title: "OK", style: .default))
@@ -95,18 +114,6 @@ final class StartViewController: UIViewController {
         
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     
 }
 
@@ -123,7 +130,7 @@ extension StartViewController {
         gameTitle.textColor = .label
         gameTitle.textAlignment = .center
         gameTitle.numberOfLines = 0
-      
+        
         
         nameTextField.borderStyle = .roundedRect
         nameTextField.backgroundColor = .secondarySystemBackground
@@ -157,7 +164,7 @@ extension StartViewController {
             button?.layer.shadowOffset = CGSize(width: 0, height: 3)
             button?.layer.shadowRadius = 4
             button?.translatesAutoresizingMaskIntoConstraints = false
-       
+            
             NSLayoutConstraint.activate([
                 button!.widthAnchor.constraint(equalToConstant: 200),
                 button!.heightAnchor.constraint(equalToConstant: 40)
@@ -174,9 +181,11 @@ extension StartViewController {
         
     }
     
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String, actionTitle: String = "OK", action: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { _ in
+            action?()
+        }))
         present(alert, animated: true)
         
     }
@@ -187,8 +196,8 @@ extension StartViewController {
         animation.values = [-8, 8, -6, 6, -4, 4, 0]
         view.layer.add(animation, forKey: "shake")
     }
- 
-
+    
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -210,6 +219,3 @@ extension StartViewController: UITextFieldDelegate {
     
 }
 
-
-
-//TODO: idéer och förbättringar

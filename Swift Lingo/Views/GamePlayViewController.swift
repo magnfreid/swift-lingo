@@ -95,32 +95,18 @@ extension GamePlayViewController: GameManagerDelegate {
         }
         
         if gameOver {
-            let message =
-            (result == .correct)
-            ? "Your guess was right! Game is over..."
-            : "Wrong answer! Game is over..."
-            showAlert(
-                title: "Game over!", message: message, buttonText: "End",
-                action: {
-                    let player = UserDefaultsManager.shared.getPlayerName()
-                    HighScoreManager.shared.saveUserHighScore(score: self.score)
-                    
-                    
-                    let totalGamesPlayed = HighScoreManager.shared.getGamesPlayed(for: player)
-                    let unlockedFirstTime = GameManager.shared.checkFirstTimeBadge(totalGamesPlayed: totalGamesPlayed)
-                    
-                    if unlockedFirstTime {
-                        self.showUnlockedBadgeAlert(badge: .firstTime) {
-                            self.navigateToEndScreen()
-                        }
-                       
-                    } else {
-                        
-                        self.navigateToEndScreen()
-                    }
-                    
-                    
-                })
+            showAlert(title: "Game Over", message: "Your score: \(score)", buttonText: "See results") {
+                let unlockedBadges = self.gameManager.checkForBadgesAfterGame(
+                    score: self.score,
+                    totalTurns: self.gameManager.turnAmountSetting
+                )
+                print("Unlocked badges: \(unlockedBadges)")
+                if !unlockedBadges.isEmpty {
+                    self.showBadgesInOrder(badges: unlockedBadges)
+                } else {
+                    self.navigateToEndScreen()
+                }
+            }
             return
         }
         
@@ -140,6 +126,18 @@ extension GamePlayViewController: GameManagerDelegate {
                 })
         }
     }
+    
+    func showBadgesInOrder(badges: [Badges], index: Int = 0) {
+        if index >= badges.count {
+            self.navigateToEndScreen()
+            return
+        }
+        
+        self.showUnlockedBadgeAlert(badge: badges[index]) {
+            self.showBadgesInOrder(badges: badges, index: index + 1)
+        }
+    }
+    
     
     func onTimerTick(timeLeft: Int) {
         timerLabel.text = String(format: "Time left: %02d", timeLeft)

@@ -15,7 +15,7 @@ class EndViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scoreLabel.text = String(score)
-        HighScoreManager.shared.saveUserHighScore(score: score)
+        
     }
     
 
