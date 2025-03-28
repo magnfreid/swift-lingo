@@ -23,11 +23,15 @@ final class StartViewController: UIViewController {
         ThemeManager.shared.setTheme(view: self.view)
 
         nameTextField.text = UserDefaultsManager.shared.getPlayerName()
+    }
+    
+        
+    override func viewDidAppear(_ animated: Bool) {
+        
+        
+        
         
     }
-    }
-        ThemeManager.shared.setTheme(view: self.view)
-     override func viewDidAppear(_ animated: Bool) {
     @IBAction func playButtonTapped(_ sender: UIButton) {
         
         guard let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
