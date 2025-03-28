@@ -22,6 +22,11 @@ final class StartViewController: UIViewController {
         addTapGestureToDismissKeyboard()
         ThemeManager.shared.setTheme(view: self.view)
 
+
+    }
+    
+     override func viewDidAppear(_ animated: Bool) {
+        ThemeManager.shared.setTheme(view: self.view)
     }
 
     @IBAction func playButtonTapped(_ sender: UIButton) {
