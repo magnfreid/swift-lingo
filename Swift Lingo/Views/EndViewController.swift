@@ -16,6 +16,8 @@ class EndViewController: UIViewController {
         super.viewDidLoad()
         scoreLabel.text = String(score)
         HighScoreManager.shared.saveUserHighScore(score: score)
+        ThemeManager.shared.setTheme(view: self.view)
+
     }
     
 
