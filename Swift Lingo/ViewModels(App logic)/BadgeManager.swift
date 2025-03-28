@@ -22,10 +22,20 @@ enum Badges: String, Codable, CaseIterable {
     // fler svårighetsnivår? extreme ==
     case perfectTime = "⏱️ Always answered under 4s"
     
-    case firstTime = "🍼 Ah your first time"
+    case firstTime = "🍼 Aww your first time"
     case nightMode = "🦇 Ahh you think darkness is your ally? (game in darkmode)"
     
-    case fullStreak = "🏆 100% correct answers in one game"
+    case fullStreak = "🏆 100% correct answers in extreme mode in one game"
+    
+    case typoNoob = "🤷‍♂️ Did you even try?"
+    case almostThere = "🥲 ONE wrong, Just one"
+    case pepsiLover = "🥤 Maxed out your energy?"
+    case noMercy = "🥊 0 mistakes in hard mode"
+    case allDifficulties = "🎲 Beat all difficulties once"
+    case hulkSmash = "🎮 You pressed something... to many times"
+    case fastAndFurious = "🏎️ F1 wants to meet you" // 10 Correct answers under 2s each
+    
+//    Lägg till hemliga
     
 }
 
@@ -52,7 +62,7 @@ final class BadgeManager {
     //MARK: - UserDefaults
     private func saveBadges(badges: [Badges], for player: String) {
         
-        let key = "badges_ \(player)"
+        let key = "badges_\(player)"
         let data = try? JSONEncoder().encode(badges)
         UserDefaults.standard.set(data, forKey: key)
         
@@ -74,7 +84,6 @@ final class BadgeManager {
         let key = "badges_\(player)"
         UserDefaults.standard.removeObject(forKey: key)
     }
-    
     
     
 }
