@@ -40,7 +40,6 @@ final class StartViewController: UIViewController {
             showAlert(title: "You're to fast!", message: "You need to enter a name to play")
         }
 
-        UserDefaultsManager.shared.savePlayerName(is: name)
         performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         //TODO: Flytta för att du kan fortfarande navigera dig vidare trots alerten
 
