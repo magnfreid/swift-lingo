@@ -59,6 +59,18 @@ extension TrophyRoomViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let badge = allBadges[indexPath.row]
+        let isUnlocked = unlockedBadges.contains(badge)
+        
+        guard !isUnlocked else { return }
+        
+        let hint = showHintForBadges(badge: badge)
+        let alert = UIAlertController(title: "🔓 Locked Badge", message: hint, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it!", style: .default))
+        present(alert, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
     
@@ -66,7 +78,12 @@ extension TrophyRoomViewController: UITableViewDelegate {
     
     
     
-    
+    /*
+     
+   
+     
+     
+     */
     
     
     
