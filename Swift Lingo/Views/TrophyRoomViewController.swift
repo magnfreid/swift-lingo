@@ -15,10 +15,11 @@ final class TrophyRoomViewController: UIViewController {
     private var unlockedBadges: [Badges] = []
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
     }
@@ -52,9 +53,76 @@ extension TrophyRoomViewController: UITableViewDataSource {
         return cell
     }
     
+}
+
+extension TrophyRoomViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    private func showHintForBadges(badge: Badges) -> String {
+        
+        switch badge {
+            
+        case .nightMode:
+            return "Activate dark mode and finish a full game 🦇"
+        case .firstTime:
+            return "Complete your first game 🍼"
+        case .score30:
+            return "Score at least 30 points in total 🔑"
+        case .score50:
+            return "Score at least 50 points in total 🎯"
+        case .score75:
+            return "Score at least 75 points in total 👑"
+        case .score100:
+            return "Score at least 100 points in total 💎"
+        case .easyStreak:
+            return "Get 20 correct in a row on Easy 🐸"
+        case .mediumStreak:
+            return "Get 20 correct in a row on Medium 🔥"
+        case .hardStreak:
+            return "Get 20 correct in a row on Hard 💥"
+        case .extremeStreak:
+            return "Get 20 correct in a row on Extreme 👽"
+        case .perfectTime:
+            return "Answer every question under 4 seconds ⏰"
+        case .fullStreak:
+            return "Answer all questions correctly in one game on Extreme 🏆"
+        case .typoNoob:
+            return "Score 0 points in one game 🤦🏼‍♀️"
+        case .almostThere:
+            return "Get all but one question right in one game 🥲"
+        case .pepsiLover:
+            return "Play with a Pepsi Max drink 🥤"
+        case .noMercy:
+            return "0 mistakes in hard mode 🥊"
+        case .allDifficulties:
+            return "Beat a game on all difficulties 🎲"
+        case .hulkSmash:
+            return "You pressed too many buttons... 🎮"
+        case .fastAndFurious:
+            return "Get 10 answers under 2 seconds each 🏎️"
+        case .sheep:
+            return "Answer right before the timer hits 0... 🐑"
+        case .bug:
+            return "Ah, the joys of coding... 🐞"
+        }
+        
+        
+        
+    }
     
 }
