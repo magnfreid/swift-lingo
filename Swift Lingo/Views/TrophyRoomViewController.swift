@@ -72,24 +72,7 @@ extension TrophyRoomViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
-    
-    
-    
-    
-    
-    
-    /*
-     
-   
-     
-     
-     */
-    
-    
-    
-    
-    
-    
+
     private func showHintForBadges(badge: Badges) -> String {
         
         switch badge {
@@ -136,6 +119,8 @@ extension TrophyRoomViewController: UITableViewDelegate {
             return "Answer right before the timer hits 0... 🐑"
         case .bug:
             return "Ah, the joys of coding... 🐞"
+        case .youShallNotPass:
+            return "Only given to the developers during development 🧙🏻‍♂️"
         }
         
         

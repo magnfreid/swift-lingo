@@ -37,6 +37,7 @@ enum Badges: String, Codable, CaseIterable {
     
     case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
     case bug = "🪲 Bug hunter" // typ klickade 2 gånger på en liten ruta som inte syns (en rolig grej)
+    case youShallNotPass = "🧙‍♂️ You shall not pass"
     
 //    Lägg till påskägg
     

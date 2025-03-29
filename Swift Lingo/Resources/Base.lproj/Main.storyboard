@@ -60,7 +60,7 @@
                                         <buttonConfiguration key="configuration" style="filled" title="🏆 Trophy Room"/>
                                         <connections>
                                             <action selector="navigateToTrophies:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bxd-OG-ioh"/>
-                                            <segue destination="6Ad-cY-3mN" kind="show" identifier="room" id="fWp-zZ-cqY"/>
+                                            <segue destination="6Ad-cY-3mN" kind="presentation" identifier="room" modalPresentationStyle="fullScreen" id="fWp-zZ-cqY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-c2-s3c" userLabel="Settings">
@@ -252,11 +252,11 @@
             <objects>
                 <viewController id="6Ad-cY-3mN" customClass="TrophyRoomViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rId-Ey-ter">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1DA-A2-YXS">
-                                <rect key="frame" x="0.0" y="50" width="398" height="710"/>
+                                <rect key="frame" x="0.0" y="124" width="398" height="646"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="trophyCell" id="cdE-Ju-AtU">
@@ -270,16 +270,16 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lol-nR-NN6">
-                                <rect key="frame" x="159" y="776" width="75" height="34.333333333333371"/>
+                                <rect key="frame" x="159" y="786" width="75" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Button"/>
                                 <connections>
                                     <action selector="backButton:" destination="6Ad-cY-3mN" eventType="touchUpInside" id="AkV-zm-257"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 Trophys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL7-ka-dss">
-                                <rect key="frame" x="176" y="11.999999999999998" width="41" height="20.333333333333329"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 Trophys" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL7-ka-dss">
+                                <rect key="frame" x="152.33333333333334" y="88" width="88.333333333333343" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -287,15 +287,14 @@
                         <viewLayoutGuide key="safeArea" id="0sy-JG-EAv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Lol-nR-NN6" firstAttribute="top" secondItem="1DA-A2-YXS" secondAttribute="bottom" constant="16" id="62P-9b-gwd"/>
-                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="Lol-nR-NN6" secondAttribute="centerX" id="JMn-R8-YZL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1DA-A2-YXS" secondAttribute="trailing" constant="-21" id="Ooh-Wp-310"/>
-                            <constraint firstItem="0sy-JG-EAv" firstAttribute="bottom" secondItem="Lol-nR-NN6" secondAttribute="bottom" constant="31.666666666666629" id="WN5-0d-w7T"/>
-                            <constraint firstItem="1DA-A2-YXS" firstAttribute="leading" secondItem="0sy-JG-EAv" secondAttribute="leading" id="Xp1-YL-Fbq"/>
-                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="rId-Ey-ter" secondAttribute="centerX" id="ZAe-Gw-sHV"/>
-                            <constraint firstItem="zL7-ka-dss" firstAttribute="leading" secondItem="0sy-JG-EAv" secondAttribute="leading" constant="176" id="ate-iB-0PY"/>
-                            <constraint firstItem="1DA-A2-YXS" firstAttribute="top" secondItem="zL7-ka-dss" secondAttribute="bottom" constant="17.666666666666671" id="dnk-WP-rY2"/>
-                            <constraint firstItem="zL7-ka-dss" firstAttribute="top" secondItem="0sy-JG-EAv" secondAttribute="top" constant="12" id="yBJ-nS-rLp"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="rId-Ey-ter" secondAttribute="centerX" id="19T-tQ-MR2"/>
+                            <constraint firstItem="Lol-nR-NN6" firstAttribute="top" secondItem="1DA-A2-YXS" secondAttribute="bottom" constant="16" id="4eu-bR-XZ6"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="top" secondItem="0sy-JG-EAv" secondAttribute="top" constant="88" id="4qF-KZ-tdl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1DA-A2-YXS" secondAttribute="trailing" constant="-21" id="7cv-5A-BqY"/>
+                            <constraint firstItem="1DA-A2-YXS" firstAttribute="leading" secondItem="0sy-JG-EAv" secondAttribute="leading" id="EB6-as-upz"/>
+                            <constraint firstItem="zL7-ka-dss" firstAttribute="centerX" secondItem="Lol-nR-NN6" secondAttribute="centerX" id="XFa-cw-TJT"/>
+                            <constraint firstItem="1DA-A2-YXS" firstAttribute="top" secondItem="zL7-ka-dss" secondAttribute="bottom" constant="15.666666666666657" id="eBV-YM-vaZ"/>
+                            <constraint firstItem="0sy-JG-EAv" firstAttribute="bottom" secondItem="Lol-nR-NN6" secondAttribute="bottom" constant="31.666666666666629" id="jQd-TG-jli"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zd1-kD-fLG"/>
@@ -305,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAy-I3-m4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1271" y="-728"/>
+            <point key="canvasLocation" x="1614.5038167938931" y="-763.38028169014092"/>
         </scene>
         <!--Difficulty View Controller-->
         <scene sceneID="XFp-ed-K2o">
