@@ -40,6 +40,27 @@ final class StartViewController: UIViewController {
         let savedName = UserDefaultsManager.shared.getPlayerName()
         let hasBadgesData = BadgeManager.shared.hasBadgeData(for: name)
         
+        let dogNames = ["Woof", "Hund", "dog"]
+        if dogNames.contains(name.lowercased()) && !BadgeManager.shared.hasBadge(badges: .woof, for: name) {
+            
+            UserDefaultsManager.shared.savePlayerName(is: name)
+            BadgeManager.shared.addBadge(badge: .woof, for: name)
+            
+            let alert = UIAlertController(
+                     title: "🐾 Woof Woof!",
+                     message: "🦮 You're barking up the right tree.\nYou've unlocked a hidden badge!",
+                     preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Woof!", style: .default, handler: { _ in
+                    self.performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+                }))
+                
+                present(alert, animated: true)
+                return
+        }
+            
+            
+        
         if name == savedName && hasBadgesData {
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
             return

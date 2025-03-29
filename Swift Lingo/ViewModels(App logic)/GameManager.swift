@@ -282,14 +282,13 @@ extension GameManager {
 //MARK: - CENTRALIZED BADGE LOGIC
 
 extension GameManager {
-    
-    
-    //centralisering för spel logic
+
     func checkForBadgesAfterGame(score: Int, totalTurns: Int) -> [Badges] {
         
         let player = currentPlayer
         var unlockedBadges: [Badges] = []
         let hasDarkMode = UserDefaultsManager.shared.loadDarkMode()
+        
         
         //"🍼 First time playing (Aww your first time")
         print("Player badges before firstTime check: \(BadgeManager.shared.getBadges(for: player))")
@@ -333,6 +332,57 @@ extension GameManager {
             BadgeManager.shared.addBadge(badge: .nightMode, for: player)
             unlockedBadges.append(.nightMode)
         }
+        
+        //🔢 User has a name that can be written in reversed and still reads the same ("Anna")
+        let name = player.lowercased()
+        if name == String(name.reversed()) && !BadgeManager.shared.hasBadge(badges: .palindrome, for: name) {
+            BadgeManager.shared.addBadge(badge: .palindrome, for: player)
+            unlockedBadges.append(.palindrome)
+        }
+        
+        //🎮 20 in a row (in game modes)
+        if correctInARow >= 20 {
+            
+            switch currentDifficulty.lowercased() {
+                
+            case "easy":
+                if !BadgeManager.shared.hasBadge(badges: .easyStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .easyStreak, for: player)
+                    unlockedBadges.append(.easyStreak)
+                }
+            case "medium":
+                if !BadgeManager.shared.hasBadge(badges: .mediumStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .mediumStreak, for: player)
+                    unlockedBadges.append(.mediumStreak)
+                }
+            case "hard":
+                if !BadgeManager.shared.hasBadge(badges: .hardStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .hardStreak, for: player)
+                    unlockedBadges.append(.hardStreak)
+                }
+            case "extreme":
+                if !BadgeManager.shared.hasBadge(badges: .extremeStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .extremeStreak, for: player)
+                    unlockedBadges.append(.extremeStreak)
+                }
+            default:
+                break
+            }
+            
+        }
+        
+        //🏆 100% Correct in extreme
+        if currentDifficulty.lowercased() == "extreme" && score == totalTurns && !BadgeManager.shared.hasBadge(badges: .fullStreak, for: player) {
+            BadgeManager.shared.addBadge(badge: .fullStreak, for: player)
+            unlockedBadges.append(.fullStreak)
+        }
+        
+        // 🥊 No mercy - 0 mistakes in hard mode
+        if currentDifficulty.lowercased() == "hard" && score == totalTurns && !BadgeManager.shared.hasBadge(badges: .noMercy, for: player) {
+            BadgeManager.shared.addBadge(badge: .noMercy, for: player)
+            unlockedBadges.append(.noMercy)
+        }
+        
         
         return unlockedBadges
         

@@ -9,37 +9,43 @@ import Foundation
 
 enum Badges: String, Codable, CaseIterable {
     
+    //STREAK
     case easyStreak = "🧩 Easy 20 streak"
     case mediumStreak = "🔥 Medium 20 streak"
     case hardStreak = "💥 Hard 20 streak"
     case extremeStreak = "👽 Extreme 20 streak"
+    case fullStreak = "🏆 100% correct in one Extreme game"
     
+    //SCORE
     case score30 = "🔑 30 points total"
     case score50 = "🎯 50 points total"
     case score75 = "👑 75 points total"
     case score100 = "💎 100 points total"
     
-    // fler svårighetsnivår? extreme ==
+    // PERFORMANCE
     case perfectTime = "⏱️ Always answered under 4s"
-    
-    case firstTime = "🍼 Aww your first time"
-    case nightMode = "🦇 You merely adopted the dark"
-    
-    case fullStreak = "🏆 100% correct answers in extreme mode in one game"
-    
+    case noMercy = "🥊 0 mistakes in hard mode"
     case typoNoob = "🤷‍♂️ Did you even try?"
     case almostThere = "🥲 ONE wrong, Just one"
-    case pepsiLover = "🥤 Maxed out your energy?"
-    case noMercy = "🥊 0 mistakes in hard mode"
-    case allDifficulties = "🎲 Beat all difficulties once"
-    case hulkSmash = "🎮 You pressed something... to many times"
     case fastAndFurious = "🏎️ F1 wants to meet you" // 10 Correct answers under 2s each
     
-    case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
-    case bug = "🪲 Bug hunter" // typ klickade 2 gånger på en liten ruta som inte syns (en rolig grej)
-    case youShallNotPass = "🧙‍♂️ You shall not pass"
+    //MODES
+    case firstTime = "🍼 Aww your first time"
+    case nightMode = "🦇 You merely adopted the dark"
+    case allDifficulties = "🎲 Beat all difficulties once"
+  
     
-//    Lägg till påskägg
+    //EASTER EGGS
+    case pepsiLover = "🥤 Maxed out your energy?"
+    case hulkSmash = "🎮 You pressed something... to many times"
+    case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
+    case palindrome = "🔢 Ah yes the perfect reflection"
+    case bug = "🪲 Bug hunter" // typ klickade 2 gånger på en liten ruta som inte syns (en rolig grej)
+    case woof = "🦮 Woof Woof"
+    
+    //DEV
+    case youShallNotPass = "🧙‍♂️ You shall not pass" // Only developers get this badge
+    
     
 }
 

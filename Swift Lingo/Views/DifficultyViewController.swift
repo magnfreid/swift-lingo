@@ -41,7 +41,7 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "medium")
         GameManager.shared.setTurnTime(seconds: 8)
-        GameManager.shared.setTurnAmount(turns: 10)
+        GameManager.shared.setTurnAmount(turns: 2)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsMedium())
         navigateToGame()
     }

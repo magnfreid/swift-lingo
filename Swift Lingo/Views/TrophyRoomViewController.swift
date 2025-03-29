@@ -23,17 +23,10 @@ final class TrophyRoomViewController: UIViewController {
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
     }
-    
-    
-    
+
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
     
 }
 
@@ -62,10 +55,10 @@ extension TrophyRoomViewController: UITableViewDelegate {
         let badge = allBadges[indexPath.row]
         let isUnlocked = unlockedBadges.contains(badge)
         
-        guard !isUnlocked else { return }
+        let title = isUnlocked ? "🎖️ Unlocked Badge" : "🔓 Locked Badge"
+        let message = isUnlocked ? "You've earned this badge! \n\(badge.rawValue)" : showHintForBadges(badge: badge)
         
-        let hint = showHintForBadges(badge: badge)
-        let alert = UIAlertController(title: "🔓 Locked Badge", message: hint, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Got it!", style: .default))
         present(alert, animated: true)
         
@@ -121,6 +114,10 @@ extension TrophyRoomViewController: UITableViewDelegate {
             return "Ah, the joys of coding... 🐞"
         case .youShallNotPass:
             return "Only given to the developers during development 🧙🏻‍♂️"
+        case .palindrome:
+            return "Balance to the Force, your name brings 🔢"
+        case .woof:
+            return "Your name is what? 🐶"
         }
         
         
