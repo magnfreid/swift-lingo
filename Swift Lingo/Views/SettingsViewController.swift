@@ -7,14 +7,12 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-   
-    
-    
+class SettingsViewController: UIViewController, UIPickerViewDataSource,
+    UIPickerViewDelegate
+{
+
     @IBOutlet weak var picker: UIPickerView!
-    
-  
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //        setDarkMode()
@@ -23,90 +21,103 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
         customButtonSetup()
         ThemeManager.shared.setTheme(view: self.view)
     }
-    
+
     let themes = ThemeColors.allCases
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+    func pickerView(
+        _ pickerView: UIPickerView, numberOfRowsInComponent component: Int
+    ) -> Int {
         return themes.count
     }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(describing: ThemeColors.allCases[row]).capitalized
+
+//    func pickerView(
+//        _ pickerView: UIPickerView, titleForRow row: Int,
+//        forComponent component: Int
+//    ) -> String? {
+//        return String(describing: ThemeColors.allCases[row]).capitalized
+//    }
+
+    func pickerView(
+        _ pickerView: UIPickerView, attributedTitleForRow row: Int,
+        forComponent component: Int
+    ) -> NSAttributedString? {
+        return NSAttributedString(
+            string: String(describing: ThemeColors.allCases[row]).capitalized,
+            attributes: [
+                .foregroundColor: ThemeManager.shared.currentTheme?.textColor
+                    ?? .black
+            ])
     }
-    
-    
+
     @IBAction func saveButtonAction(_ sender: UIButton) {
         let themeColor = themes[picker.selectedRow(inComponent: 0)]
         ThemeManager.shared.setTheme(themeColor: themeColor)
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
+
     private func customButtonSetup() {
-        
+
         let navBackButton = UIButton(type: .system)
         navBackButton.setTitle("Back", for: .normal)
-        navBackButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        navBackButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        navBackButton.setImage(
+            UIImage(systemName: "chevron.backward"), for: .normal)
+        navBackButton.titleLabel?.font = UIFont.systemFont(
+            ofSize: 16, weight: .regular)
         navBackButton.sizeToFit()
-        navBackButton.addTarget(self, action: #selector(dismissNav), for: .touchUpInside)
-        
+        navBackButton.addTarget(
+            self, action: #selector(dismissNav), for: .touchUpInside)
+
         let buttonItem = UIBarButtonItem(customView: navBackButton)
         navigationItem.leftBarButtonItem = buttonItem
-        
+
     }
-    
+
     @objc private func dismissNav() {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-   // @IBAction func darkModeSwitched(_ sender: UISwitch) {
-        //        let selectedDark = sender.isOn
-        //        UserDefaultsManager.shared.saveDarkMode(isOn: selectedDark)
-        //
-        //        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-        //           let window = windowScene.windows.first {
-        //           window.overrideUserInterfaceStyle = selectedDark ? .dark : .light
-        //
-        //        }
-        //
-        //        self.overrideUserInterfaceStyle = selectedDark ? .dark : .light
-        //        self.view.backgroundColor = .systemBackground
-        //        self.darkModeLabel.textColor = .label
-        //
-        //    }
-        //
-        //    private func setDarkMode() {
-        //
-        //        let isDark = UserDefaultsManager.shared.loadDarkMode()
-        //        darkModeSwitch.isOn = isDark
-        //        overrideUserInterfaceStyle = isDark ? .dark : .light
-        //
-        //    }
-        //
-        //
-        
-        
-        //    extension SettingsViewController {
-        //
-        //        //    private func setupUI() {
-        //        //        view.backgroundColor = .systemBackground
-        //        //        darkModeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        //        //        darkModeLabel.textColor = .label
-        //        //        darkModeSwitch.onTintColor = .systemBlue
-        //        //
-        //        //    }
-        //
-        //
-        //    }
-        
-        
-   // }
+
+    // @IBAction func darkModeSwitched(_ sender: UISwitch) {
+    //        let selectedDark = sender.isOn
+    //        UserDefaultsManager.shared.saveDarkMode(isOn: selectedDark)
+    //
+    //        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+    //           let window = windowScene.windows.first {
+    //           window.overrideUserInterfaceStyle = selectedDark ? .dark : .light
+    //
+    //        }
+    //
+    //        self.overrideUserInterfaceStyle = selectedDark ? .dark : .light
+    //        self.view.backgroundColor = .systemBackground
+    //        self.darkModeLabel.textColor = .label
+    //
+    //    }
+    //
+    //    private func setDarkMode() {
+    //
+    //        let isDark = UserDefaultsManager.shared.loadDarkMode()
+    //        darkModeSwitch.isOn = isDark
+    //        overrideUserInterfaceStyle = isDark ? .dark : .light
+    //
+    //    }
+    //
+    //
+
+    //    extension SettingsViewController {
+    //
+    //        //    private func setupUI() {
+    //        //        view.backgroundColor = .systemBackground
+    //        //        darkModeLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+    //        //        darkModeLabel.textColor = .label
+    //        //        darkModeSwitch.onTintColor = .systemBlue
+    //        //
+    //        //    }
+    //
+    //
+    //    }
+
+    // }
 }
