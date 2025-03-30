@@ -28,6 +28,7 @@ class GamePlayViewController: UIViewController {
         gameManager.delegate = self
         gameManager.startTurn()
         ThemeManager.shared.setTheme(view: self.view)
+        print("GamePlayVC viewDidLoad *** \(self) *** \(self.view) ")
 
     }
     

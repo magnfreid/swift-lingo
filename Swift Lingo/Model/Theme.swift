@@ -13,4 +13,5 @@ struct Theme {
     let buttonTextColor: UIColor
     let buttonTintColor: UIColor
     let textFieldBackgroundColor: UIColor
+    let tableViewBackgroundColor: UIColor
 }

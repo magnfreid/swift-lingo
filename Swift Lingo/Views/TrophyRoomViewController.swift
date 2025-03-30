@@ -27,6 +27,7 @@ final class TrophyRoomViewController: UIViewController {
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
         secretBadge()
+        ThemeManager.shared.setTheme(view: self.view)
     }
 
     @IBAction func backButton(_ sender: UIButton) {
@@ -70,7 +71,7 @@ extension TrophyRoomViewController: UITableViewDataSource {
         let badge = allBadges[indexPath.row]
         let isUnlocked = unlockedBadges.contains(badge)
         cell.textLabel?.text = badge.rawValue
-        cell.textLabel?.textColor = isUnlocked ? .label : .systemGray
+        cell.textLabel?.textColor = isUnlocked ? ThemeManager.shared.currentTheme?.textColor : .systemGray
         return cell
     }
     

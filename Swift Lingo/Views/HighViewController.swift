@@ -48,6 +48,7 @@ extension HighViewController: UITableViewDataSource {
         let difficulty = entry["difficulty"] as? String ?? "No data"
         
         cell.textLabel?.text = "\(playerName) - \(score) p - \(difficulty)"
+        cell.textLabel?.textColor = ThemeManager.shared.currentTheme?.textColor
         return cell
         
         //TODO: CUSTOM CELL?
