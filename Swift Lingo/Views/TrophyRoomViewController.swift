@@ -58,10 +58,7 @@ extension TrophyRoomViewController: UITableViewDelegate {
         let title = isUnlocked ? "🎖️ Unlocked Badge" : "🔓 Locked Badge"
         let message = isUnlocked ? "You've earned this badge! \n\(badge.rawValue)" : showHintForBadges(badge: badge)
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-        present(alert, animated: true)
-        
+        showStandardAlert(title: title, message: message, buttonText: "Got it!")
         tableView.deselectRow(at: indexPath, animated: true)
         
     }

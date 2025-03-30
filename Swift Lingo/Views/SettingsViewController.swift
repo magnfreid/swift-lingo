@@ -107,7 +107,6 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource, UIPicker
         //
         //    }
         
-        //Vad säger vi med koden? vad gör vi?
         
    // }
 }

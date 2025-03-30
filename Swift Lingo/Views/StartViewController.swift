@@ -33,33 +33,23 @@ final class StartViewController: UIViewController {
         
         guard let name = nameTextField.text, !name.trimmingCharacters(in: .whitespaces).isEmpty else {
             shake(nameTextField)
-            showAlert(title: "You're to fast!", message: "You need to enter a name to play")
+            showStandardAlert(title: "You're to fast!", message: "You need to enter a name to play")
             return
         }
         
         let savedName = UserDefaultsManager.shared.getPlayerName()
         let hasBadgesData = BadgeManager.shared.hasBadgeData(for: name)
+        let dogNames = ["woof", "hund", "dog"]
         
-        let dogNames = ["Woof", "Hund", "dog"]
-        if dogNames.contains(name.lowercased()) && !BadgeManager.shared.hasBadge(badges: .woof, for: name) {
+        if dogNames.contains(where: { $0.caseInsensitiveCompare(name) == .orderedSame}) && !BadgeManager.shared.hasBadge(badges: .woof, for: name) {
             
             UserDefaultsManager.shared.savePlayerName(is: name)
             BadgeManager.shared.addBadge(badge: .woof, for: name)
             
-            let alert = UIAlertController(
-                     title: "🐾 Woof Woof!",
-                     message: "🦮 You're barking up the right tree.\nYou've unlocked a hidden badge!",
-                     preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Woof!", style: .default, handler: { _ in
-                    self.performSegue(withIdentifier: "navigateToGamePlay", sender: self)
-                }))
-                
-                present(alert, animated: true)
-                return
+            showCustomAlert(title: "🐶 Woof Woof!", message: "🐕 You sniffed out the secret! \nYou've unlocked a hidden badge!", buttonTitle: "Woof!") {
+                self.performSegue(withIdentifier: "navigateToGamePlay", sender: self)
+            }
         }
-            
-            
         
         if name == savedName && hasBadgesData {
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
@@ -68,7 +58,7 @@ final class StartViewController: UIViewController {
         UserDefaultsManager.shared.savePlayerName(is: name)
         
         if hasBadgesData {
-            showAlert(title: "Welcome Back", message: "Nice to se you again")
+            showStandardAlert(title: "Welcome Back", message: "Nice to se you again")
         } else {
             nameTextField.text = ""
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
@@ -87,9 +77,6 @@ final class StartViewController: UIViewController {
     }
     
     
-    
-    
-    
     @IBAction func showUserDefaults(_ sender: UIButton) {
         
         let name = UserDefaultsManager.shared.getPlayerName()
@@ -106,35 +93,18 @@ final class StartViewController: UIViewController {
             🎮 Diffuculty: \(difficulty)
             🏆 Highscore: \(highScores.isEmpty ? "No scores saved" : formattedText)
             """
+        showStandardAlert(title: "Saved Data", message: messageToShow)
+    }
+    
+    
+    @IBAction func deleteUserDefaults(_ sender: UIButton) {
         
-        let alert = UIAlertController(
-            title: "Saved data", message: messageToShow, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        showDialogAlert(title: "Are you sure?", message: "Delete all Data", confirmTitle: "Delete", cancelTitle: "Cancel") {
+            UserDefaultsManager.shared.deleteAllData()
+            self.showStandardAlert(title: "Deleted", message: "All data deleted")
+        }
+    }
     
-}
-
-
-
-@IBAction func deleteUserDefaults(_ sender: UIButton) {
-    
-    let alert = UIAlertController(title: "Are you sure?", message: "Delete all UserDefaults", preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    
-    alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-        
-        UserDefaultsManager.shared.deleteAllData()
-        
-        let confirmDeletion = UIAlertController(title: "Deleted", message: "All data deleted", preferredStyle: .alert)
-        confirmDeletion.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(confirmDeletion, animated: true)
-    }))
-    
-    present(alert, animated: true)
-    
-    
-}
-
 }
 
 // MARK: - UI Setup
@@ -199,14 +169,6 @@ extension StartViewController {
         
     }
     
-    private func showAlert(title: String, message: String, actionTitle: String = "OK", action: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { _ in
-            action?()
-        }))
-        present(alert, animated: true)
-        
-    }
     private func shake(_ view: UIView) {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
