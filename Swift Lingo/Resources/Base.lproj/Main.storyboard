@@ -300,6 +300,7 @@
                     <navigationItem key="navigationItem" id="zd1-kD-fLG"/>
                     <connections>
                         <outlet property="tableView" destination="1DA-A2-YXS" id="lq6-In-T6Q"/>
+                        <outlet property="trophyTitle" destination="zL7-ka-dss" id="QUq-Px-aia"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAy-I3-m4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

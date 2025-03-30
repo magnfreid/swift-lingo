@@ -11,6 +11,10 @@ final class TrophyRoomViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var trophyTitle: UILabel!
+    
+    
+    
     private var allBadges = Badges.allCases
     private var unlockedBadges: [Badges] = []
     
@@ -22,19 +26,36 @@ final class TrophyRoomViewController: UIViewController {
         tableView.delegate = self
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
+        secretBadge()
     }
-    
-    
-    
+
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    private func secretBadge() {
+        
+        let tripleTapped = UITapGestureRecognizer(target: self, action: #selector(tripleTapped))
+        tripleTapped.numberOfTapsRequired = 3
+        trophyTitle.isUserInteractionEnabled = true
+        trophyTitle.addGestureRecognizer(tripleTapped)
+        
+        
+    }
     
-    
-    
-    
-    
+    @objc func tripleTapped() {
+        
+        let player = UserDefaultsManager.shared.getPlayerName()
+        
+        guard !BadgeManager.shared.hasBadge(badges: .egg, for: player) else { return }
+        
+        BadgeManager.shared.addBadge(badge: .egg, for: player)
+        
+        showCustomAlert(title: "🥚 You found it!", message: "Or was it a bug?\n You've unlocked a secret badge!", buttonTitle: "Very Cool!") {
+            self.unlockedBadges = BadgeManager.shared.getBadges(for: player)
+            self.tableView.reloadData()
+        }
+    }
 }
 
 
@@ -62,13 +83,10 @@ extension TrophyRoomViewController: UITableViewDelegate {
         let badge = allBadges[indexPath.row]
         let isUnlocked = unlockedBadges.contains(badge)
         
-        guard !isUnlocked else { return }
+        let title = isUnlocked ? "🎖️ Unlocked Badge" : "🔓 Locked Badge"
+        let message = isUnlocked ? "You've earned this badge! \n\(badge.rawValue)" : showHintForBadges(badge: badge)
         
-        let hint = showHintForBadges(badge: badge)
-        let alert = UIAlertController(title: "🔓 Locked Badge", message: hint, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it!", style: .default))
-        present(alert, animated: true)
-        
+        showStandardAlert(title: title, message: message, buttonText: "Got it!")
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
@@ -121,6 +139,12 @@ extension TrophyRoomViewController: UITableViewDelegate {
             return "Ah, the joys of coding... 🐞"
         case .youShallNotPass:
             return "Only given to the developers during development 🧙🏻‍♂️"
+        case .palindrome:
+            return "Balance to the Force, your name brings 🔢"
+        case .woof:
+            return "Your name is what? 🐶"
+        case .egg:
+            return "SECRET 🤫"
         }
         
         

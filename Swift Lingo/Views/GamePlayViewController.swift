@@ -95,7 +95,7 @@ extension GamePlayViewController: GameManagerDelegate {
         }
         
         if gameOver {
-            showAlert(title: "Game Over", message: "Your score: \(score)", buttonText: "See results") {
+            showStandardAlert(title: "Game Over", message: "Your score: \(score)", buttonText: "See results") {
                 let unlockedBadges = self.gameManager.checkForBadgesAfterGame(
                     score: self.score,
                     totalTurns: self.gameManager.turnAmountSetting
@@ -118,12 +118,10 @@ extension GamePlayViewController: GameManagerDelegate {
             let message =
             (result == .correct)
             ? "Your guess was right and you earned a point!" : "Too slow!"
-            showAlert(
-                title: "Turn complete", message: message, buttonText: "Next",
-                action: {
-                    self.textFieldAnswer.text = ""
-                    self.gameManager.startTurn()
-                })
+            showStandardAlert(title: "Turn complete", message: message, buttonText: "Next") {
+                self.textFieldAnswer.text = ""
+                self.gameManager.startTurn()
+            }
         }
     }
     
@@ -132,8 +130,7 @@ extension GamePlayViewController: GameManagerDelegate {
             self.navigateToEndScreen()
             return
         }
-        
-        self.showUnlockedBadgeAlert(badge: badges[index]) {
+        showUnlockedBadgeAlert(badge: badges[index]) {
             self.showBadgesInOrder(badges: badges, index: index + 1)
         }
     }
@@ -171,36 +168,6 @@ extension GamePlayViewController {
             self.wrongLabel.isHidden = true
         }
     }
-    
-    private func showAlert(
-        title: String,
-        message: String,
-        buttonText: String,
-        action: (() -> Void)? = nil
-    ) {
-        let alert = UIAlertController(
-            title: title, message: message,
-            preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(
-                title: buttonText,
-                style: .default,
-                handler: { _ in
-                    action?()
-                }))
-        present(alert, animated: true)
-    }
-    //MARK: - Alert for unlocked badge
-    private func showUnlockedBadgeAlert(badge: Badges, completion: @escaping () -> Void) {
-        let alert = UIAlertController(
-            title: " 🎖️ Badge Unlocked", message: badge.rawValue, preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Sweet!", style: .default, handler: { _ in
-            completion()
-        }))
-        present(alert, animated: true)
-    }
-    
 }
 
 //MARK: Segue control

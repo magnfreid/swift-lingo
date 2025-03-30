@@ -61,6 +61,9 @@ final class GameManager {
     private var correctInARow = 0
     private var currentDifficulty: String { UserDefaultsManager.shared.getDifficulty()}
     private var currentPlayer: String { UserDefaultsManager.shared.getPlayerName()}
+    private(set) var answerTimes: [Int] = []
+    private var currentAnswerStartTime: Date?
+    private var sheepTriggered = false
     
     private init() {
         timeRemaining = turnTimerSetting
@@ -79,6 +82,7 @@ final class GameManager {
         delegate?.onNewTurnStarted(newWord: currentWord)
         startTimer()
         delegate?.onTimerTick(timeLeft: timeRemaining)
+        currentAnswerStartTime = Date()
     }
     
     private func startTimer() {
@@ -105,8 +109,15 @@ final class GameManager {
             
             if isCorrect {
                 correctInARow += 1
+                if timeRemaining <= 1 {
+                    sheepTriggered = true
+                }
             } else {
                 correctInARow = 0
+            }
+            if let startTime = currentAnswerStartTime {
+                let duration = Int(Date().timeIntervalSince(startTime))
+                answerTimes.append(duration)
             }
             resolveTurn(
                 result: isCorrect ? .correct : .wrong)
@@ -146,6 +157,8 @@ final class GameManager {
         timeRemaining = turnTimerSetting
         turnsRemaining = turnAmountSetting
         gameWords = allWords
+        sheepTriggered = false
+        answerTimes.removeAll()
     }
     
     private func stopAndResetTimer() {
@@ -282,14 +295,14 @@ extension GameManager {
 //MARK: - CENTRALIZED BADGE LOGIC
 
 extension GameManager {
-    
-    
-    //centralisering för spel logic
+
     func checkForBadgesAfterGame(score: Int, totalTurns: Int) -> [Badges] {
         
         let player = currentPlayer
         var unlockedBadges: [Badges] = []
         let hasDarkMode = UserDefaultsManager.shared.loadDarkMode()
+        
+        
         
         //"🍼 First time playing (Aww your first time")
         print("Player badges before firstTime check: \(BadgeManager.shared.getBadges(for: player))")
@@ -332,6 +345,78 @@ extension GameManager {
         if hasDarkMode && !BadgeManager.shared.hasBadge(badges: .nightMode, for: player) {
             BadgeManager.shared.addBadge(badge: .nightMode, for: player)
             unlockedBadges.append(.nightMode)
+        }
+        
+        //🔢 User has a name that can be written in reversed and still reads the same ("Anna")
+        let name = player.lowercased()
+        if name == String(name.reversed()) && !BadgeManager.shared.hasBadge(badges: .palindrome, for: name) {
+            BadgeManager.shared.addBadge(badge: .palindrome, for: player)
+            unlockedBadges.append(.palindrome)
+        }
+        
+        //🎮 20 in a row (in game modes)
+        if correctInARow >= 20 {
+            
+            switch currentDifficulty.lowercased() {
+                
+            case "easy":
+                if !BadgeManager.shared.hasBadge(badges: .easyStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .easyStreak, for: player)
+                    unlockedBadges.append(.easyStreak)
+                }
+            case "medium":
+                if !BadgeManager.shared.hasBadge(badges: .mediumStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .mediumStreak, for: player)
+                    unlockedBadges.append(.mediumStreak)
+                }
+            case "hard":
+                if !BadgeManager.shared.hasBadge(badges: .hardStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .hardStreak, for: player)
+                    unlockedBadges.append(.hardStreak)
+                }
+            case "extreme":
+                if !BadgeManager.shared.hasBadge(badges: .extremeStreak, for: player) {
+                    BadgeManager.shared.addBadge(badge: .extremeStreak, for: player)
+                    unlockedBadges.append(.extremeStreak)
+                }
+            default:
+                break
+            }
+            
+        }
+        
+        //🏆 100% Correct in extreme
+        if currentDifficulty.lowercased() == "extreme" && score == totalTurns && !BadgeManager.shared.hasBadge(badges: .fullStreak, for: player) {
+            BadgeManager.shared.addBadge(badge: .fullStreak, for: player)
+            unlockedBadges.append(.fullStreak)
+        }
+        
+        // 🥊 No mercy - 0 mistakes in hard mode
+        if currentDifficulty.lowercased() == "hard" && score == totalTurns && !BadgeManager.shared.hasBadge(badges: .noMercy, for: player) {
+            BadgeManager.shared.addBadge(badge: .noMercy, for: player)
+            unlockedBadges.append(.noMercy)
+        }
+        
+        // ⏱️ The speedster - All answers under 4s
+        let allAnswersOnTime = answerTimes
+        let allUnder4Seconds = allAnswersOnTime.allSatisfy { $0 <= 4}
+        
+        if allUnder4Seconds && !BadgeManager.shared.hasBadge(badges: .perfectTime, for: player) {
+            BadgeManager.shared.addBadge(badge: .perfectTime, for: player)
+            unlockedBadges.append(.perfectTime)
+        }
+        
+        //🏎️ FastAndFurios - 10 answers under 2s(Any mode, so far)
+        let fastAnswers = allAnswersOnTime.filter { $0 <= 2 }
+        if fastAnswers.count >= 10 && !BadgeManager.shared.hasBadge(badges: .fastAndFurious, for: player) {
+            BadgeManager.shared.addBadge(badge: .fastAndFurious, for: player)
+            unlockedBadges.append(.fastAndFurious)
+        }
+        
+        // 🐑 Are you afraid? - Answer the question just before the timer stops (1s)
+        if sheepTriggered && !BadgeManager.shared.hasBadge(badges: .sheep, for: player) {
+            BadgeManager.shared.addBadge(badge: .sheep, for: player)
+            unlockedBadges.append(.sheep)
         }
         
         return unlockedBadges
