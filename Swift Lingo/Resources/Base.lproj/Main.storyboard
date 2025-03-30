@@ -131,7 +131,7 @@
                         <outlet property="nameTextField" destination="0PB-C6-LiX" id="XAL-i8-OJL"/>
                         <outlet property="playButton" destination="qD5-MA-QDr" id="rsN-Sn-WGC"/>
                         <outlet property="settingsButton" destination="a0C-c2-s3c" id="nW3-gQ-OfE"/>
-                        <segue destination="HS0-rL-2Th" kind="show" identifier="navigateToGamePlay" id="eEm-Xd-fjH"/>
+                        <segue destination="HS0-rL-2Th" kind="presentation" identifier="navigateToGamePlay" modalPresentationStyle="fullScreen" id="eEm-Xd-fjH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -352,7 +352,6 @@
                                         <buttonConfiguration key="configuration" style="plain" title="easy button"/>
                                         <connections>
                                             <action selector="easyDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="HX3-nY-BMh"/>
-                                            <segue destination="HQh-aS-fJZ" kind="show" identifier="navigateToGame" id="YWi-0j-WaU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncn-W8-H8B">
@@ -361,7 +360,6 @@
                                         <buttonConfiguration key="configuration" style="plain" title="medium button"/>
                                         <connections>
                                             <action selector="mediumDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="7sX-pf-8eq"/>
-                                            <segue destination="HQh-aS-fJZ" kind="presentation" identifier="navigateToGame" id="frt-2q-Re5"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naO-xe-dVo">
@@ -370,7 +368,6 @@
                                         <buttonConfiguration key="configuration" style="plain" title="hard button"/>
                                         <connections>
                                             <action selector="hardDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="kuh-fO-0mX"/>
-                                            <segue destination="HQh-aS-fJZ" kind="presentation" identifier="navigateToGame" id="IFK-FL-i17"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlW-uJ-CUe">
@@ -379,7 +376,6 @@
                                         <buttonConfiguration key="configuration" style="plain" title="extreme button"/>
                                         <connections>
                                             <action selector="extremeDifficultyButton:" destination="HS0-rL-2Th" eventType="touchUpInside" id="m2r-SS-r0H"/>
-                                            <segue destination="HQh-aS-fJZ" kind="presentation" identifier="navigateToGame" id="hjL-ma-qKh"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -398,18 +394,19 @@
                         <outlet property="hardButton" destination="naO-xe-dVo" id="m7V-5x-DcV"/>
                         <outlet property="mediumButton" destination="Ncn-W8-H8B" id="QAH-9B-3Kg"/>
                         <outlet property="titleLabel" destination="mkR-9D-qfY" id="uPv-7R-c9F"/>
+                        <segue destination="HQh-aS-fJZ" kind="presentation" identifier="navigateToGame" modalPresentationStyle="fullScreen" id="J2Z-N1-wIn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laS-K5-1r7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2031" y="-35"/>
+            <point key="canvasLocation" x="1998" y="-35"/>
         </scene>
         <!--Game Play View Controller-->
         <scene sceneID="CD3-2t-8s0">
             <objects>
                 <viewController storyboardIdentifier="gameVC" id="HQh-aS-fJZ" customClass="GamePlayViewController" customModule="Swift_Lingo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Bv-Rx-ioo">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="HPo-Rx-xjt">
@@ -417,7 +414,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="107" translatesAutoresizingMaskIntoConstraints="NO" id="QeG-Bp-mfO">
-                                <rect key="frame" x="132" y="340.33333333333331" width="129" height="161.33333333333331"/>
+                                <rect key="frame" x="132" y="345.33333333333331" width="129" height="161.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="word" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-v9-pv9">
                                         <rect key="frame" x="45.666666666666657" y="0.0" width="38" height="20.333333333333332"/>
@@ -550,8 +547,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YWi-0j-WaU"/>
-        <segue reference="oG2-Yv-XQ1"/>
+        <segue reference="eEm-Xd-fjH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="background.png" width="1024" height="1024"/>
