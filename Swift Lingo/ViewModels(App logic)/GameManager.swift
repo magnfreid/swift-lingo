@@ -61,6 +61,9 @@ final class GameManager {
     private var correctInARow = 0
     private var currentDifficulty: String { UserDefaultsManager.shared.getDifficulty()}
     private var currentPlayer: String { UserDefaultsManager.shared.getPlayerName()}
+    private(set) var answerTimes: [Int] = []
+    private var currentAnswerStartTime: Date?
+    private var sheepTriggered = false
     
     private init() {
         timeRemaining = turnTimerSetting
@@ -79,6 +82,7 @@ final class GameManager {
         delegate?.onNewTurnStarted(newWord: currentWord)
         startTimer()
         delegate?.onTimerTick(timeLeft: timeRemaining)
+        currentAnswerStartTime = Date()
     }
     
     private func startTimer() {
@@ -105,8 +109,15 @@ final class GameManager {
             
             if isCorrect {
                 correctInARow += 1
+                if timeRemaining <= 1 {
+                    sheepTriggered = true
+                }
             } else {
                 correctInARow = 0
+            }
+            if let startTime = currentAnswerStartTime {
+                let duration = Int(Date().timeIntervalSince(startTime))
+                answerTimes.append(duration)
             }
             resolveTurn(
                 result: isCorrect ? .correct : .wrong)
@@ -146,6 +157,8 @@ final class GameManager {
         timeRemaining = turnTimerSetting
         turnsRemaining = turnAmountSetting
         gameWords = allWords
+        sheepTriggered = false
+        answerTimes.removeAll()
     }
     
     private func stopAndResetTimer() {
@@ -290,6 +303,7 @@ extension GameManager {
         let hasDarkMode = UserDefaultsManager.shared.loadDarkMode()
         
         
+        
         //"🍼 First time playing (Aww your first time")
         print("Player badges before firstTime check: \(BadgeManager.shared.getBadges(for: player))")
         if !BadgeManager.shared.hasBadge(badges: .firstTime, for: player) {
@@ -383,6 +397,27 @@ extension GameManager {
             unlockedBadges.append(.noMercy)
         }
         
+        // ⏱️ The speedster - All answers under 4s
+        let allAnswersOnTime = answerTimes
+        let allUnder4Seconds = allAnswersOnTime.allSatisfy { $0 <= 4}
+        
+        if allUnder4Seconds && !BadgeManager.shared.hasBadge(badges: .perfectTime, for: player) {
+            BadgeManager.shared.addBadge(badge: .perfectTime, for: player)
+            unlockedBadges.append(.perfectTime)
+        }
+        
+        //🏎️ FastAndFurios - 10 answers under 2s(Any mode, so far)
+        let fastAnswers = allAnswersOnTime.filter { $0 <= 2 }
+        if fastAnswers.count >= 10 && !BadgeManager.shared.hasBadge(badges: .fastAndFurious, for: player) {
+            BadgeManager.shared.addBadge(badge: .fastAndFurious, for: player)
+            unlockedBadges.append(.fastAndFurious)
+        }
+        
+        // 🐑 Are you afraid? - Answer the question just before the timer stops (1s)
+        if sheepTriggered && !BadgeManager.shared.hasBadge(badges: .sheep, for: player) {
+            BadgeManager.shared.addBadge(badge: .sheep, for: player)
+            unlockedBadges.append(.sheep)
+        }
         
         return unlockedBadges
         

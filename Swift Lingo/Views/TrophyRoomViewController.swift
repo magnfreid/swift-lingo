@@ -11,6 +11,10 @@ final class TrophyRoomViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var trophyTitle: UILabel!
+    
+    
+    
     private var allBadges = Badges.allCases
     private var unlockedBadges: [Badges] = []
     
@@ -22,12 +26,36 @@ final class TrophyRoomViewController: UIViewController {
         tableView.delegate = self
         let currentPlayer = UserDefaultsManager.shared.getPlayerName()
         unlockedBadges = BadgeManager.shared.getBadges(for: currentPlayer)
+        secretBadge()
     }
 
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
+    private func secretBadge() {
+        
+        let tripleTapped = UITapGestureRecognizer(target: self, action: #selector(tripleTapped))
+        tripleTapped.numberOfTapsRequired = 3
+        trophyTitle.isUserInteractionEnabled = true
+        trophyTitle.addGestureRecognizer(tripleTapped)
+        
+        
+    }
+    
+    @objc func tripleTapped() {
+        
+        let player = UserDefaultsManager.shared.getPlayerName()
+        
+        guard !BadgeManager.shared.hasBadge(badges: .egg, for: player) else { return }
+        
+        BadgeManager.shared.addBadge(badge: .egg, for: player)
+        
+        showCustomAlert(title: "🥚 You found it!", message: "Or was it a bug?\n You've unlocked a secret badge!", buttonTitle: "Very Cool!") {
+            self.unlockedBadges = BadgeManager.shared.getBadges(for: player)
+            self.tableView.reloadData()
+        }
+    }
 }
 
 
@@ -115,6 +143,8 @@ extension TrophyRoomViewController: UITableViewDelegate {
             return "Balance to the Force, your name brings 🔢"
         case .woof:
             return "Your name is what? 🐶"
+        case .egg:
+            return "SECRET 🤫"
         }
         
         

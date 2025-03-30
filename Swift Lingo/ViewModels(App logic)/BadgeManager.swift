@@ -40,8 +40,9 @@ enum Badges: String, Codable, CaseIterable {
     case hulkSmash = "🎮 You pressed something... to many times"
     case sheep = "🐑 Are you afraid?" // vänta för länge innan man svarar tex 1 sekund kvar, i vilket läge?
     case palindrome = "🔢 Ah yes the perfect reflection"
-    case bug = "🪲 Bug hunter" // typ klickade 2 gånger på en liten ruta som inte syns (en rolig grej)
+    case bug = "🪲 Bug hunter"
     case woof = "🦮 Woof Woof"
+    case egg =  "🐣 Shh... It's a secret"
     
     //DEV
     case youShallNotPass = "🧙‍♂️ You shall not pass" // Only developers get this badge

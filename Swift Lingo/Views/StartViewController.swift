@@ -60,7 +60,6 @@ final class StartViewController: UIViewController {
         if hasBadgesData {
             showStandardAlert(title: "Welcome Back", message: "Nice to se you again")
         } else {
-            nameTextField.text = ""
             performSegue(withIdentifier: "navigateToGamePlay", sender: self)
         }
         
