@@ -22,7 +22,21 @@ struct GameWord {
             ("Äpple", "Apple"),
             ("Kokosnöt", "Coconut"),
             ("Kiwi", "Kiwi"),
-            ("Ananas", "Pineapple")
+            ("Ananas", "Pineapple"),
+            ("Bord", "Table"),
+            ("Måne", "Moon"),
+            ("Stol", "Chair"),
+            ("Penna", "Pencil"),
+            ("Hjärna", "Brain"),
+            ("Kaffe", "Coffee"),
+            ("Väg", "Road"),
+            ("Boll", "Ball"),
+            ("Fågel", "Bird"),
+            ("Röd", "Red"),
+            ("Meat", "Kött"),
+            ("Huvud", "Head"),
+            ("Pappa", "Dad"),
+            ("Mamma", "Mom")
         ]
         return easyWords
     }

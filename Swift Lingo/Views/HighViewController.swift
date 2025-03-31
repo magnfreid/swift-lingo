@@ -10,8 +10,8 @@ import UIKit
 final class HighViewController: UIViewController {
     
     @IBOutlet weak var highscoreTableView: UITableView!
-    
-    var highScores: [[String: Any]] = []
+
+    private var totalHighScores: [(name: String, totalScore: Int)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +23,20 @@ final class HighViewController: UIViewController {
         let selectedDiff = UserDefaultsManager.shared.getDifficulty()
         print(selectedDiff)
         
-        highScores = HighScoreManager.shared.getHighScores()
         highscoreTableView.delegate = self
         highscoreTableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        totalHighScores = HighScoreManager.shared.getTotalScorePerPlayer()
         highscoreTableView.reloadData()
     }
     
-
+    @IBAction func tappedNavigationBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 
@@ -37,18 +44,17 @@ final class HighViewController: UIViewController {
 extension HighViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return highScores.count
+        return totalHighScores.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = highscoreTableView.dequeueReusableCell(withIdentifier: "namePoints", for: indexPath)
-        let entry = highScores[indexPath.row]
-        let playerName = entry["name"] as? String ?? "test"
-        let score = entry["score"] as? Int ?? 0
-        let difficulty = entry["difficulty"] as? String ?? "No data"
+        let entry = totalHighScores[indexPath.row]
+        let badges = BadgeManager.shared.getBadges(for: entry.name).map { $0.rawValue.prefix(1) }.joined()
         
-        cell.textLabel?.text = "\(playerName) - \(score) p - \(difficulty)"
+        cell.textLabel?.text = "\(entry.name) | \(entry.totalScore)p | \(badges)"
         cell.textLabel?.textColor = ThemeManager.shared.currentTheme?.textColor
+        cell.selectionStyle = .none
         return cell
         
         //TODO: CUSTOM CELL?
@@ -60,11 +66,3 @@ extension HighViewController: UITableViewDelegate {
     
     
 }
-
-
-
-
-
-//TODO: Gör om som i settings, inbädda denna i en nav controller, custom knapp etc etc, ändra namn på klassen, gör den till final
-
-

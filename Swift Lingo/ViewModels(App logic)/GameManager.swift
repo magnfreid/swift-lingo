@@ -187,62 +187,73 @@ final class GameManager {
 
 extension GameManager {
 
-    func fetchWordsData() -> [(question: String, control: String)] {
-        return [
-            (question: "Apple", control: "Äpple"),
-            (question: "House", control: "Hus"),
-            (question: "Dog", control: "Hund"),
-            (question: "Cat", control: "Katt"),
-            (question: "Book", control: "Bok"),
-            (question: "Tree", control: "Träd"),
-            (question: "Water", control: "Vatten"),
-            (question: "Sun", control: "Sol"),
-            (question: "Car", control: "Bil"),
-            (question: "Friend", control: "Vän"),
-        ]
-    }
-
+    
+//    func fetchWordsData() -> [(question: String, control: String)] {
+//        return [
+//            (question: "Apple", control: "Äpple"),
+//            (question: "House", control: "Hus"),
+//            (question: "Dog", control: "Hund"),
+//            (question: "Cat", control: "Katt"),
+//            (question: "Book", control: "Bok"),
+//            (question: "Tree", control: "Träd"),
+//            (question: "Water", control: "Vatten"),
+//            (question: "Sun", control: "Sol"),
+//            (question: "Car", control: "Bil"),
+//            (question: "Friend", control: "Vän"),
+// 
+//        ]
+//    }
+    
     //MARK: - EASY MODE
     func fetchWordsEasy() -> [(swedish: String, english: String)] {
         return [
-            (swedish: "Apple", english: "Äpple"),
-            (swedish: "House", english: "Hus"),
-            (swedish: "Dog", english: "Hund"),
-            (swedish: "Cat", english: "Katt"),
-            (swedish: "Book", english: "Bok"),
-            (swedish: "Tree", english: "Träd"),
-            (swedish: "Water", english: "Vatten"),
-            (swedish: "Sun", english: "Sol"),
-            (swedish: "Car", english: "Bil"),
-            (swedish: "Friend", english: "Vän"),
+            (swedish: "Äpple", english: "Apple"),
+            (swedish: "Hus", english: "House"),
+            (swedish: "Hund", english: "Dog"),
+            (swedish: "Katt", english: "Cat"),
+            (swedish: "Bok", english: "Book"),
+            (swedish: "Träd", english: "Tree"),
+            (swedish: "Vatten", english: "Water"),
+            (swedish: "Sol", english: "Sun"),
+            (swedish: "Bil", english: "Car"),
+            (swedish: "Vän", english: "Friend"),
+            (swedish: "Boll", english: "Ball"),
+            (swedish: "Stol", english: "Chair"),
+            (swedish: "Måne", english: "Moon"),
+            (swedish: "Penna", english: "Pencil"),
+            (swedish: "Kaffe", english: "Coffee"),
+            (swedish: "Väg", english: "Road"),
+            (swedish: "Röd", english: "Red"),
+            (swedish: "Hjärna", english: "Brain"),
+            (swedish: "Huvud", english: "Head"),
+            (swedish: "Pappa", english: "Dad")
         ]
     }
 
     //MARK: - MEDIUM MODE
     func fetchWordsMedium() -> [(swedish: String, english: String)] {
         let mediumWords: [(swedish: String, english: String)] = [
-
-            ("fågelskrämma", "scarecrow"),
-            ("räknesnurra", "calculator"),
-            ("jordgubbe", "strawberry"),
-            ("ficklampa", "flashlight"),
-            ("äventyr", "adventure"),
-            ("målarpensel", "paintbrush"),
-            ("handduk", "towel"),
-            ("köttbulle", "meatball"),
-            ("växthuseffekt", "greenhouse effect"),
-            ("spindelnät", "spider web"),
-            ("matsäck", "packed lunch"),
-            ("fjärrkontroll", "remote control"),
-            ("långkalsonger", "long johns"),
-            ("snöflinga", "snowflake"),
-            ("skogspromenad", "forest walk"),
-            ("leksaksaffär", "toy store"),
-            ("fågelfjäder", "bird feather"),
-            ("ryggsäck", "backpack"),
-            ("telefonnummer", "phone number"),
-            ("bänkpress", "bench press"),
-        ]
+          
+            ("Fågelskrämma", "Scarecrow"),
+            ("Räknesnurra", "Calculator"),
+            ("Jordgubbe", "Strawberry"),
+            ("Ficklampa", "Flashlight"),
+            ("Äventyr", "Adventure"),
+            ("Målarpensel", "Paintbrush"),
+            ("Handduk", "Towel"),
+            ("Köttbulle", "Meatball"),
+            ("Växthuseffekt", "Greenhouse effect"),
+            ("Spindelnät", "Spider web"),
+            ("Matsäck", "Packed lunch"),
+            ("Fjärrkontroll", "Remote control"),
+            ("Långkalsonger", "Long johns"),
+            ("Snöflinga", "Snowflake"),
+            ("Skogspromenad", "Forest walk"),
+            ("Leksaksaffär", "Toy store"),
+            ("Fågelfjäder", "Bird feather"),
+            ("Ryggsäck", "Backpack"),
+            ("Telefonnummer", "Phone number"),
+            ("Bänkpress", "Bench press")
 
         return mediumWords
     }
@@ -251,26 +262,26 @@ extension GameManager {
     func fetchWordsHard() -> [(swedish: String, english: String)] {
 
         let hardWords: [(swedish: String, english: String)] = [
-            ("samhällsbyggnad", "urban planning"),
-            ("världsarv", "world heritage"),
-            ("ansvarsfullhet", "responsibility"),
-            ("flygplansmotor", "aircraft engine"),
-            ("självförverkligande", "self-actualization"),
-            ("trådlös kommunikation", "wireless communication"),
-            ("klimatförändringar", "climate change"),
-            ("vägtrafikinspektör", "traffic inspector"),
-            ("bostadsrättsförening", "housing cooperative"),
-            ("mellanösternpolitik", "middle eastern politics"),
-            ("livsmedelshantering", "food handling"),
-            ("miljötillstånd", "environmental permit"),
-            ("elektronikkonstruktion", "electronics design"),
-            ("höghastighetståg", "high-speed train"),
-            ("försvarsminister", "defense minister"),
-            ("kriminalteknik", "forensic science"),
-            ("samarbetsorganisation", "cooperation organization"),
-            ("internationella relationer", "international relations"),
-            ("högskolebehörighet", "university eligibility"),
-            ("organisationspsykologi", "organizational psychology"),
+            ("Samhällsbyggnad", "Urban planning"),
+            ("Världsarv", "World heritage"),
+            ("Ansvarsfullhet", "Responsibility"),
+            ("Flygplansmotor", "Aircraft engine"),
+            ("Självförverkligande", "Self-actualization"),
+            ("Trådlös kommunikation", "Wireless communication"),
+            ("Klimatförändringar", "Climate change"),
+            ("Vägtrafikinspektör", "Traffic inspector"),
+            ("Bostadsrättsförening", "Housing cooperative"),
+            ("Mellanösternpolitik", "Middle eastern politics"),
+            ("Livsmedelshantering", "Food handling"),
+            ("Miljötillstånd", "Environmental permit"),
+            ("Elektronikkonstruktion", "Electronics design"),
+            ("Höghastighetståg", "High-speed train"),
+            ("Försvarsminister", "Defense minister"),
+            ("Kriminalteknik", "Forensic science"),
+            ("Samarbetsorganisation", "Cooperation organization"),
+            ("Internationella relationer", "International relations"),
+            ("Högskolebehörighet", "University eligibility"),
+            ("Organisationspsykologi", "Organizational psychology")
         ]
 
         return hardWords
@@ -279,28 +290,26 @@ extension GameManager {
     //MARK: - EXTREME MODE⚠️
     func fetchWordsExtreme() -> [(swedish: String, english: String)] {
         let extremeWords = [
-
-            ("verksamhetsutveckling", "business development"),
-            ("självständighetsförklaring", "declaration of independence"),
-            ("industrirobotautomation", "industrial robot automation"),
-            ("besiktningsförrättare", "certified inspector"),
-            ("mikrovågsteknologi", "microwave technology"),
-            ("internationellt samfund", "international community"),
-            ("rekonstruktionsplanering", "restructuring planning"),
-            ("förundersökningsledare", "preliminary investigation leader"),
-            ("signalbehandlingsalgoritm", "signal processing algorithm"),
-            ("flerskiktsarkitektur", "multi-layered architecture"),
-            ("övergångsregering", "transitional government"),
-            ("industriforskningsinstitut", "industrial research institute"),
-            ("blodproppsförebyggande", "thrombosis prevention"),
-            ("energimyndighetsrapport", "energy agency report"),
-            ("havsövervakningssystem", "marine monitoring system"),
-            ("tvärvetenskaplig forskning", "interdisciplinary research"),
-            ("folkhälsomyndigheten", "public health agency"),
-            ("obligatorisk vaccinationsplan", "mandatory vaccination plan"),
-            ("avfallshanteringsstrategi", "waste management strategy"),
-            ("integritetslagstiftning", "data protection legislation"),
-
+            ("Verksamhetsutveckling", "Business development"),
+            ("Självständighetsförklaring", "Declaration of independence"),
+            ("Industrirobotautomation", "Industrial robot automation"),
+            ("Besiktningsförrättare", "Certified inspector"),
+            ("Mikrovågsteknologi", "Microwave technology"),
+            ("Internationellt samfund", "International community"),
+            ("Rekonstruktionsplanering", "Restructuring planning"),
+            ("Förundersökningsledare", "Preliminary investigation leader"),
+            ("Signalbehandlingsalgoritm", "Signal processing algorithm"),
+            ("Flerskiktsarkitektur", "Multi-layered architecture"),
+            ("Övergångsregering", "Transitional government"),
+            ("Industriforskningsinstitut", "Industrial research institute"),
+            ("Blodproppsförebyggande", "Thrombosis prevention"),
+            ("Energimyndighetsrapport", "Energy agency report"),
+            ("Havsövervakningssystem", "Marine monitoring system"),
+            ("Tvärvetenskaplig forskning", "Interdisciplinary research"),
+            ("Folkhälsomyndigheten", "Public health agency"),
+            ("Obligatorisk vaccinationsplan", "Mandatory vaccination plan"),
+            ("Avfallshanteringsstrategi", "Waste management strategy"),
+            ("Integritetslagstiftning", "Data protection legislation")
         ]
 
         return extremeWords
@@ -327,28 +336,22 @@ extension GameManager {
             unlockedBadges.append(.firstTime)
         }
 
-        //"🔑 Scores"
-        if score >= 30
-            && !BadgeManager.shared.hasBadge(badges: .score30, for: player)
-        {
+       //"🔑 Scores"
+        let totalScores = HighScoreManager.shared.getTotalScorePerPlayer().first { $0.name == player }?.totalScore ?? 0
+        
+        if totalScores >= 30 && !BadgeManager.shared.hasBadge(badges: .score30, for: player) {
             BadgeManager.shared.addBadge(badge: .score30, for: player)
             unlockedBadges.append(.score30)
         }
-        if score >= 50
-            && !BadgeManager.shared.hasBadge(badges: .score50, for: player)
-        {
+        if totalScores >= 50 && !BadgeManager.shared.hasBadge(badges: .score50, for: player) {
             BadgeManager.shared.addBadge(badge: .score50, for: player)
             unlockedBadges.append(.score50)
         }
-        if score >= 75
-            && !BadgeManager.shared.hasBadge(badges: .score75, for: player)
-        {
+        if totalScores >= 75 && !BadgeManager.shared.hasBadge(badges: .score75, for: player) {
             BadgeManager.shared.addBadge(badge: .score75, for: player)
             unlockedBadges.append(.score75)
         }
-        if score >= 100
-            && !BadgeManager.shared.hasBadge(badges: .score100, for: player)
-        {
+        if totalScores >= 100 && !BadgeManager.shared.hasBadge(badges: .score100, for: player) {
             BadgeManager.shared.addBadge(badge: .score100, for: player)
             unlockedBadges.append(.score100)
         }
@@ -474,6 +477,12 @@ extension GameManager {
             unlockedBadges.append(.sheep)
         }
 
+        
+        if player.lowercased() == "nicholas" && !BadgeManager.shared.hasBadge(badges: .youShallNotPass, for: player) {
+            BadgeManager.shared.addBadge(badge: .youShallNotPass, for: player)
+            unlockedBadges.append(.youShallNotPass)
+        }
+          
         return unlockedBadges
 
     }

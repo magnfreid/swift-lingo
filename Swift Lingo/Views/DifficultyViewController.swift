@@ -31,7 +31,7 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "easy")
         GameManager.shared.setTurnTime(seconds: 6)
-        GameManager.shared.setTurnAmount(turns: 1)
+        GameManager.shared.setTurnAmount(turns: 20)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsEasy())
         navigateToGame()
         
@@ -41,7 +41,7 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "medium")
         GameManager.shared.setTurnTime(seconds: 8)
-        GameManager.shared.setTurnAmount(turns: 2)
+        GameManager.shared.setTurnAmount(turns: 20)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsMedium())
         navigateToGame()
     }
@@ -51,7 +51,7 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "hard")
         GameManager.shared.setTurnTime(seconds: 8)
-        GameManager.shared.setTurnAmount(turns: 10)
+        GameManager.shared.setTurnAmount(turns: 20)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsHard())
         navigateToGame()
     }
@@ -61,7 +61,7 @@ class DifficultyViewController: UIViewController {
         
         UserDefaultsManager.shared.saveDifficulty(choosen: "extreme")
         GameManager.shared.setTurnTime(seconds: 12)
-        GameManager.shared.setTurnAmount(turns: 10)
+        GameManager.shared.setTurnAmount(turns: 20)
         GameManager.shared.loadWords(words: GameManager.shared.fetchWordsExtreme())
         navigateToGame()
     }
