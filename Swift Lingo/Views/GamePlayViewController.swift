@@ -158,7 +158,7 @@ extension GamePlayViewController {
     private func animateNewWords(word: String) {
         wordLabel.alpha = 0
         wordLabel.transform = CGAffineTransform(translationX: 0.8, y: 0.8)
-        wordLabel.text = word
+        wordLabel.text = word.capitalized
         
         UIView.animate(withDuration: 0.3) {
             self.wordLabel.alpha = 1
