@@ -253,7 +253,7 @@ extension GameManager {
             ("Fågelfjäder", "Bird feather"),
             ("Ryggsäck", "Backpack"),
             ("Telefonnummer", "Phone number"),
-            ("Bänkpress", "Bench press")
+            ("Bänkpress", "Bench press")]
 
         return mediumWords
     }
