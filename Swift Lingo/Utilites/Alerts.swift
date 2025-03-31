@@ -21,9 +21,10 @@ extension UIViewController {
     }
     
     //Shows yes/no confirmation dialog
-    func showDialogAlert(title: String, message: String, confirmTitle: String = "OK", cancelTitle: String = "Cancel", onConFirm: @escaping () -> Void){
+    func showDialogAlert(title: String, message: String, confirmTitle: String = "OK", cancelTitle: String = "Cancel", onConFirm: @escaping () -> Void, onCancel: ( () -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel))
+        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel, handler: { _ in
+        onCancel?()}))
         alert.addAction(UIAlertAction(title: confirmTitle, style: .destructive, handler: { _ in
             onConFirm()
         }))
