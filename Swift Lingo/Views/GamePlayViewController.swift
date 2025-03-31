@@ -28,8 +28,7 @@ class GamePlayViewController: UIViewController {
         gameManager.delegate = self
         gameManager.startTurn()
         ThemeManager.shared.setTheme(view: self.view)
-        print("GamePlayVC viewDidLoad *** \(self) *** \(self.view) ")
-
+        print("GamePlayVC viewDidLoad triggered.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,7 +37,16 @@ class GamePlayViewController: UIViewController {
     }
 
 
-
+    @IBAction func quitButtonAction(_ sender: UIButton) {
+        gameManager.pauseTimer()
+        showDialogAlert(title: "Quit", message: "Are you sure you want to quit?", confirmTitle: "Yes", cancelTitle: "No", onConFirm: {
+            self.gameManager.resetGame()
+            self.performSegue(withIdentifier: "unwindToStartScreen", sender: self)
+        }, onCancel: {
+            self.gameManager.resumeTimer()
+        })
+    }
+    
     private func setupUI() {
         
         //TODO: finslipa på designen. 2.0
@@ -48,6 +56,8 @@ class GamePlayViewController: UIViewController {
         
         textFieldAnswer.delegate = self
         textFieldAnswer.placeholder = "Guess the word"
+        timerLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
         scoreLabel.text = "Score: \(score)"
         timerLabel.text = "00:00"
         wordLabel.text = "Loading..."

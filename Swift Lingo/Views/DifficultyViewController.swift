@@ -15,7 +15,7 @@ class DifficultyViewController: UIViewController {
     @IBOutlet weak var mediumButton: UIButton!
     @IBOutlet weak var hardButton: UIButton!
     @IBOutlet weak var extremeButton: UIButton!
-    
+    @IBOutlet weak var backButton: UIButton!
     
 
     override func viewDidLoad() {
@@ -81,6 +81,9 @@ extension DifficultyViewController {
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
+        backButton.setImage(
+            UIImage(systemName: "chevron.backward"), for: .normal)
+        
         let buttons = [easyButton, mediumButton, hardButton, extremeButton]
         
         for button in buttons {
@@ -98,6 +101,8 @@ extension DifficultyViewController {
                 button!.heightAnchor.constraint(equalToConstant: 40)
             ])
         }
+        
+       
         
         easyButton.backgroundColor = .systemGreen
         mediumButton.backgroundColor = .orange
