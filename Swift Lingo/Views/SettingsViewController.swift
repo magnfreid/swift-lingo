@@ -65,6 +65,7 @@ class SettingsViewController: UIViewController, UIPickerViewDataSource,
         navBackButton.setTitle("Back", for: .normal)
         navBackButton.setImage(
             UIImage(systemName: "chevron.backward"), for: .normal)
+        navBackButton.setTitleColor(.white, for: .normal)
         navBackButton.titleLabel?.font = UIFont.systemFont(
             ofSize: 16, weight: .regular)
         navBackButton.sizeToFit()
