@@ -24,21 +24,28 @@ final class HighScoreManager {
     func saveUserData(score: Int, playerName: String) {
         
         var currentScores = getHighScores()
-        
-        if currentScores.contains(where: {($0["name"] as? String) == playerName && ($0["score"] as? Int) == score }) {
-            print("A duplicate exists")
-            return
-        }
-        
         let difficulty = UserDefaultsManager.shared.getDifficulty()
         
-        let newEntry: [String: Any] = [
-            "score": score,
-            "name": playerName,
-            "date": formattedDate(),
-            "difficulty": difficulty
-        ]
-        currentScores.append(newEntry)
+        if let index = currentScores.firstIndex(where: {($0["name"] as? String) == playerName}) {
+            
+            if let existingScore = currentScores[index]["score"] as? Int {
+                
+                currentScores[index]["score"] = existingScore + score
+                
+            } else {
+                
+                let newEntry: [String: Any] = [
+                    "score": score,
+                    "name": playerName,
+                    "date": formattedDate(),
+                    "difficulty": difficulty
+                ]
+                currentScores.append(newEntry)
+                
+            }
+           
+        }
+ 
         currentScores.sort { ($0["score"] as? Int ?? 0) > ($1["score"] as? Int ?? 0) }
         UserDefaults.standard.set(currentScores, forKey: key)
     }
@@ -55,6 +62,20 @@ final class HighScoreManager {
         return formatter.string(from: Date())
         
     }
+    
+    func getTotalScorePerPlayer() -> [(name: String, totalScore: Int)] {
+        var scoreDict = [String: Int]()
+        
+        for playerScore in getHighScores() {
+            guard let name = playerScore["name"] as? String,
+                  let scores = playerScore["score"] as? Int else { continue }
+            
+            scoreDict[name, default: 0] += scores
+        }
+        
+        return scoreDict.map { ($0.key, $0.value) }
+            .sorted { $0.1 > $1.1}
+    }
 }
 
 
@@ -65,6 +86,6 @@ extension HighScoreManager {
         return getHighScores().filter { $0["name"] as? String == player }.count
         
     }
-    
-    
+        
 }
+
